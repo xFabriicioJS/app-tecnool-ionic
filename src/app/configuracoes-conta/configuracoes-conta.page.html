@@ -35,13 +35,57 @@
           <p>xFabriicioJS</p>
         </ion-label>
       </ion-item>
-      <ion-item href="#">
+      <ion-item (click)="setOpen(true)">
         <ion-icon name="key-outline" slot="start"></ion-icon>
         <ion-label>
           <h1>Alterar minha senha</h1>
           <p>******</p>
         </ion-label>
+        <!-- ABERTURA DO MODAL PARA ATUALIZAÇÃO DA SENHA -->
+        <ion-modal [isOpen]="isModalOpen">
+          <ng-template>
+            <ion-header>
+              <ion-toolbar color="secondary">
+                <ion-title>Atualizar senha</ion-title>
+                <ion-buttons slot="end">
+                  <ion-button (click)="setOpen(false)">Fechar</ion-button>
+                </ion-buttons>
+              </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding">
+             <ion-card color="warning">
+              <ion-card-content>
+                <ion-text>
+                  Você precisará informar sua senha atual para atualizar sua senha
+                </ion-text>
+              </ion-card-content>
+            </ion-card>
+            <ion-card>
+             <ion-card-content>
+              <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)">
+                <ion-item>
+                  <ion-label position="floating">Senha atual</ion-label>
+                  <ion-input type="password" formControlName="senhaAtual"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label position="floating">Nova senha</ion-label>
+                  <ion-input type="password" formControlName="novaSenhaUm"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label position="floating">Confirmar nova senha</ion-label>
+                  <ion-input type="password" formControlName="novaSenhaDois"></ion-input>
+                </ion-item>
+                <br>
+                <ion-button type="submit" expand="block" color="primary" [disabled]="!formGroup.valid">Atualizar senha</ion-button>
+             </form>
+              </ion-card-content>
+            </ion-card>
+            </ion-content>
+          </ng-template>
+        </ion-modal>
+        <!-- FECHAMENTO DO MODAL PARA ATUALIZAR A SENHA -->
       </ion-item>
+
     
       <ion-item href="#">
         <ion-icon name="home-outline" slot="start"></ion-icon>

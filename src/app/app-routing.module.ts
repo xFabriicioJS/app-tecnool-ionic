@@ -29,6 +29,10 @@ const routes: Routes = [
   {
     path: 'configuracoes-conta',
     loadChildren: () => import('./configuracoes-conta/configuracoes-conta.module').then( m => m.ConfiguracoesContaPageModule)
+  },
+  {
+    path: 'comunicar-problema',
+    loadChildren: () => import('./comunicar-problema/comunicar-problema.module').then( m => m.ComunicarProblemaPageModule)
   }
 ];
 @NgModule({

@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-menu-button>
+        </ion-menu-button>
+        <ion-back-button></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Comunicar um problema</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-img src="../../assets/images/comunicarproblema.png"></ion-img>
+
+  <ion-card class="ion-padding" color="secondary">
+    Sabemos que problemas acontecem, e por isso, estamos aqui para te ajudar.
+    Selecione abaixo o tipo de problema que você está enfrentando, e em seguida,
+    descreva-o.
+  </ion-card>
+
+  <ion-card>
+    <ion-select interface="action-sheet" placeholder="Tipo do problema">
+      <ion-select-option value="chamado">Problemas nos chamados</ion-select-option>
+      <ion-select-option value="descarte">Problemas no descarte</ion-select-option>
+      <ion-select-option value="cobranca">Cobrança</ion-select-option>
+      <ion-select-option value="outros">Outros</ion-select-option>
+    </ion-select>
+  </ion-card>
+
+    <ion-card>
+    <ion-item>
+      <ion-textarea rows="6" cols="20" placeholder="Descreva o seu problema aqui..."></ion-textarea>
+    </ion-item>
+  </ion-card>
+
+
+  <ion-button expand="block">
+    Enviar
+  </ion-button>
+
+</ion-content>

@@ -17,4 +17,9 @@ export class Tab3Page {
     this.router.navigate(['/configuracoes-conta']);
   }
 
+  navigateComunicarProblema(){
+    this.router.navigate(['/comunicar-problema']);
+  }
+  
+
 }
