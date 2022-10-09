@@ -52,6 +52,7 @@ buscarChamadosAbertos(){
 
 buscarChamadosFinalizados(){
   console.log('buscandoChamadosFinalizados');
+  
 }
 
 navigateAddChamado(){
