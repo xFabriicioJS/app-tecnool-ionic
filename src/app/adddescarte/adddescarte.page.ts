@@ -10,7 +10,7 @@ export class AdddescartePage implements OnInit {
   formGroup: FormGroup;
   constructor(public formBuilder: FormBuilder) {
     this.formGroup = formBuilder.group({
-      tituloChamado: [
+      tituloHardware: [
         "",
         Validators.compose([
           Validators.minLength(4),
@@ -19,7 +19,7 @@ export class AdddescartePage implements OnInit {
           Validators.required
         ])
       ],
-      descriChamado: [
+      descriHardware: [
         "",
         Validators.compose([
           Validators.minLength(4),

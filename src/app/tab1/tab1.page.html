@@ -15,7 +15,7 @@
     <ion-grid>
       <ion-row>
         <ion-col size="6">
-          <ion-card color="success">
+          <ion-card color="success" (click)="buscarChamadosAbertos()" class="ioncard">
             <ion-card-header>
               <ion-card-title style="font-size: 19px;">Chamados abertos.</ion-card-title>
             </ion-card-header>
@@ -27,7 +27,7 @@
           </ion-card>
         </ion-col>
         <ion-col size="6">
-          <ion-card color="danger">
+          <ion-card color="danger" (click)="buscarChamadosFinalizados()" class="ioncard">
             <ion-card-header>
               <ion-card-title style="font-size: 19px;">Chamados finalizados.</ion-card-title>
             </ion-card-header>
@@ -40,6 +40,27 @@
         </ion-col>
       </ion-row>
     </ion-grid>
+    <!-- Pesquisar chamado -->
+    <ion-card>
+    <ion-row class="ion-padding" color="primary">
+      <ion-input placeholder="Buscar por título do chamado" [(ngModel)]="titulo" type="search" (input)="carregar()" required ></ion-input>
+      <ion-buttons (click)="carregar()">
+        <ion-button>
+          <ion-icon slot="end" name="search"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-row>
+  </ion-card>
+  <ion-card class="ion-padding" color="warning">
+    <div style="display: flex; justify-content:center">
+    <ion-icon name="information-circle-sharp" style="font-size: 2rem;"></ion-icon>
+    </div>
+    <br>
+    <ion-card-title style="font-size: 15px;">
+      Toque sobre um chamado para visualizar mais detalhes.
+    </ion-card-title>
+   </ion-card>  
+
   <ion-card>
       <ion-list>
         <ion-item (click)="presentActionSheet()">
@@ -58,13 +79,12 @@
           <ion-label> Titulo do chamado </ion-label>
           <ion-badge color="success">Em andamento</ion-badge>
         </ion-item>
-
       </ion-list>
       
   </ion-card>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button>
-      <ion-icon name="add"></ion-icon>
+      <ion-icon name="add" (click)="navigateAddChamado()"></ion-icon>
     </ion-fab-button>
   </ion-fab>    
 

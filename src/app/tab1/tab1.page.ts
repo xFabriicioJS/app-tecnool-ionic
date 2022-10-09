@@ -18,24 +18,23 @@ export class Tab1Page {
   
   async presentActionSheet() {
     const actionSheet = await this.actionSheetCtrl.create({
-      header: 'Example header',
-      subHeader: 'Example subheader',
+      header: 'O que deseja fazer com esse chamado?',
       buttons: [
         {
-          text: 'Delete',
+          text: 'Deletar chamado',
           role: 'destructive',
           data: {
             action: 'delete',
           },
         },
         {
-          text: 'Share',
+          text: 'Informações do chamado',
           data: {
             action: 'share',
           },
         },
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
           data: {
             action: 'cancel',
@@ -45,7 +44,19 @@ export class Tab1Page {
     });
 
     await actionSheet.present();
+}
 
+buscarChamadosAbertos(){
 
 }
+
+buscarChamadosFinalizados(){
+  console.log('buscandoChamadosFinalizados');
+}
+
+navigateAddChamado(){
+  this.router.navigate(['/addchamado']);
+
+}
+
 }

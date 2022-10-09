@@ -15,5 +15,8 @@ export class Tab2Page {
   navigateSaibaMaisDescarte(){
     this.router.navigate(['/sabermais-descarte']);
   }
+  navigateAddDescarte(){
+    this.router.navigate(['/adddescarte']);
+  }
 
 }

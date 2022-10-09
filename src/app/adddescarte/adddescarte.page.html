@@ -22,20 +22,20 @@
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" color="light">
     <ion-list color="light">
       <ion-item>
-        <ion-label position="stacked">Título do chamado</ion-label>
+        <ion-label position="stacked">Qual Hardware deseja descartar?</ion-label>
         <ion-input
-          formControlName="tituloChamado"
+          formControlName="tituloHardware"
           required="true"
-          placeholder="Título do chamado"
+          placeholder="Insira o nome do hardware"
         ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Descrição</ion-label>
         <ion-input
-          formControlName="descriChamado"
+          formControlName="descriHardware"
           required="true"
           type="text"
-          placeholder="Insira uma descrição"
+          placeholder="Insira uma breve descrição sobre o hardware"
         ></ion-input>
       </ion-item>
       <ion-item>
@@ -58,7 +58,7 @@
           Ao enviar a sua solicitação, você alega que todas as informações prestadas acima sao verídicas e de sua responsabilidade.
         </ion-card-subtitle>
         <br>
-        <ion-button size="lg" expand="block">Block</ion-button>
+        <ion-button size="lg" expand="block">Solicitar</ion-button>
       </ion-card>
     </ion-list>
   </form>

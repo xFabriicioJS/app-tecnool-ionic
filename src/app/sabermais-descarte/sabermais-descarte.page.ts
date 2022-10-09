@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sabermais-descarte',
@@ -9,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
           <ion-button>
             <ion-menu-button>
             </ion-menu-button>
-            <ion-back-button>Voltar</ion-back-button>
+            <ion-back-button (click)="navigateInicio()">Voltar</ion-back-button>
           </ion-button>
         </ion-buttons>
         <ion-title>Descarte solidário</ion-title>
@@ -51,8 +52,8 @@ import { Component, OnInit } from '@angular/core';
         </p>
 
 
-        <ion-button expand="block" color="primary">Voltar</ion-button>
-        <ion-button expand="block" color="success">Quero abrir uma solicitação</ion-button>
+        <ion-button expand="block" color="primary" (click)="navigateInicio()">Voltar</ion-button>
+        <ion-button expand="block" color="success" (click)="navigateAddDescarte()">Quero abrir uma solicitação</ion-button>
         
       </div>
       </ion-slide>
@@ -65,10 +66,21 @@ export class SabermaisDescartePage implements OnInit {
 
   slideOpts = {
     initialSlide: 0,
-    speed: 400};
-  constructor() { }
+    speed: 400
+  };
+  constructor(
+    private router: Router,
+  ) { }
 
   ngOnInit() {
+  }
+
+  navigateAddDescarte(){
+    this.router.navigate(['/adddescarte']);
+  }
+
+  navigateInicio(){
+    this.router.navigate(['/tabs/tab2']);
   }
 
 }

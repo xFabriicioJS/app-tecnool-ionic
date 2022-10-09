@@ -25,6 +25,10 @@ const routes: Routes = [
   {
     path: 'adddescarte',
     loadChildren: () => import('./adddescarte/adddescarte.module').then( m => m.AdddescartePageModule)
+  },
+  {
+    path: 'configuracoes-conta',
+    loadChildren: () => import('./configuracoes-conta/configuracoes-conta.module').then( m => m.ConfiguracoesContaPageModule)
   }
 ];
 @NgModule({
