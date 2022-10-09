@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-back-button>
+          
+        </ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Solicitação confirmada</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Detalhes da solicitação</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-text>
+        <h2>Título do chamado:</h2>
+        <h4><b>Título do chamado</b></h4>
+      </ion-text>
+      <br>
+      <ion-text>
+        <h2>Data limite para o atendimento do chamado:</h2>
+        <h4><b>31/01/2023</b></h4>
+      </ion-text>
+      <br/>
+      <ion-text>
+        <h2>Protocolo do chamado:</h2>
+        <h4><b>20210920929743212</b></h4>
+      </ion-text>
+      <br/>
+      <ion-text>
+        <h2>Descrição do chamado</h2>
+        <h4><b>Descrição broubous</b></h4>
+      </ion-text>
+      <br/>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card color="success">
+
+    <ion-card-content>
+      <div style="display: flex;justify-content: center;">
+        <ion-icon style="font-size: 2.5rem;" name="checkmark-circle"></ion-icon>
+      </div>
+   
+      <ion-text style="font-size: 18px;">
+        Você pode verificar o andamento do chamado na aba "Meus chamados".
+      </ion-text>
+    </ion-card-content>
+  </ion-card>
+  <ion-card color="warning">
+
+    <ion-card-content>
+      <div style="display: flex;justify-content: center;">
+        <ion-icon name="alert-circle" style="font-size: 2.5rem;"></ion-icon>
+      </div>
+      
+      <ion-text style="font-size: 18px;">
+        Fique atento ao seu email para possíveis atualizações e cobranças pelo serviço.
+      </ion-text>
+    </ion-card-content>
+  </ion-card>
+
+ <ion-button expand="block" fill="outline" (click)="onClick(navigateInicio())">
+  Entendi, voltar ao início.
+ </ion-button>
+</ion-content>

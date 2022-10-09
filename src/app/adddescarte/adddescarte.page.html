@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-menu-button>
+        </ion-menu-button>
+        <ion-back-button></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Solicitar novo descarte</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+ <ion-card class="ion-padding" color="warning">
+  <ion-card-title style="font-size: 15px;">
+      Insira os dados abaixo para solicitar um novo descarte.
+  </ion-card-title>
+ </ion-card>
+
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" color="light">
+    <ion-list color="light">
+      <ion-item>
+        <ion-label position="stacked">Título do chamado</ion-label>
+        <ion-input
+          formControlName="tituloChamado"
+          required="true"
+          placeholder="Título do chamado"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Descrição</ion-label>
+        <ion-input
+          formControlName="descriChamado"
+          required="true"
+          type="text"
+          placeholder="Insira uma descrição"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label style="font-size: 15px;">Estado do equipamento</ion-label>
+        <ion-select>
+          <ion-select-option value="funcionando">Funcionando</ion-select-option>
+          <ion-select-option value="funcionando-parc">Funcionando parcialmente</ion-select-option>
+          <ion-select-option value="nao-funcionando">Não funcionando</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-card expand="block" class="ion-padding">
+          <ion-card-subtitle>Caso seja necessário, envie uma imagem.</ion-card-subtitle>
+          <br>
+          <input type="file" accept="image/*" name="anexo" id="anexo" />
+        </ion-card>
+      </ion-item>
+      <ion-card style="text-align: center;" class="ion-padding">
+        <ion-card-subtitle color="danger">
+          Ao enviar a sua solicitação, você alega que todas as informações prestadas acima sao verídicas e de sua responsabilidade.
+        </ion-card-subtitle>
+        <br>
+        <ion-button size="lg" expand="block">Block</ion-button>
+      </ion-card>
+    </ion-list>
+  </form>
+
+</ion-content>
