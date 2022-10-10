@@ -33,7 +33,11 @@ const routes: Routes = [
   {
     path: 'comunicar-problema',
     loadChildren: () => import('./comunicar-problema/comunicar-problema.module').then( m => m.ComunicarProblemaPageModule)
+  },  {
+    path: 'atualizar-endereco',
+    loadChildren: () => import('./atualizar-endereco/atualizar-endereco.module').then( m => m.AtualizarEnderecoPageModule)
   }
+
 ];
 @NgModule({
   imports: [
