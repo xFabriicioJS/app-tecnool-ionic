@@ -42,7 +42,7 @@
           <p>******</p>
         </ion-label>
         <!-- ABERTURA DO MODAL PARA ATUALIZAÇÃO DA SENHA -->
-        <ion-modal [isOpen]="isModalOpen">
+        <ion-modal [isOpenSenha]="isModalOpen">
           <ng-template>
             <ion-header>
               <ion-toolbar color="secondary">
@@ -87,18 +87,18 @@
       </ion-item>
 
     
-      <ion-item href="#">
+      <ion-item (click)="navigateAtualizarEndereco()">
         <ion-icon name="home-outline" slot="start"></ion-icon>
         <ion-label>
           <h1>Atualizar meu endereço</h1>
           <p>Avenida Itaquera, 8667</p>
         </ion-label>
       </ion-item>
-      <ion-item href="#">
+      <ion-item (click)="presentAlert()">
         <ion-icon name="call-outline" slot="start"></ion-icon>
         <ion-label>
           <h1>Atualizar meus contatos</h1>
-          <p>Avenida Itaquera, 8667</p>
+          <p>11 95288-4571</p>
         </ion-label>
       </ion-item>
       <ion-item href="#">
