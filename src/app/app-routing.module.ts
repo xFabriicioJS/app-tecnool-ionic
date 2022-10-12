@@ -33,6 +33,10 @@ const routes: Routes = [
   {
     path: 'comunicar-problema',
     loadChildren: () => import('./comunicar-problema/comunicar-problema.module').then( m => m.ComunicarProblemaPageModule)
+  },
+  {
+    path: 'addusuario',
+    loadChildren: () => import('./addusuario/addusuario.module').then( m => m.AddusuarioPageModule)
   }
 ];
 @NgModule({

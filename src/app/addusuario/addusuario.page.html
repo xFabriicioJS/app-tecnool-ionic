@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-menu-button>
+        </ion-menu-button>
+        <ion-back-button></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Novo funcionário</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+ <ion-card class="ion-padding" color="warning">
+  <ion-card-title style="font-size: 15px;">
+      Insira os dados abaixo para adicionar o novo funcionário.
+  </ion-card-title>
+ </ion-card>
+
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" color="light">
+    <ion-list color="light">
+      <ion-item>
+        <ion-label position="stacked">Nome do funcionário</ion-label>
+        <ion-input
+          formControlName="nomeUsuario"
+          required="true"
+          placeholder="Nome do usuário"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Email do funcionário</ion-label>
+        <ion-input
+          formControlName="emailUsuario"
+          required="true"
+          type="text"
+          placeholder="Insira um email"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Usuário do funcionário</ion-label>
+        <ion-input
+          formControlName="loginUsuario"
+          required="true"
+          type="text"
+          placeholder="Insira um nome de usuário"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Senha do funcionário</ion-label>
+        <ion-input
+          formControlName="senhaUsuario"
+          required="true"
+          type="password"
+          placeholder="Insira uma senha"
+        ></ion-input>
+      </ion-item>
+
+      <ion-card color="warning">
+        <div style="display: flex; justify-content:center; margin-top: 10px; margin-bottom: -15px;">
+          <ion-icon name="information-circle-sharp" style="font-size: 2rem;"></ion-icon>
+          </div>
+        <ion-card-content>
+          Diferentes níveis têm diferentes <b>permissões</b> no sistema. Cuidado ao escolher o nível de acesso. 
+        </ion-card-content>
+      </ion-card>
+
+      <ion-item>
+        <ion-select interface="action-sheet" placeholder="Nível do usuário" formControlName="nivel">      
+            <ion-select-option *ngFor="let nivel of niveis" value="{{nivel.id_nivel}}">{{nivel.nome_nivel}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-card expand="block" class="ion-padding">
+          <div *ngIf="filePath && filePath !== ''">
+            <img [src]="filePath" alt="formGroup.value.name">
+          </div>
+          
+          <ion-card-subtitle>Imagem do usuário</ion-card-subtitle>
+          <br>
+          <input type="file" accept="image/*" name="avatar" id="avatar" (change)="onFileSelect($event)" />
+        </ion-card>
+      </ion-item>
+      <ion-card style="text-align: center;" class="ion-padding">
+        <ion-card-subtitle color="danger">
+          Ao enviar a sua solicitação, você concorda com os termos de uso.
+        </ion-card-subtitle>
+        <br>
+        <ion-button size="lg" expand="block" type="submit">Enviar</ion-button>
+      </ion-card>
+    </ion-list>
+  </form>
+
+</ion-content>
