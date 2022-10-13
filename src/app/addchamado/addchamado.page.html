@@ -19,7 +19,7 @@
   </ion-card-title>
  </ion-card>
 
-  <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" color="light">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" color="light">
     <ion-list color="light">
       <ion-item>
         <ion-label position="stacked">Título do chamado</ion-label>
@@ -29,6 +29,15 @@
           placeholder="Título do chamado"
         ></ion-input>
       </ion-item>
+      <span class="error ion-padding" *ngIf="isSubmitted && errorControl.tituloChamado.errors?.required">
+        O titulo do chamado é requerido.
+      </span>
+      <span class="error ion-padding" *ngIf="isSubmitted && errorControl.nomeUsuario.errors?.minlength">
+        O título do chamado deve conter ao menos 4 caracteres.
+      </span>
+      <span class="error ion-padding" *ngIf="isSubmitted && errorControl.nomeUsuario.errors?.maxlength">
+        O título do chamado deve conter no máximo 32 caracteres.
+      </span>
       <ion-item>
         <ion-label position="stacked">Descrição</ion-label>
         <ion-input
@@ -39,7 +48,7 @@
         ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-select interface="action-sheet" placeholder="Nível do usuário">
+        <ion-select interface="action-sheet" placeholder="Estado do equipamento">
           <ion-select-option value="funcionando">Funcionando</ion-select-option>
           <ion-select-option value="funcionando-parc">Funcionando parcialmente</ion-select-option>
           <ion-select-option value="nao-funcionando">Não funcionando</ion-select-option>
