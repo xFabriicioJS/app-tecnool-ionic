@@ -22,25 +22,33 @@
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" color="light">
     <ion-list color="light">
       <ion-item>
-        <ion-label position="stacked">Nome do funcionário</ion-label>
+        <ion-label position="floating" color="primary">Nome do funcionário</ion-label>
         <ion-input
+          
           formControlName="nomeUsuario"
           required="true"
           placeholder="Nome do usuário"
         ></ion-input>
       </ion-item>
       <span class="error ion-padding" *ngIf="isSubmitted && errorControl.nomeUsuario.errors?.required">
-        O nome do usuário é requerido.
+        <ion-text color="danger">
+          O nome do usuário é requerido.
+        </ion-text>
       </span>
       <span class="error ion-padding" *ngIf="isSubmitted && errorControl.nomeUsuario.errors?.minlength">
-        O nome deve conter ao menos 4 caracteres.
+        <ion-text color="danger">
+          O nome deve conter ao menos 4 caracteres.
+        </ion-text>
       </span>
       <span class="error ion-padding" *ngIf="isSubmitted && errorControl.nomeUsuario.errors?.maxlength">
-        O nome deve conter no máximo 30 caracteres.
+        <ion-text color="danger">
+          O nome deve conter no máximo 30 caracteres.
+        </ion-text>
       </span>
       <ion-item>
-        <ion-label position="stacked">Email do funcionário</ion-label>
+        <ion-label position="floating" color="primary">Email do funcionário</ion-label>
         <ion-input
+          
           formControlName="emailUsuario"
           required="true"
           type="text"
@@ -48,16 +56,22 @@
         ></ion-input>
       </ion-item>
       <span class="error ion-padding" *ngIf="isSubmitted && errorControl.emailUsuario.errors?.required">
-        O email do usuário é requerido.
+        <ion-text color="danger">
+          O email do usuário é requerido.
+        </ion-text>
       </span>
       <span class="error ion-padding" *ngIf="isSubmitted && errorControl.emailUsuario.errors?.minlength">
-        O email deve conter ao menos 4 caracteres.
+        <ion-text color="danger">
+          O email deve conter ao menos 4 caracteres.
+        </ion-text>
       </span>
       <span class="error ion-padding" *ngIf="isSubmitted && errorControl.emailUsuario.errors?.maxlength">
-        O email deve conter no máximo 32 caracteres.
+        <ion-text color="danger">
+          O email deve conter no máximo 32 caracteres.
+        </ion-text>
       </span>
       <ion-item>
-        <ion-label position="stacked">Usuário do funcionário</ion-label>
+        <ion-label position="floating" color="primary">Usuário do funcionário</ion-label>
         <ion-input
           formControlName="loginUsuario"
           required="true"
@@ -66,16 +80,22 @@
         ></ion-input>
       </ion-item>
       <span class="error ion-padding" *ngIf="isSubmitted && errorControl.nomeUsuario.errors?.required">
-        O usuário do funcionário é requerido.
+        <ion-text color="danger">
+          O nome de usuário é requerido.          
+        </ion-text>
       </span>
       <span class="error ion-padding" *ngIf="isSubmitted && errorControl.nomeUsuario.errors?.minlength">
-        O nome de usuário deve conter ao menos 4 caracteres.
+        <ion-text color="danger">
+          O nome de usuário deve conter ao menos 4 caracteres.          
+        </ion-text>
       </span>
       <span class="error ion-padding" *ngIf="isSubmitted && errorControl.nomeUsuario.errors?.maxlength">
-        O nome de usuário deve conter no máximo 30 caracteres.
+        <ion-text color="danger">
+          O nome de usuário deve conter no máximo 30 caracteres.          
+        </ion-text>
       </span>
       <ion-item>
-        <ion-label position="stacked">Senha do funcionário</ion-label>
+        <ion-label position="floating" color="primary">Senha do funcionário</ion-label>
         <ion-input
           formControlName="senhaUsuario"
           required="true"
@@ -83,8 +103,10 @@
           placeholder="Insira uma senha"
         ></ion-input>
       </ion-item>
-      <span class="text-danger ion-padding" color="danger" *ngIf="isSubmitted && errorControl.senhaUsuario.errors?.required">
-        A senha do usuário é requerida.
+      <span class="ion-padding text-danger" *ngIf="isSubmitted && errorControl.senhaUsuario.errors?.required">
+        <ion-text color="danger">
+          A senha do usuário é requerida.
+        </ion-text>
       </span>
       <span class="ion-padding" color="danger" *ngIf="isSubmitted && errorControl.senhaUsuario.errors?.minlength">
         A senha deve conter ao menos 3 caracteres.
@@ -121,6 +143,7 @@
         </ion-card-subtitle>
         <br>
         <ion-button size="lg" expand="block" type="submit">Enviar</ion-button>
+       
       </ion-card>
     </ion-list>
   </form>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
+import { ApiService } from '../api/api-service';
 
 
 @Component({
@@ -10,10 +11,21 @@ import { ActionSheetController } from '@ionic/angular';
 })
 export class Tab1Page {
 
+  chamados: any = [];
+  cardNenhumChamado = false;
+
+
   constructor(
     private router: Router,
     private actionSheetCtrl: ActionSheetController,
-  ) {}
+    private apiService: ApiService
+    ) {}
+
+  ionViewWillEnter(){
+    this.buscarTodosOsChamados();
+    console.log(this.chamados);
+  }
+
 
   
   async presentActionSheet() {
@@ -48,6 +60,26 @@ export class Tab1Page {
 
 buscarChamadosAbertos(){
 
+}
+
+buscarTodosOsChamados(){
+
+  let bodyRequest = {
+    requisicao: 'listar',
+    titulo: ''
+  }
+
+  return new Promise((res) => {
+    this.apiService.apiPHP('controller-chamados.php', bodyRequest).subscribe((data) => {
+      if(data['success'] == true){
+        data['result'].map((chamado)=> {
+          this.chamados.push(chamado[0]);
+        })
+      }else{
+        this.cardNenhumChamado == true;
+      }
+    })
+  })
 }
 
 buscarChamadosFinalizados(){

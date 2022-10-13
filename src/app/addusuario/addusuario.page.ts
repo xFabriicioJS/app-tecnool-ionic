@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { ApiService } from '../api/api-service';
 
 @Component({
@@ -16,8 +18,9 @@ export class AddusuarioPage implements OnInit {
 
   constructor(
     private apiService: ApiService,
-
-    private formbuilder: FormBuilder
+    private toastController: ToastController,
+    private formbuilder: FormBuilder,
+    private router: Router
   ) {
     this.formGroup = formbuilder.group({
       avatar: [''],
@@ -63,7 +66,7 @@ export class AddusuarioPage implements OnInit {
   }
 
   ngOnInit() {
-    //Preciso fazer uma requisicao findAll para pegar todos os niveis
+   
   }
   onFileSelect(event) {
     //setando a imagem no formulário para visualização
@@ -95,8 +98,7 @@ export class AddusuarioPage implements OnInit {
     //useEffect
     this.niveis = [];
     this.findAllNiveis();
-    console.log(this.niveis);
-    console.log(this.niveis);
+  
   }
 
   findAllNiveis() {
@@ -164,8 +166,13 @@ export class AddusuarioPage implements OnInit {
 
               if (data['success'] === true) {
                 console.log('Usuário cadastrado');
+
+                this.router.navigate(['/tabs/tab1']);
+                //habilitando o toast
+                this.presentToast('Usuário cadastrado', 'success');
               } else {
                 console.log('Erro ao cadastrar usuário');
+                this.presentToast('Erro ao cadastrar usuário', 'danger');
               }
             });
         },
@@ -188,4 +195,16 @@ export class AddusuarioPage implements OnInit {
       console.log(bodyRequest);
     }
   }
+
+  async presentToast(msg, color) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 3000,
+      color: color,
+      icon: 'checkmark-circle-outline'
+    });
+
+    await toast.present();
+  }
+
 }

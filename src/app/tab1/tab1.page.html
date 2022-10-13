@@ -59,25 +59,35 @@
     <ion-card-title style="font-size: 15px;">
       Toque sobre um chamado para visualizar mais detalhes.
     </ion-card-title>
-   </ion-card>  
+   </ion-card>
+
+
+   <!-- Caso o usuário não possua nenhum chamado registrado, esse card será renderizado  -->
+   <ion-card color="primary" class="ion-padding" *ngIf="cardNenhumChamado === true">
+    <div class="ion-text-center">
+      <ion-icon name="sad" style="font-size: 5rem;"></ion-icon>
+    </div>
+    <br>
+    <ion-card-tile color="primary" style="font-size: 18px;">
+      Parece que você nunca fez um descarte solidário.
+    </ion-card-tile>
+    <br>
+    <br>
+    <ion-card-text style="text-align: center; font-size: 18px;">
+      <b>Que tal começar agora?</b>
+    </ion-card-text>
+    <ion-card-content>
+      <div style="display: flex; align-items: center; justify-content: center;">
+        <ion-button color="success" (click)="navigateSaibaMaisDescarte()"><b>Quero conhecer mais!</b></ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
 
   <ion-card>
       <ion-list>
-        <ion-item (click)="presentActionSheet()">
-          <ion-label> Titulo do chamado </ion-label>
-          <ion-badge color="success">Finalizado</ion-badge>
-        </ion-item>
-        <ion-item (click)="presentActionSheet()">
-          <ion-label> Titulo do chamado </ion-label>
-          <ion-badge color="danger">Em andamento</ion-badge>
-        </ion-item>
-        <ion-item (click)="presentActionSheet()">
-          <ion-label> Titulo do chamado </ion-label>
-          <ion-badge color="warning">Em andamento</ion-badge>
-        </ion-item>
-        <ion-item (click)="presentActionSheet()">
-          <ion-label> Titulo do chamado </ion-label>
-          <ion-badge color="success">Em andamento</ion-badge>
+        <ion-item (click)="presentActionSheet()" *ngFor="let chamado of chamados">
+          <ion-label>{{chamado.titulo}}</ion-label>
+          <ion-badge *ngIf="chamado.status !== Finalizado" color="success">{{chamado.status}}</ion-badge>
         </ion-item>
       </ion-list>
       
