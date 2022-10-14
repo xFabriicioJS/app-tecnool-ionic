@@ -37,7 +37,12 @@ const routes: Routes = [
   {
     path: 'addusuario',
     loadChildren: () => import('./addusuario/addusuario.module').then( m => m.AddusuarioPageModule)
+  },
+  {
+    path: 'visualizar-chamado/:id_chamado/:tituloChamado/:descriChamado/:dataAbertura/:dataLimite/:dataFinalizacao/:statusChamado/:foto_erro_chamado/:localAtend/:protocoloChamado',
+    loadChildren: () => import('./visualizar-chamado/visualizar-chamado.module').then( m => m.VisualizarChamadoPageModule)
   }
+
 
 ];
 @NgModule({
