@@ -72,7 +72,8 @@ export class VisualizarChamadoPage implements OnInit {
 
   async presentAlert(){
     const alert = await this.alertController.create({
-      header: 'Alert!',
+      header: 'Cancelar chamado',
+      message: 'Deseja realmente cancelar o chamado? <br> <strong>Obs: </strong> Essa ação não poderá ser desfeita.',
       buttons: [
         {
           text: 'Não, voltar.',

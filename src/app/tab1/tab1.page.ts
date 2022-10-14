@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {Router } from '@angular/router';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, AlertController } from '@ionic/angular';
 import { ApiService } from '../api/api-service';
 
 
@@ -13,12 +13,13 @@ export class Tab1Page {
 
   chamados: any = [];
   cardNenhumChamado = false;
-
+  tipoPesquisa: string = '';
 
   constructor(
     private router: Router,
     private actionSheetCtrl: ActionSheetController,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private alertController: AlertController
     ) {}
 
   ionViewWillEnter(){
@@ -129,6 +130,52 @@ navigateInformacoesChamado(id, titulo, descricao, dataAbertura, dataLimite, data
 refreshChamados(){
   this.chamados = [];
   this.buscarTodosOsChamados();
+}
+
+carregar(){
+  //requisição para buscar os chamados pelo titulo
+
+
+
+}
+
+
+async presentAlert() {
+
+  
+
+  const alert = await this.alertController.create({
+    header: 'Insira por favor o seu tipo de pesquisa.',
+    buttons: ['OK'],
+      inputs: [
+        {
+          label: 'Pesquisar por título',
+          type: 'radio',
+          value: 'titulo',
+          handler: () => {
+            this.tipoPesquisa = 'titulo';
+          }
+        },
+        {
+          label: 'Pesquisar por protocolo',
+          type: 'radio',
+          value: 'protocolo',
+          handler: () => {
+            this.tipoPesquisa = 'protocolo';
+          }
+        },
+        {
+          label: 'Pesquiar por descrição',
+          type: 'radio',
+          value: 'descricao',
+          handler: ()=> {
+            this.tipoPesquisa = 'descricao';
+          }
+        },
+      ],
+  });
+
+  await alert.present();
 }
 
 

@@ -51,9 +51,17 @@
     <!-- Pesquisar chamado -->
     <ion-card>
     <ion-row class="ion-padding" color="primary">
-      <ion-input placeholder="Buscar por título do chamado" [(ngModel)]="titulo" type="search" (input)="carregar()" required ></ion-input>
+      <ion-input *ngIf="tipoPesquisa == '' " placeholder="Selecione ao lado o tipo de pesquisa"
+      
+      type="search" (input)="carregar()" required ></ion-input>
       <ion-buttons (click)="carregar()">
-        <ion-button>
+      
+      </ion-buttons>
+      <ion-input *ngIf="tipoPesquisa != '' " placeholder="Buscando por {{tipoPesquisa}}"
+      
+      type="search" (input)="carregar()" required ></ion-input>
+      <ion-buttons (click)="carregar()">
+        <ion-button (click)="presentAlert()">
           <ion-icon slot="end" name="search"></ion-icon>
         </ion-button>
 
