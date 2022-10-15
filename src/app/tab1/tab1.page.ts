@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {Router } from '@angular/router';
 import { ActionSheetController, AlertController } from '@ionic/angular';
+import { isThursday } from 'date-fns';
 import { ApiService } from '../api/api-service';
 
 
@@ -14,6 +15,10 @@ export class Tab1Page {
   chamados: any = [];
   cardNenhumChamado = false;
   tipoPesquisa: string = '';
+  valorTitulo: string = '';
+  valorDescricao: string = '';
+  valorProtocolo: string = '';
+  termoPesquisado: string = '';
 
   constructor(
     private router: Router,
@@ -132,17 +137,83 @@ refreshChamados(){
   this.buscarTodosOsChamados();
 }
 
-carregar(){
-  //requisição para buscar os chamados pelo titulo
 
+//método responsável por fazer a pesquisa
+carregar(){
+  return new Promise ((res) => {
+    switch (this.tipoPesquisa) {
+      case 'titulo':
+        this.buscarChamadosPorTitulo();
+        break;
+      case 'descricao':
+        this.buscarChamadosPorDescricao();
+        break;
+      case 'protocolo':
+        this.buscarChamadosPorProtocolo();
+        break;
+      default:
+        this.buscarChamadosPorTitulo();
+        break;
+    }
+
+  });
+  
+    
+}
+
+buscarChamadosPorTitulo(){
+
+    let bodyRequest = {
+      requisicao: 'listar',
+      titulo: this.termoPesquisado,
+      descricao: '',
+      protocolo: ''
+    }
+
+    console.log(bodyRequest);
+
+    return new Promise((res) => {
+      this.apiService.apiPHP('controller-chamados.php',bodyRequest).subscribe((data) => {
+        if(data['success'] == true){
+          data['result'].map((chamado)=> {
+            this.chamados.push(chamado[0]);
+          })
+        }
+      })
+    })
+    
+  
+}
+
+buscarChamadosPorDescricao(){
+
+  let bodyRequest = {
+    requisicao: 'listar',
+    titulo: '',
+    descricao: this.termoPesquisado,
+    protocolo: ''
+  }
+
+  console.log(bodyRequest);
+
+}
+
+buscarChamadosPorProtocolo(){
+
+  let bodyRequest = {
+    requisicao: 'listar',
+    titulo: '',
+    descricao: '',
+    protocolo: this.termoPesquisado
+  }
+
+  console.log(bodyRequest);
 
 
 }
 
 
 async presentAlert() {
-
-  
 
   const alert = await this.alertController.create({
     header: 'Insira por favor o seu tipo de pesquisa.',

@@ -52,13 +52,13 @@
     <ion-card>
     <ion-row class="ion-padding" color="primary">
       <ion-input *ngIf="tipoPesquisa == '' " placeholder="Selecione ao lado o tipo de pesquisa"
-      
+      [(ngModel)]="termoPesquisado"
       type="search" (input)="carregar()" required ></ion-input>
       <ion-buttons (click)="carregar()">
       
       </ion-buttons>
       <ion-input *ngIf="tipoPesquisa != '' " placeholder="Buscando por {{tipoPesquisa}}"
-      
+      [(ngModel)]="termoPesquisado"
       type="search" (input)="carregar()" required ></ion-input>
       <ion-buttons (click)="carregar()">
         <ion-button (click)="presentAlert()">
