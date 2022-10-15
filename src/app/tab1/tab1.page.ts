@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {Router } from '@angular/router';
 import { ActionSheetController, AlertController } from '@ionic/angular';
-import { isThursday } from 'date-fns';
 import { ApiService } from '../api/api-service';
 
 
@@ -29,8 +28,9 @@ export class Tab1Page {
 
   ionViewWillEnter(){
     //fazer um if para verificar se o usuário está logado e a permissão dele
-    this.buscarTodosOsChamados();
-    console.log(this.chamados);
+    this.chamados = [];
+    // this.buscarTodosOsChamados();
+    this.carregar();
   }
 
 
@@ -74,7 +74,9 @@ buscarTodosOsChamados(){
 
   let bodyRequest = {
     requisicao: 'listar',
-    titulo: ''
+    titulo: '',
+    descricao: '',
+    protocolo: ''
   }
 
   return new Promise((res) => {
@@ -91,15 +93,12 @@ buscarTodosOsChamados(){
 }
 
 buscarChamadosFinalizados(){
- 
-
   //fazendo um filter nos chamados para filtrar somente os chamados finalizados
 
   let chamadosFinalizados = this.chamados.filter((chamado) => {
     return chamado.status == 'Finalizado';
   })
  
-  console.log(chamadosFinalizados);
   this.chamados = chamadosFinalizados;
 }
 
@@ -138,9 +137,12 @@ refreshChamados(){
 }
 
 
-//método responsável por fazer a pesquisa
+//método responsável por fazer a pesquisas
 carregar(){
+
+
   return new Promise ((res) => {
+    this.chamados = [];
     switch (this.tipoPesquisa) {
       case 'titulo':
         this.buscarChamadosPorTitulo();
@@ -151,8 +153,12 @@ carregar(){
       case 'protocolo':
         this.buscarChamadosPorProtocolo();
         break;
-      default:
+      case '':{
         this.buscarChamadosPorTitulo();
+        break;
+      } 
+      default:
+        this.buscarTodosOsChamados();
         break;
     }
 
@@ -161,8 +167,10 @@ carregar(){
     
 }
 
-buscarChamadosPorTitulo(){
 
+
+buscarChamadosPorTitulo(){
+  this.chamados = [];
     let bodyRequest = {
       requisicao: 'listar',
       titulo: this.termoPesquisado,
@@ -170,7 +178,7 @@ buscarChamadosPorTitulo(){
       protocolo: ''
     }
 
-    console.log(bodyRequest);
+    
 
     return new Promise((res) => {
       this.apiService.apiPHP('controller-chamados.php',bodyRequest).subscribe((data) => {
@@ -194,8 +202,19 @@ buscarChamadosPorDescricao(){
     protocolo: ''
   }
 
-  console.log(bodyRequest);
 
+  return new Promise((res) => {
+    this.apiService.apiPHP('controller-chamados.php',bodyRequest).subscribe((data) => {
+      if(data['success'] == true){
+        data['result'].map((chamado)=> {
+          this.chamados.push(chamado[0]);
+        })
+      }
+    })
+  })
+
+  
+  
 }
 
 buscarChamadosPorProtocolo(){
@@ -207,7 +226,15 @@ buscarChamadosPorProtocolo(){
     protocolo: this.termoPesquisado
   }
 
-  console.log(bodyRequest);
+  return new Promise((res) => {
+    this.apiService.apiPHP('controller-chamados.php',bodyRequest).subscribe((data) => {
+      if(data['success'] == true){
+        data['result'].map((chamado)=> {
+          this.chamados.push(chamado[0]);
+        })
+      }
+    })
+  })
 
 
 }
