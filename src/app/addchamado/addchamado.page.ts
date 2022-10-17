@@ -191,12 +191,25 @@ export class AddchamadoPage {
         foto_erro_chamado: '',
       };
 
-      console.log(bodyRequest);
+       //fazendo a requisição para a API com o campo da imagem em branco
+       this.apiService.apiPHP('controller-chamados.php', bodyRequest).subscribe((data)=>{
+        if(data['success'] === true){
+          console.log('Chamado cadastrado');
 
+          //navega para a pagina dos chamados caso dê tudo certo
+          this.router.navigate(['/tabs/tab1']);
+          //mostra mensagem de sucesso
+          this.presentToast('<b>Chamado cadastrado com sucesso</b>', 'success');
+
+        }else{
+          console.log('Erro ao cadastrar chamado');
+
+          this.presentToast('<b>Erro ao cadastrar chamado</b>', 'danger');
+        }
+       })
     }
 
-    // todo do something with our data like:
-    // this.service.set(formData);
+    
   }
 
 
@@ -205,7 +218,7 @@ export class AddchamadoPage {
       message: msg,
       duration: 3000,
       color: color,
-      icon: 'checkmark-circle-outline'
+      icon: color === 'success' ? 'checkmark-circle' : 'close-circle',
     });
 
     await toast.present();

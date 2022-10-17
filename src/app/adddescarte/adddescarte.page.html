@@ -29,15 +29,31 @@
           placeholder="Insira o nome do hardware"
         ></ion-input>
       </ion-item>
+      <span class="error ion-padding" color="danger" *ngIf="isSubmitted && errorControl.tituloHardware.errors?.required">
+        O nome do hardware é requerido.
+      </span>
+      <span class="error ion-padding" color="danger" *ngIf="isSubmitted && errorControl.tituloHardware.errors?.minlength">
+        O título do hardware deve conter ao menos 4 caracteres.
+      </span>
+      <span class="error ion-padding" color="danger" *ngIf="isSubmitted && errorControl.tituloHardware.errors?.maxlength">
+        O título do chamado deve conter no máximo 32 caracteres.
+      </span>
       <ion-item>
         <ion-label position="stacked">Descrição</ion-label>
-        <ion-input
-          formControlName="descriHardware"
-          required="true"
-          type="text"
-          placeholder="Insira uma breve descrição sobre o hardware"
-        ></ion-input>
+        <ion-textarea formControlName="descriHardware" required="true" placeholder="Insira uma breve descrição sobre o hardware" [autoGrow]="true"
+        ></ion-textarea>
+
       </ion-item>
+      <span class="error ion-padding" color="danger" *ngIf="isSubmitted && errorControl.descriHardware.errors?.required">
+        Uma breve descrição do hardware é requerida.
+      </span>
+      <span class="error ion-padding" color="danger" *ngIf="isSubmitted && errorControl.descriHardware.errors?.minlength">
+        A descrição do hardware deve conter ao menos 4 caracteres.
+      </span>
+      <span class="error ion-padding" color="danger" *ngIf="isSubmitted && errorControl.descriHardware.errors?.maxlength">
+        A descrição do hardware deve conter no máximo 255 caracteres.
+      </span>
+
       <!-- <ion-item>
         <ion-select interface="action-sheet" placeholder="Estado do equipamento">
           <ion-select-option value="funcionando">Funcionando</ion-select-option>
@@ -49,15 +65,18 @@
         <ion-card expand="block" class="ion-padding">
           <ion-card-subtitle>Caso seja necessário, envie uma imagem.</ion-card-subtitle>
           <br>
-          <input type="file" accept="image/*" name="anexo" id="anexo" />
+          <div *ngIf="filePath && filePath !== ''">
+            <img [src]="filePath" alt="formGroup.value.name">
+          </div>
+          <input type="file" accept="image/*" name="avatar" id="avatar" (change)="onFileSelect($event)"/>
         </ion-card>
       </ion-item>
       <ion-card style="text-align: center;" class="ion-padding">
         <ion-card-subtitle color="danger">
-          Ao enviar a sua solicitação, você alega que todas as informações prestadas acima sao verídicas e de sua responsabilidade.
+          Ao enviar a sua solicitação, você alega que todas as informações prestadas acima são verídicas e de sua responsabilidade.
         </ion-card-subtitle>
         <br>
-        <ion-button size="lg" expand="block">Solicitar</ion-button>
+        <ion-button size="lg" expand="block" type="submit">Solicitar</ion-button>
       </ion-card>
     </ion-list>
   </form>
