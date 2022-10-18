@@ -41,7 +41,12 @@ const routes: Routes = [
   {
     path: 'visualizar-chamado/:id_chamado/:tituloChamado/:descriChamado/:dataAbertura/:dataLimite/:dataFinalizacao/:statusChamado/:foto_erro_chamado/:localAtend/:protocoloChamado',
     loadChildren: () => import('./visualizar-chamado/visualizar-chamado.module').then( m => m.VisualizarChamadoPageModule)
+  },
+  {
+    path: 'info-descarte/:id_descarte/:protocolo/:nomeHardware/:descriHardware/:dataAbertura/:dataRetirada/:prazo/:status/:foto/:id_cliente',
+    loadChildren: () => import('./info-descarte/info-descarte.module').then( m => m.InfoDescartePageModule)
   }
+
 
 
 ];

@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-menu-button>
+        </ion-menu-button>
+        <ion-back-button></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Informações do descarte</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="ion-padding" style="display: flex; flex-direction: column; align-items: center;">
+    <ion-text>
+      Solicitação criada em {{dataAbertura}}
+    </ion-text>
+   
+    <ion-text color="primary">
+      Protocolo da solicitação: {{protocoloDescarte}}
+    </ion-text>
+  </ion-card>
+  
+  <ion-card class="ion-padding">
+    <ion-card-title style="font-size: 1.5rem;">{{nomeHardware}}</ion-card-title>
+  </ion-card>
+  
+  <ion-card class="ion-padding">
+    <ion-card-subtitle color="primary">
+      Descrição do chamado
+    </ion-card-subtitle>
+    <ion-card-content>
+      <ion-text>
+        {{descriHardware}}
+      </ion-text>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card class="ion-padding" color="warning">
+    <ion-card-subtitle color="primary">
+      Prazo limite para atendimento
+    </ion-card-subtitle>
+    <ion-card-content>
+      <ion-text style="font-size: 1.2rem;">
+        <b>{{prazo}}</b>
+      </ion-text>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card>
+    <ion-list>
+      <ion-item>
+        <ion-icon name="calendar" slot="start"></ion-icon>
+        <ion-label>
+          <h1>Data de finalização</h1>
+          <p *ngIf="dataRetirada === 'null'">Parece que você ainda não realizou o descarte.</p>
+          <p *ngIf="dataRetirada !== 'null'">{{dataRetirada}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="person-sharp" slot="start"></ion-icon>
+        <ion-label>
+          <h1>Nome do solicitante</h1>
+          <p>Pegar do local storage</p>
+        </ion-label>
+      </ion-item>
+      <ion-item *ngIf="status !== Finalizado || status !== Cancelado" color="success">
+        <ion-icon name="construct" slot="start"></ion-icon>
+        <ion-label>
+          <h1>Status atual</h1>
+          <b>{{status}}</b>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+  
+  <ion-card class="ion-padding">
+    <ion-card-subtitle>Imagem anexada:</ion-card-subtitle>
+    <ion-card-content>
+      
+      <ion-img *ngIf="fotoHardware" src="{{fotoHardware}}"></ion-img>
+      <ion-text *ngIf="!fotoHardware">Nenhuma imagem foi anexada.</ion-text>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card color="dark">
+    <ion-list>
+      <ion-item (click)="presentAlert()">
+        <ion-icon name="bug-outline" slot="start"></ion-icon>
+        <ion-label>
+          <h1>Cancelar esse descarte </h1>
+          <p>Desejo cancelar esse descarte</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card>      
+</ion-content>

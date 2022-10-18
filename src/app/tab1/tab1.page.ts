@@ -85,7 +85,7 @@ buscarTodosOsChamados(){
         data['result'].map((chamado)=> {
           this.chamados.push(chamado[0]);
         })
-      }else{
+      }else if(data['result'] == '0'){
         this.cardNenhumChamado == true;
       }
     })

@@ -41,28 +41,33 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <!-- <ion-card>
+
+  <ion-card class="ion-padding" color="warning">
+    <div style="display: flex; justify-content:center">
+    <ion-icon name="information-circle-sharp" style="font-size: 2rem;"></ion-icon>
+    </div>
+    <br>
+    <ion-card-title style="font-size: 15px;">
+      Toque sobre um descarte para visualizar mais detalhes.
+    </ion-card-title>
+   </ion-card>
+
+
+  <!-- Card responsável por renderizar a lista dos descartes -->
+
+  <ion-card>
     <ion-list>
-      <ion-item (click)="presentActionSheet()">
-        <ion-label> Titulo do chamado </ion-label>
-        <ion-badge color="success">Finalizado</ion-badge>
-      </ion-item>
-      <ion-item (click)="presentActionSheet()">
-        <ion-label> Titulo do chamado </ion-label>
-        <ion-badge color="danger">Em andamento</ion-badge>
-      </ion-item>
-      <ion-item (click)="presentActionSheet()">
-        <ion-label> Titulo do chamado </ion-label>
-        <ion-badge color="warning">Em andamento</ion-badge>
-      </ion-item>
-      <ion-item (click)="presentActionSheet()">
-        <ion-label> Titulo do chamado </ion-label>
-        <ion-badge color="success">Em andamento</ion-badge>
+      <ion-item (click)="presentActionSheet(descarte)" *ngFor="let descarte of descartes">
+        <ion-label>{{descarte.nome_hardware}}</ion-label>
+        <ion-badge *ngIf="descarte.status !== Finalizado" color="success">{{descarte.status}}</ion-badge>
+        <ion-badge *ngIf="descarte.status === Cancelado" color="light">{{descarte.status}}</ion-badge>
       </ion-item>
     </ion-list>
     
-</ion-card> -->
-<ion-card color="primary" class="ion-padding">
+</ion-card>
+
+<!-- Card responsável por informar o usuário se ele tem ou não descartes cadastrados -->
+<ion-card *ngIf="cardNenhumDescarte == true" color="primary" class="ion-padding">
   <div class="ion-text-center">
     <ion-icon name="sad" style="font-size: 5rem;"></ion-icon>
   </div>
