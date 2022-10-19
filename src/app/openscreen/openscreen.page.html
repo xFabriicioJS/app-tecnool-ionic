@@ -1,0 +1,22 @@
+<ion-content>
+  <div class="container">
+    <ion-img src="../../assets/images/logo-no-background.png"></ion-img>
+
+    <ion-text style="font-size: 1.5rem; color:white; margin-top: 10px;">
+      <b>Tecnoo.</b>
+    </ion-text>
+    <div class="buttons">
+      <ion-button expand="block" class="btn" id="btn-login" (click)="navigateLogin()">
+        <b>Login</b>
+      </ion-button>
+      <br>
+      <ion-button expand="block" fill="outline" id="btn-signup" (click)="navigateCadastro()">
+        <b>Cadastre-se</b>
+      </ion-button>
+      <br>
+      <ion-button fill="clear" style="color: #fff;" (click)="navigateAdmin()">
+        <b>Acesso para administradores</b>
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

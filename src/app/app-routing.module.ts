@@ -45,7 +45,23 @@ const routes: Routes = [
   {
     path: 'info-descarte/:id_descarte/:protocolo/:nomeHardware/:descriHardware/:dataAbertura/:dataRetirada/:prazo/:status/:foto/:id_cliente',
     loadChildren: () => import('./info-descarte/info-descarte.module').then( m => m.InfoDescartePageModule)
+  },  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'openscreen',
+    loadChildren: () => import('./openscreen/openscreen.module').then( m => m.OpenscreenPageModule)
+  },
+  {
+    path: 'adminlogin',
+    loadChildren: () => import('./adminlogin/adminlogin.module').then( m => m.AdminloginPageModule)
+  },
+  {
+    path: 'cadastro-cliente',
+    loadChildren: () => import('./cadastro-cliente/cadastro-cliente.module').then( m => m.CadastroClientePageModule)
   }
+
 
 
 

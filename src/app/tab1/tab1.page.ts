@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {Router } from '@angular/router';
 import { ActionSheetController, AlertController } from '@ionic/angular';
 import { ApiService } from '../api/api-service';
+import { GetUserTypeService } from '../services/get-user-type.service';
 
 
 @Component({
@@ -18,19 +19,53 @@ export class Tab1Page {
   valorDescricao: string = '';
   valorProtocolo: string = '';
   termoPesquisado: string = '';
+  tipoUsuarioLogado: string =  '';
+  idCurrentUser: number = 0;
 
   constructor(
     private router: Router,
     private actionSheetCtrl: ActionSheetController,
     private apiService: ApiService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private getUser : GetUserTypeService
     ) {}
 
   ionViewWillEnter(){
-    //fazer um if para verificar se o usuário está logado e a permissão dele
+
+    //verificamos primeiro se o usuário está logado
+    if(this.getUser.getUserInfo() == null){
+      this.router.navigate(['/openscreen']);
+    }
+
+    //verificamos agora o tipo de usuário logado
+    if(this.getUser.getUserType() == 'Cliente'){
+      this.tipoUsuarioLogado = 'Cliente';
+      let currentUser = this.getUser.getUserInfo();
+      this.idCurrentUser = currentUser.id_cliente;
+      
+    }else{
+      this.tipoUsuarioLogado = 'Usuario';
+      let currentUser = this.getUser.getUserInfo();
+      this.idCurrentUser = currentUser.id_usuario;
+    }
+    console.log(this.tipoUsuarioLogado);
+
+    
     this.chamados = [];
     // this.buscarTodosOsChamados();
-    this.carregar();
+
+    //método para ser utilizado quando o usuário for funcionário
+    if(this.tipoUsuarioLogado == 'Usuario'){
+      this.carregar();
+    }
+    else{
+      //método para ser utilizado quando o usuário for cliente
+      this.buscarChamadosPorCliente();
+    }
+
+
+
+
   }
 
 
@@ -105,9 +140,13 @@ buscarChamadosFinalizados(){
 buscarChamadosPorCliente(){
   let bodyRequest = {
     requisicao: 'listarTodosPorCliente',
-    //pegar o id do cliente do local storage
-    id_cliente: 1
+    protocolo: '',
+    descricao: '',
+    titulo: '',
+    id_cliente: this.idCurrentUser
   }
+
+  console.log(bodyRequest);
 
   return new Promise((res) => {
     this.apiService.apiPHP('controller-chamados.php', bodyRequest).subscribe((data) => {
@@ -135,9 +174,12 @@ refreshChamados(){
   this.chamados = [];
   this.buscarTodosOsChamados();
 }
+//método para ser utilizado quando o usuário for cliente
 
 
-//método responsável por fazer a pesquisas
+
+
+//método responsável por fazer a pesquisas no caso do usuário ser funcionário
 carregar(){
 
 
@@ -171,15 +213,24 @@ carregar(){
 
 buscarChamadosPorTitulo(){
   this.chamados = [];
-    let bodyRequest = {
+
+  let bodyRequest;
+  if(this.tipoUsuarioLogado == 'Usuario'){
+     bodyRequest = {
       requisicao: 'listar',
       titulo: this.termoPesquisado,
       descricao: '',
       protocolo: ''
     }
-
-    
-
+  }else{
+      bodyRequest = {
+        requisicao: 'listarTodosPorCliente',
+        titulo: this.termoPesquisado,
+        descricao: '',
+        protocolo: '',
+        id_cliente: this.idCurrentUser
+      }
+  }
     return new Promise((res) => {
       this.apiService.apiPHP('controller-chamados.php',bodyRequest).subscribe((data) => {
         if(data['success'] == true){
@@ -195,12 +246,25 @@ buscarChamadosPorTitulo(){
 
 buscarChamadosPorDescricao(){
 
-  let bodyRequest = {
+
+  let bodyRequest;
+
+  if(this.tipoUsuarioLogado == 'Usuario'){
+   bodyRequest = {
     requisicao: 'listar',
     titulo: '',
     descricao: this.termoPesquisado,
-    protocolo: ''
+    protocolo: '',
   }
+}else{
+  bodyRequest = {
+    requisicao: 'listarTodosPorCliente',
+    titulo: '',
+    descricao: this.termoPesquisado,
+    protocolo: '',
+    id_cliente: this.idCurrentUser
+  }
+}
 
 
   return new Promise((res) => {
@@ -219,12 +283,24 @@ buscarChamadosPorDescricao(){
 
 buscarChamadosPorProtocolo(){
 
-  let bodyRequest = {
+  let bodyRequest;
+
+  if(this.tipoUsuarioLogado == 'Usuario'){
+   bodyRequest = {
     requisicao: 'listar',
     titulo: '',
     descricao: '',
-    protocolo: this.termoPesquisado
+    protocolo: this.termoPesquisado,
   }
+}else{
+  bodyRequest = {
+    requisicao: 'listarTodosPorCliente',
+    titulo: '',
+    descricao: '',
+    protocolo: this.termoPesquisado,
+    id_cliente: this.idCurrentUser
+  }
+}
 
   return new Promise((res) => {
     this.apiService.apiPHP('controller-chamados.php',bodyRequest).subscribe((data) => {

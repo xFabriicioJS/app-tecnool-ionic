@@ -1,0 +1,38 @@
+ion-content {
+    
+    height: 100%;
+    --background: linear-gradient(#712F79, #FF5F6D);
+ 
+  }
+
+
+.container{
+    margin-top: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+ion-img{
+    height: 130px;
+    width: 130px;
+}
+
+
+.buttons{
+    display: flex;
+    flex-direction: column;
+    margin-top: 15rem;
+    width: 70%;
+    color: #fff;
+}
+
+ion-button{
+    height: 3rem;
+}
+
+#btn-signup{
+    --border-color: #fff;
+    color: #fff;
+}

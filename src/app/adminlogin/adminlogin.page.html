@@ -1,16 +1,20 @@
 <ion-content>
   <div class="container">
 
-    <ion-img src="../../assets/images/logotecnoo-removebg-preview.png"></ion-img>
+    <ion-icon 
+    style="font-size: 10rem"
+    name="person-circle">
+
+    </ion-icon>
 
     
-    <ion-card class="ion-padding" color="light">
+    <ion-card class="ion-padding" color="warning">
       <div style="display: flex; justify-content:center">
       <ion-icon name="information-circle-sharp" style="font-size: 2rem;"></ion-icon>
       </div>
       <br>
       <ion-card-title style="font-size: 15px;">
-        Insira seu e-mail e senha para acessar a plataforma.
+        Esse é um acesso apenas para administradores.
       </ion-card-title>
      </ion-card>
 
@@ -18,7 +22,7 @@
      <ion-card class="ion-padding">
     <form style="width: 100vw; margin-top: 1rem;" class="ion-padding" [formGroup]="formGroup" (ngSubmit)="onSubmit()" color="light">
       <ion-item>
-        <ion-label position="floating" color="primary" style="font-size: 16px;">
+        <ion-label position="floating" color="secondary" style="font-size: 16px;">
           <b>Email</b>
         </ion-label>
         <ion-input
@@ -30,7 +34,7 @@
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating" color="primary" style="font-size: 16px;">
+        <ion-label position="floating" color="secondary" style="font-size: 16px;">
         <b>Senha</b></ion-label>
         <ion-input
         type="password"
@@ -42,14 +46,11 @@
 
       <br>
       <br>
-      <ion-button expand="block" class="btn" id="btn-login" type="submit">
+      <ion-button expand="block" class="btn" id="btn-login" type="submit" color="secondary">
         <b>Entrar</b>
       </ion-button>
 
       <br>
-      <ion-button expand="block" color="secondary" (click)="navigateCadastro()">
-        <b>Ainda não possui conta? Cadastre-se aqui!</b>
-      </ion-button>
 
     </form>
   </ion-card>

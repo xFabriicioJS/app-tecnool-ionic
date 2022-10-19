@@ -6,10 +6,10 @@ import { ApiService } from '../api/api-service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  templateUrl: './adminlogin.page.html',
+  styleUrls: ['./adminlogin.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class AdminloginPage implements OnInit {
   formGroup: FormGroup;
   isSubmitted: boolean = false;
 
@@ -35,23 +35,25 @@ export class LoginPage implements OnInit {
           Validators.minLength(4),
           Validators.maxLength(255),
           Validators.required
+          
         ])
       ]
     });
 
    }
 
-   getErrorControl(){
+   get errorControl() {
     return this.formGroup.controls;
-   }
+  }
 
    onSubmit(){
 
-    console.log('teste');
-
     this.isSubmitted = true;
     if(!this.formGroup.valid){
-      this.presentToast("Preencha todos os campos corretamente", "danger");
+      this.presentToast("<b>Preencha todos os campos corretamente.</b>", "danger");
+
+      //corta a função
+      return false;
     }
     //verificação dos dados de login do usuário com a API
 
@@ -61,18 +63,18 @@ export class LoginPage implements OnInit {
       senha: this.formGroup.value.senha  
     }
 
-    this.apiService.apiPHP('controller-clientes.php',bodyRequest).subscribe((data) => {
+    this.apiService.apiPHP('controller-usuarios.php',bodyRequest).subscribe((data) => {
       console.log(data);
       if(data['success'] == true){
 
-        this.presentToast("Login efetuado com sucesso", "success");
+        this.presentToast("<b>Login efetuado com sucesso</b>", "success");
 
         //setar dados no local storage
         this.setLocalStorageData(data['result']);
 
         this.router.navigate(['/tabs/tab1']);
       }else{
-        this.presentToast("Usuário ou senha incorretos", "danger");
+        this.presentToast("<b>Email ou senha incorretos.</b>", "danger");
       }
     });
    }
@@ -81,14 +83,18 @@ export class LoginPage implements OnInit {
    setLocalStorageData(data : any){
     //setar dados no local storage
     localStorage.setItem('usuario', JSON.stringify(data));
+
    }
 
   ngOnInit() {
   }
 
   ionViewWillEnter(){
-    //Garante que o usuário não vai para a página de login se já estiver logado
+
+    //garantindo que o usuário/cliente não esteja logado
+
     localStorage.removeItem('usuario');
+    localStorage.removeItem('cliente');
   }
 
   async presentToast(msg: string, color: string) {

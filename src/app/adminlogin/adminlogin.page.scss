@@ -13,9 +13,11 @@ ion-img{
 }
 
 ion-item {
-    --border-color: var(--ion-color-primary, #712F79);
+    --border-color: var(--ion-color-secondary)
+
   }
 
 ion-button{
     height: 3.5rem;
 }
+

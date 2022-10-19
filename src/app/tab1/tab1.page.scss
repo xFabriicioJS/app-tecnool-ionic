@@ -2,3 +2,19 @@
     background: #e5e5e5;
   }
 
+
+  .ripple-parent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    position: relative;
+    overflow: hidden;
+  
+    border: 1px solid #ddd;
+  
+    user-select: none;
+  }
+  
+
+ 
