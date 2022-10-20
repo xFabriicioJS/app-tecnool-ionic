@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { ApiService } from '../api/api-service';
+import { IonModal } from '@ionic/angular';
+import { OverlayEventDetail } from '@ionic/core/components';
 
 @Component({
   selector: 'app-cadastro-cliente',
@@ -10,6 +12,9 @@ import { ApiService } from '../api/api-service';
   styleUrls: ['./cadastro-cliente.page.scss'],
 })
 export class CadastroClientePage implements OnInit {
+  @ViewChild(IonModal) modal: IonModal;
+  name: string;
+
   estados = [
     'AC',
     'AL',
@@ -41,7 +46,8 @@ export class CadastroClientePage implements OnInit {
   ];
 
   formGroupPf: FormGroup;
-  isSubmitted: boolean = false;
+  isSubmittedPf: boolean = false;
+  isSubmittedPj: boolean = false;
   formGroupPj: FormGroup;
 
   constructor(
@@ -285,27 +291,21 @@ export class CadastroClientePage implements OnInit {
     return this.formGroupPj.controls;
   }
 
+  ionViewWillEnter(){
+
+  }
 
   onSubmitPj(){
     console.log('teste');
-    this.isSubmitted = true;
+    this.isSubmittedPj = true;
     if(!this.formGroupPj.valid){
-      this.presentToast('Preencha todos os campos corretamente', 'danger');
 
+      this.presentToast('Preencha todos os campos corretamente', 'danger');
+      this.cancel();
       //irá cortar a função e não irá executar o código abaixo
       return false;
     }
-    // {
-    //   "requisicao": "add",
-    //   "nome": "Fabricio",
-    //   "cpf": "3933201201",
-    //   "telefone": "1289473943",
-    //   "cnpj": "",
-    //   "razaoSocial": "",
-    //   "idTipo": 1,
-    //   "email": "fa@hotmail.com",
-    //   "senha": "123"
-    // }
+    
 
      //Primeiro precisamos fazer uma requisição para o endpoint dos clientes, e desse jeito recuperar o id do cliente criado no BD e passa-lo na requisição do endereço
 
@@ -316,12 +316,12 @@ export class CadastroClientePage implements OnInit {
       "telefone": this.formGroupPj.value.telefone,
       "cnpj": this.formGroupPj.value.cnpj,
       "razaoSocial": this.formGroupPj.value.razaoSocial,
-      "idTipo": 1,
+      "idTipo": 2,
       "email": this.formGroupPj.value.email,
       "senha": this.formGroupPj.value.senha
      }
 
-     console.log(bodyRequestClientePj);
+
     //Primeira Requisição - Endpoint Clientes
     this.apiService.apiPHP('controller-clientes.php',bodyRequestClientePj).subscribe((data)=>{
       if(data['success'] == true){
@@ -341,9 +341,11 @@ export class CadastroClientePage implements OnInit {
         this.apiService.apiPHP('controller-enderecos.php',bodyRequestEndereco).subscribe((data) => {
           if(data['success'] == true){
             this.presentToast("Cadastro realizado com sucesso", "success");
+            this.cancel();
+
             this.router.navigate(['/login']);
           }else{
-            console.log(data);
+            
             this.presentToast("Erro ao cadastrar endereço", "danger");
           }
         })
@@ -355,28 +357,28 @@ export class CadastroClientePage implements OnInit {
 
     }
 
+    cancel() {
+      this.modal.dismiss(null, 'cancel');
+    }
+  
+    confirm() {
+      this.modal.dismiss(this.name, 'confirm');
+    }
+
+
   onSubmitPf(){
-    this.isSubmitted = true;
+    console.log('teste');
+    this.isSubmittedPf = true;
+    console.log(this.formGroupPf.value);
     if(!this.formGroupPf.valid){
       this.presentToast("Preencha todos os campos corretamente", "danger");
-
+      this.cancel();
       //irá cortar a função e não irá executar o código abaixo
       return false;
     }
+
+    
    
-
-    // {
-    //   "requisicao": "add",
-    //   "nome": "Fabricio",
-    //   "cpf": "3933201201",
-    //   "telefone": "1289473943",
-    //   "cnpj": "",
-    //   "razaoSocial": "",
-    //   "idTipo": 1,
-    //   "email": "fa@hotmail.com",
-    //   "senha": "123"
-    // }
-
 
     //Primeiro precisamos fazer uma requisição para o endpoint dos clientes, e desse jeito recuperar o id do cliente criado no BD e passa-lo na requisição do endereço
     let bodyRequestCliente = {
@@ -411,7 +413,9 @@ export class CadastroClientePage implements OnInit {
         this.apiService.apiPHP('controller-enderecos.php',bodyRequestEndereco).subscribe((data) => {
           if(data['success'] == true){
             this.presentToast("Cadastro realizado com sucesso", "success");
+            this.cancel();
             this.router.navigate(['/login']);
+            
           }else{
             console.log(data);
             this.presentToast("Erro ao cadastrar endereço", "danger");
