@@ -25,4 +25,11 @@ export class ApiService {
     let uploadURL = `${this.server}controller-upload.php`;
     return this.http.post<any>(uploadURL, data);
   }
+
+//   public authClient(endpoint: string ,dados:any){
+//     const httpOptions = {
+//       headers: new HttpHeaders({'Content-Type': 'application/json'})
+//     }
+//     return this.http.post(this.server + endpoint, JSON.stringify(dados), httpOptions).map(res => res)
+//   }}
 }

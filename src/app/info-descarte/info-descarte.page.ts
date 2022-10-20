@@ -74,7 +74,7 @@ export class InfoDescartePage implements OnInit {
 
   cancelarDescarte(){
     console.log("cancelando descarte " + this.idDescarte);
-
+    
 
   }
 

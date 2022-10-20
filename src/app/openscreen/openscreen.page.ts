@@ -19,7 +19,7 @@ export class OpenscreenPage implements OnInit {
     this.router.navigate(['/login']);
   }
   navigateCadastro(){
-    this.router.navigate(['/cadastro']);
+    this.router.navigate(['/cadastro-cliente']);
   }
   navigateAdmin(){
     this.router.navigate(['/adminlogin']);
