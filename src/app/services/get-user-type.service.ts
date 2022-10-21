@@ -11,6 +11,8 @@ export class GetUserTypeService {
   //Método responsável por retornar as informações do usuário logado pelo local storage
   getUserInfo(){
     return JSON.parse(localStorage.getItem('usuario'));
+
+    
   }
 
 

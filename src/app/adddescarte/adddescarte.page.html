@@ -29,7 +29,7 @@
           placeholder="Insira o nome do hardware"
         ></ion-input>
       </ion-item>
-      <span class="error ion-padding" color="danger" *ngIf="isSubmitted && errorControl.tituloHardware.errors?.required">
+      <span class="error ion-padding"    *ngIf="isSubmitted && errorControl.tituloHardware.errors?.required">
         O nome do hardware é requerido.
       </span>
       <span class="error ion-padding" color="danger" *ngIf="isSubmitted && errorControl.tituloHardware.errors?.minlength">

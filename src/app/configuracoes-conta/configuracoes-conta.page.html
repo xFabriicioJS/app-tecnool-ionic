@@ -32,7 +32,7 @@
         <ion-icon name="person-sharp" slot="start"></ion-icon>
         <ion-label>
           <h1>Alterar meu nome de usuário</h1>
-          <p>xFabriicioJS</p>
+          <p>{{}}</p>
         </ion-label>
       </ion-item>
       <ion-item (click)="setOpen(true)">
@@ -86,19 +86,11 @@
         <!-- FECHAMENTO DO MODAL PARA ATUALIZAR A SENHA -->
       </ion-item>
 
-    
-      <ion-item (click)="navigateAtualizarEndereco()">
-        <ion-icon name="home-outline" slot="start"></ion-icon>
-        <ion-label>
-          <h1>Atualizar meu endereço</h1>
-          <p>Avenida Itaquera, 8667</p>
-        </ion-label>
-      </ion-item>
       <ion-item (click)="presentAlert()">
         <ion-icon name="call-outline" slot="start"></ion-icon>
         <ion-label>
           <h1>Atualizar meus contatos</h1>
-          <p>11 95288-4571</p>
+          <p>{{telefoneContato}}</p>
         </ion-label>
       </ion-item>
       <ion-item href="#">
