@@ -65,9 +65,7 @@ export class AddusuarioPage implements OnInit {
     });
   }
 
-  ngOnInit() {
-   
-  }
+  ngOnInit() {}
   onFileSelect(event) {
     //setando a imagem no formulário para visualização
     this.imagePreview(event);
@@ -98,7 +96,6 @@ export class AddusuarioPage implements OnInit {
     //useEffect
     this.niveis = [];
     this.findAllNiveis();
-  
   }
 
   findAllNiveis() {
@@ -131,11 +128,10 @@ export class AddusuarioPage implements OnInit {
 
   onSubmit() {
     this.isSubmitted = true;
-    
-    if(!this.formGroup.valid){
+
+    if (!this.formGroup.valid) {
       console.log('Por favor preencha todos os campos');
       return false;
-
     }
 
     //verificando se o usuário selecionou uma imagem
@@ -201,10 +197,9 @@ export class AddusuarioPage implements OnInit {
       message: msg,
       duration: 3000,
       color: color,
-      icon: 'checkmark-circle-outline'
+      icon: 'checkmark-circle-outline',
     });
 
     await toast.present();
   }
-
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-confirma-chamado',
@@ -8,11 +8,24 @@ import { Router } from '@angular/router';
 })
 export class ConfirmaChamadoPage implements OnInit {
 
+  tituloChamado: string = '';
+  descriChamado: string = '';
+  dataLimite: string = '';
+  tipoAtendimento: string = '';
+
   constructor(
-    private router : Router
+    private router : Router,
+    private actRoute: ActivatedRoute
+    
   ) { }
 
   ngOnInit() {
+    this.actRoute.params.subscribe((data:any)=> {
+      this.tituloChamado = data.tituloChamado;
+      this.descriChamado = data.descriChamado;
+      this.dataLimite = data.dataLimite;
+      this.tipoAtendimento = data.tipoAtendimento;
+    })
   }
 
   navigateInicio(){

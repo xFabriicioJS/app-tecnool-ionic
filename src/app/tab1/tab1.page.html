@@ -30,7 +30,9 @@
             </ion-card-header>
             <ion-card-content>
               <div class="ion-text-center ">
-                <h1 style="font-size: 40px; font-weight: bolder;" >10</h1>
+                <h1 style="font-size: 40px; font-weight: bolder;" >
+                {{numChamadosAbertos}}
+                </h1>
               </div>
             </ion-card-content>
           </ion-card>
@@ -42,7 +44,9 @@
             </ion-card-header>
             <ion-card-content>
               <div class="ion-text-center">
-                <h1 style="font-size: 40px; font-weight: bolder;">2</h1>
+                <h1 style="font-size: 40px; font-weight: bolder;">
+                {{numChamadosFinalizados}}
+                </h1>
               </div>
             </ion-card-content>
           </ion-card>
@@ -81,19 +85,19 @@
 
 
    <!-- Caso o usuário não possua nenhum chamado registrado, esse card será renderizado  -->
-   <ion-card color="primary" class="ion-padding" *ngIf="cardNenhumChamado === true">
+   <ion-card color="primary" class="ion-padding" *ngIf="cardNenhumChamado == true">
     <div class="ion-text-center">
       <ion-icon name="sad" style="font-size: 5rem;"></ion-icon>
     </div>
     <br>
-    <ion-card-tile color="primary" style="font-size: 18px;">
+    <ion-card-title color="primary" style="font-size: 18px;">
       Parece que você ainda não utilizou nossos serviços.
-    </ion-card-tile>
+    </ion-card-title>
     <br>
     <br>
-    <ion-card-text style="text-align: center; font-size: 18px;">
+    <ion-text style="text-align: center; font-size: 18px;">
       <b>Que tal começar agora?</b>
-    </ion-card-text>
+    </ion-text>
     <ion-card-content>
       <div style="display: flex; align-items: center; justify-content: center;">
         <ion-button color="success" (click)="navigateAddChamado()"><b>Quero abrir um chamado!</b></ion-button>
@@ -111,7 +115,7 @@
       </ion-list>
   </ion-card>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
+    <ion-fab-button color="tertiary">
       <ion-icon name="add" (click)="navigateAddChamado()"></ion-icon>
     </ion-fab-button>
   </ion-fab>    

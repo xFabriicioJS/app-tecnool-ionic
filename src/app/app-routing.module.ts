@@ -15,7 +15,7 @@ const routes: Routes = [
     loadChildren: () => import('./addchamado/addchamado.module').then( m => m.AddchamadoPageModule)
   },
   {
-    path: 'confirma-chamado',
+    path: 'confirma-chamado/:tituloChamado/:dataLimite/:descriChamado/:tipoAtendimento',
     loadChildren: () => import('./confirma-chamado/confirma-chamado.module').then( m => m.ConfirmaChamadoPageModule)
   },
   {
@@ -45,7 +45,8 @@ const routes: Routes = [
   {
     path: 'info-descarte/:id_descarte/:protocolo/:nomeHardware/:descriHardware/:dataAbertura/:dataRetirada/:prazo/:status/:foto/:id_cliente',
     loadChildren: () => import('./info-descarte/info-descarte.module').then( m => m.InfoDescartePageModule)
-  },  {
+  },
+  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },

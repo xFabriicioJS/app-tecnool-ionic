@@ -13,670 +13,617 @@
 
 
 <ion-content class="ion-padding">
-<ion-segment [(ngModel)]="tipoConta" scrollable value="'pf'">
-  <ion-segment-button value="pf">
-    Pessoa física
-  </ion-segment-button>
-  <ion-segment-button value="pj">
-    Pessoa jurídica
-  </ion-segment-button>
-</ion-segment>
+  <ion-segment [(ngModel)]="tipoConta" value="pf">
+    <ion-segment-button value="pf">
+      Pessoa física
+    </ion-segment-button>
+    <ion-segment-button value="pj">
+      Pessoa jurídica
+    </ion-segment-button>
+  </ion-segment>
 
-<div [ngSwitch]="tipoConta">
-
-  <ion-card *ngSwitchCase="'pf'" class="ion-padding">
-    <div style="display: flex; justify-content:center">
-      <ion-icon name="person-circle-outline" style="font-size: 5rem;"></ion-icon>
+  <div [ngSwitch]="tipoConta">
+    <ion-card *ngSwitchCase="'pf'" class="ion-padding">
+      <div style="display: flex; justify-content:center">
+        <ion-icon name="person-circle-outline" style="font-size: 5rem;"></ion-icon>
       </div>
       <br>
-    <ion-card-title>
-      Cadastro de pessoa física
-    </ion-card-title>
-    <br>
-    <ion-card-subtitle>
-      Insira seus dados abaixo para realizar o cadastro.
-    </ion-card-subtitle>
-  </ion-card>
-
-  <ion-card *ngSwitchCase="'pf'" class="ion-padding">
-    <ion-card-title style="font-size: 1rem;">
-      Dados Pessoais
-    </ion-card-title>
-    <form [formGroup]="formGroupPf" (ngSubmit)="onSubmitPf()" color="light">
-      <ion-item>
-        <ion-label position="floating" color="primary" style="font-size: 16px;">
-          <b>Nome</b>
-        </ion-label>
-        <ion-input
-        formControlName="nome"
-        required
-        type="text"
-        placeholder="Digite seu nome"
-        ></ion-input>
-      </ion-item>
-      <span class="ion-padding text-danger" *ngIf="isSubmittedPf && errorControlPf.nome.errors?.required">
-        <ion-text color="danger">
-          O nome é requerido.
-        </ion-text>
-      </span>
-      <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.nome.errors?.minlength">
-        O nome deve conter ao menos 4 caracteres.
-      </span>
-      <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.nome.errors?.maxlength">
-        O nome deve conter no máximo 60 caracteres.
-      </span>
-
-      <ion-item>
-        <ion-label position="floating" color="primary" style="font-size: 16px;">
-        <b>CPF</b></ion-label>
-        <ion-input
-        required
-        placeholder="Insira seu CPF"
-        formControlName="cpf"
-        ></ion-input>
-      </ion-item>
-      <span class="error ion-padding" *ngIf="isSubmittedPf && errorControlPf.cpf.errors?.required">
-        <ion-text color="danger">
-          O campo CPF é requerido         
-        </ion-text>
-      </span>
-      <span class="error ion-padding" *ngIf="isSubmittedPf && errorControlPf.cpf.errors?.maxlength">
-        <ion-text color="danger">
-          O campo CPF deve conter no máximo 11 caracteres.          
-        </ion-text>
-      </span>
-
-      <ion-item>
-        <ion-label position="floating" color="primary" style="font-size: 16px;">
-        <b>Telefone</b></ion-label>
-        <ion-input
-        required
-        placeholder="Insira um telefone para contato"
-        formControlName="telefone"
-        ></ion-input>
-      </ion-item>
-      <span class="ion-padding text-danger" *ngIf="isSubmittedPf && errorControlPf.telefone.errors?.required">
-        <ion-text color="danger">
-          O telefone é requerido.
-        </ion-text>
-      </span>
-      <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.telefone.errors?.minlength">
-        O número de telefone deve conter ao menos 3 caracteres.
-      </span>
-      <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.telefone.errors?.maxlength">
-        O número de telefone deve conter no máximo 14 caracteres.
-      </span>
-
-
-      <ion-item>
-        <ion-label position="floating" color="primary" style="font-size: 16px;">
-        <b>Email</b></ion-label>
-        <ion-input
-        required
-        placeholder="Insira seu e-mail"
-        formControlName="email"
-        ></ion-input>
-      </ion-item>
-      <span class="ion-padding text-danger" *ngIf="isSubmittedPf && errorControlPf.email.errors?.required">
-        <ion-text color="danger">
-          O campo email é requerido.
-        </ion-text>
-      </span>
-      <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.email.errors?.minlength">
-        O email deve conter ao menos 6 caracteres.
-      </span>
-      <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.email.errors?.maxlength">
-        O email deve conter no máximo 32 caracteres.
-      </span>
-
-      
-
-      <ion-item>
-        <ion-label position="floating" color="primary" style="font-size: 16px;">
-        <b>Senha</b></ion-label>
-        <ion-input
-        tpye="password"
-        required
-        placeholder="Insira uma senha"
-        formControlName="senha"
-        ></ion-input>
-      </ion-item>
-      <span class="ion-padding text-danger" *ngIf="isSubmittedPf && errorControlPf.senha.errors?.required">
-        <ion-text color="danger">
-          O campo senha é requerido.
-        </ion-text>
-      </span>
-      <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.senha.errors?.minlength">
-        A senha deve conter ao menos 4 caracteres.
-      </span>
+      <ion-card-title>
+        Cadastro de pessoa física
+      </ion-card-title>
       <br>
-      <br>
-      <ion-button id="open-modalPj" expand="block">Prosseguir</ion-button>
-  <ion-modal trigger="open-modalPj">
-    <ng-template>
-      <ion-header>
-        <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-button (click)="cancel()">Cancelar</ion-button>
-          </ion-buttons>
-          <ion-title>Dados de endereço</ion-title>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content class="ion-padding">
-        <ion-card>
+      <ion-card-subtitle>
+        Insira seus dados abaixo para realizar o cadastro.
+      </ion-card-subtitle>
+    </ion-card>
+
+    <ion-card *ngSwitchCase="'pf'" class="ion-padding">
+      <ion-card-title style="font-size: 1rem;">
+        Dados Pessoais
+      </ion-card-title>
+      <form [formGroup]="formGroupPf" (ngSubmit)="onSubmitPf()" color="light">
         <ion-item>
           <ion-label position="floating" color="primary" style="font-size: 16px;">
-          <b>CEP</b></ion-label>
-          <ion-input
-          required
-          placeholder="Insira seu CEP(apenas números)"
-          formControlName="cep"
-          ></ion-input>
+            <b>Nome</b>
+          </ion-label>
+          <ion-input formControlName="nome" required type="text" placeholder="Digite seu nome"></ion-input>
         </ion-item>
-        <span class="ion-padding text-danger" *ngIf="isSubmittedPf && errorControlPf.cep.errors?.required">
+        <span class="ion-padding text-danger" *ngIf="isSubmittedPf && errorControlPf.nome.errors?.required">
           <ion-text color="danger">
-            O campo CEP é requerido.
+            O nome é requerido.
           </ion-text>
         </span>
-        <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.cep.errors?.minlength">
-          O CEP deve conter ao menos 2 caracteres.
+        <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.nome.errors?.minlength">
+          O nome deve conter ao menos 4 caracteres.
         </span>
-        <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.cep.errors?.maxlength">
-          O CEP deve conter no máximo 8 caracteres.
+        <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.nome.errors?.maxlength">
+          O nome deve conter no máximo 60 caracteres.
         </span>
 
-  
         <ion-item>
           <ion-label position="floating" color="primary" style="font-size: 16px;">
-          <b>Logradouro</b></ion-label>
-          <ion-input
-          required
-          placeholder="Logradouro"
-          formControlName="logradouro"
-          ></ion-input>
+            <b>CPF</b>
+          </ion-label>
+          <ion-input required placeholder="Insira seu CPF" formControlName="cpf"></ion-input>
         </ion-item>
-        <span class="ion-padding text-danger" *ngIf="isSubmittedPf && errorControlPf.logradouro.errors?.required">
+        <span class="error ion-padding" *ngIf="isSubmittedPf && errorControlPf.cpf.errors?.required">
           <ion-text color="danger">
-            O campo logradouro é requerido.
+            O campo CPF é requerido
           </ion-text>
         </span>
-        <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.logradouro.errors?.minlength">
-          O logradouro deve conter ao menos 4 caracteres.
-        </span>
-        <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.logradouro.errors?.maxlength">
-          O logradouro deve conter no máximo 30 caracteres.
-        </span>
-  
-        <ion-item>
-          <ion-label position="floating" color="primary" style="font-size: 16px;">
-          <b>Número</b></ion-label>
-          <ion-input
-          required
-          placeholder="Número"
-          formControlName="numero"
-          ></ion-input>
-        </ion-item>
-        <span class="ion-padding text-danger" *ngIf="isSubmittedPf && errorControlPf.numero.errors?.required">
+        <span class="error ion-padding" *ngIf="isSubmittedPf && errorControlPf.cpf.errors?.maxlength">
           <ion-text color="danger">
-            O campo número é requerido.
+            O campo CPF deve conter no máximo 11 caracteres.
           </ion-text>
-        </span>
-        <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.numero.errors?.minlength">
-          O número deve conter ao menos 1 caracterer.
-        </span>
-        <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.numero.errors?.maxlength">
-          O número deve conter no máximo 5 caracteres.
         </span>
 
-        
         <ion-item>
           <ion-label position="floating" color="primary" style="font-size: 16px;">
-          <b>Complemento</b></ion-label>
-          <ion-input
-          placeholder="Complemento"
-          formControlName="complemento"
-          ></ion-input>
+            <b>Telefone</b>
+          </ion-label>
+          <ion-input required placeholder="Insira um telefone para contato" formControlName="telefone"></ion-input>
         </ion-item>
-        <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.complemento.errors?.minlength">
-          O complemento deve conter ao menos 4 caracteres.
+        <span class="ion-padding text-danger" *ngIf="isSubmittedPf && errorControlPf.telefone.errors?.required">
+          <ion-text color="danger">
+            O telefone é requerido.
+          </ion-text>
         </span>
-        <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.complemento.errors?.maxlength">
-          O complemento deve conter no máximo 30 caracteres.
+        <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.telefone.errors?.minlength">
+          O número de telefone deve conter ao menos 3 caracteres.
+        </span>
+        <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.telefone.errors?.maxlength">
+          O número de telefone deve conter no máximo 14 caracteres.
         </span>
 
-  
+
         <ion-item>
           <ion-label position="floating" color="primary" style="font-size: 16px;">
-          <b>Bairro</b></ion-label>
-          <ion-input
-          required
-          placeholder="Bairro"
-          formControlName="bairro"
-          ></ion-input>
+            <b>Email</b>
+          </ion-label>
+          <ion-input required placeholder="Insira seu e-mail" formControlName="email"></ion-input>
         </ion-item>
-        <span class="ion-padding text-danger" *ngIf="isSubmittedPf && errorControlPf.bairro.errors?.required">
+        <span class="ion-padding text-danger" *ngIf="isSubmittedPf && errorControlPf.email.errors?.required">
           <ion-text color="danger">
-            O campo bairro é requerido.
+            O campo email é requerido.
           </ion-text>
         </span>
-        <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.bairro.errors?.minlength">
-          O bairro deve conter ao menos 4 caracteres.
+        <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.email.errors?.minlength">
+          O email deve conter ao menos 6 caracteres.
         </span>
-        <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.bairro.errors?.maxlength">
-          O bairro deve conter no máximo 30 caracteres.
-        </span>
-        
-  
-        <ion-item>
-          <ion-label position="floating" color="primary" style="font-size: 16px;">
-          <b>Cidade</b></ion-label>
-          <ion-input
-          required
-          placeholder="Cidade"
-          formControlName="cidade"
-          ></ion-input>
-        </ion-item>
-        <span class="ion-padding text-danger" *ngIf="isSubmittedPf && errorControlPf.cidade.errors?.required">
-          <ion-text color="danger">
-            O campo cidade é requerido.
-          </ion-text>
-        </span>
-        <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.cidade.errors?.minlength">
-          A cidade deve conter ao menos 4 caracteres.
-        </span>
-        <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.cidade.errors?.maxlength">
-          A cidade deve conter no máximo 30 caracteres.
+        <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.email.errors?.maxlength">
+          O email deve conter no máximo 32 caracteres.
         </span>
 
-  
+
+
         <ion-item>
-          <ion-select interface="action-sheet" placeholder="Selecione um estado" formControlName="estado">
-            <ion-select-option *ngFor="let estado of estados" value="{{estado}}">
-              {{estado}}
-            </ion-select-option>
-          </ion-select>
+          <ion-label position="floating" color="primary" style="font-size: 16px;">
+            <b>Senha</b>
+          </ion-label>
+          <ion-input tpye="password" required placeholder="Insira uma senha" formControlName="senha"></ion-input>
         </ion-item>
-        <span class="ion-padding text-danger" *ngIf="isSubmittedPf && errorControlPf.estado.errors?.required">
+        <span class="ion-padding text-danger" *ngIf="isSubmittedPf && errorControlPf.senha.errors?.required">
           <ion-text color="danger">
-            O campo estado é requerido.
+            O campo senha é requerido.
           </ion-text>
-          </span>  
-          
-  
-        <ion-card color="warning" class="ion-padding">
-  
-          <div style="display: flex; justify-content:center">
-            <ion-icon name="information-circle-sharp" style="font-size: 2rem;"></ion-icon>
-            </div>
-            <br>
-  
-          Ao clicar em cadastrar, você <b>concorda</b> com os <b>termos de uso e política de privacidade.</b>
-        </ion-card>
-  
-  
-        
+        </span>
+        <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.senha.errors?.minlength">
+          A senha deve conter ao menos 4 caracteres.
+        </span>
         <br>
-      </ion-card>
-      <ion-button expand="block" class="btn" id="btn-login" type="submit" (click)="onSubmitPf()"color="success">
-        <b>Cadastrar</b>
-      </ion-button>
-      </ion-content>
-    </ng-template>
-  </ion-modal>
-    </form>
-  </ion-card>
+        <br>
+        <ion-button id="open-modalPj" expand="block">Prosseguir</ion-button>
+        <ion-modal trigger="open-modalPj">
+          <ng-template>
+            <ion-header>
+              <ion-toolbar>
+                <ion-buttons slot="start">
+                  <ion-button (click)="cancel()">Cancelar</ion-button>
+                </ion-buttons>
+                <ion-title>Dados de endereço</ion-title>
+              </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding">
+              <ion-card>
+                <ion-item>
+                  <ion-label position="floating" color="primary" style="font-size: 16px;">
+                    <b>CEP</b>
+                  </ion-label>
+                  <ion-input required placeholder="Insira seu CEP(apenas números)" formControlName="cep"></ion-input>
+                </ion-item>
+                <span class="ion-padding text-danger" *ngIf="isSubmittedPf && errorControlPf.cep.errors?.required">
+                  <ion-text color="danger">
+                    O campo CEP é requerido.
+                  </ion-text>
+                </span>
+                <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.cep.errors?.minlength">
+                  O CEP deve conter ao menos 2 caracteres.
+                </span>
+                <span class="ion-padding" color="danger" *ngIf="isSubmittedPf && errorControlPf.cep.errors?.maxlength">
+                  O CEP deve conter no máximo 8 caracteres.
+                </span>
 
-  <ion-card *ngSwitchCase="'pj'" class="ion-padding" color="tertiary">
-    <div style="display: flex; justify-content:center">
-      <ion-icon name="business-outline" style="font-size: 5rem;"></ion-icon>
+
+                <ion-item>
+                  <ion-label position="floating" color="primary" style="font-size: 16px;">
+                    <b>Logradouro</b>
+                  </ion-label>
+                  <ion-input required placeholder="Logradouro" formControlName="logradouro"></ion-input>
+                </ion-item>
+                <span class="ion-padding text-danger"
+                  *ngIf="isSubmittedPf && errorControlPf.logradouro.errors?.required">
+                  <ion-text color="danger">
+                    O campo logradouro é requerido.
+                  </ion-text>
+                </span>
+                <span class="ion-padding" color="danger"
+                  *ngIf="isSubmittedPf && errorControlPf.logradouro.errors?.minlength">
+                  O logradouro deve conter ao menos 4 caracteres.
+                </span>
+                <span class="ion-padding" color="danger"
+                  *ngIf="isSubmittedPf && errorControlPf.logradouro.errors?.maxlength">
+                  O logradouro deve conter no máximo 30 caracteres.
+                </span>
+
+                <ion-item>
+                  <ion-label position="floating" color="primary" style="font-size: 16px;">
+                    <b>Número</b>
+                  </ion-label>
+                  <ion-input required placeholder="Número" formControlName="numero"></ion-input>
+                </ion-item>
+                <span class="ion-padding text-danger" *ngIf="isSubmittedPf && errorControlPf.numero.errors?.required">
+                  <ion-text color="danger">
+                    O campo número é requerido.
+                  </ion-text>
+                </span>
+                <span class="ion-padding" color="danger"
+                  *ngIf="isSubmittedPf && errorControlPf.numero.errors?.minlength">
+                  O número deve conter ao menos 1 caracterer.
+                </span>
+                <span class="ion-padding" color="danger"
+                  *ngIf="isSubmittedPf && errorControlPf.numero.errors?.maxlength">
+                  O número deve conter no máximo 5 caracteres.
+                </span>
+
+
+                <ion-item>
+                  <ion-label position="floating" color="primary" style="font-size: 16px;">
+                    <b>Complemento</b>
+                  </ion-label>
+                  <ion-input placeholder="Complemento" formControlName="complemento"></ion-input>
+                </ion-item>
+                <span class="ion-padding" color="danger"
+                  *ngIf="isSubmittedPf && errorControlPf.complemento.errors?.minlength">
+                  O complemento deve conter ao menos 4 caracteres.
+                </span>
+                <span class="ion-padding" color="danger"
+                  *ngIf="isSubmittedPf && errorControlPf.complemento.errors?.maxlength">
+                  O complemento deve conter no máximo 30 caracteres.
+                </span>
+
+
+                <ion-item>
+                  <ion-label position="floating" color="primary" style="font-size: 16px;">
+                    <b>Bairro</b>
+                  </ion-label>
+                  <ion-input required placeholder="Bairro" formControlName="bairro"></ion-input>
+                </ion-item>
+                <span class="ion-padding text-danger" *ngIf="isSubmittedPf && errorControlPf.bairro.errors?.required">
+                  <ion-text color="danger">
+                    O campo bairro é requerido.
+                  </ion-text>
+                </span>
+                <span class="ion-padding" color="danger"
+                  *ngIf="isSubmittedPf && errorControlPf.bairro.errors?.minlength">
+                  O bairro deve conter ao menos 4 caracteres.
+                </span>
+                <span class="ion-padding" color="danger"
+                  *ngIf="isSubmittedPf && errorControlPf.bairro.errors?.maxlength">
+                  O bairro deve conter no máximo 30 caracteres.
+                </span>
+
+
+                <ion-item>
+                  <ion-label position="floating" color="primary" style="font-size: 16px;">
+                    <b>Cidade</b>
+                  </ion-label>
+                  <ion-input required placeholder="Cidade" formControlName="cidade"></ion-input>
+                </ion-item>
+                <span class="ion-padding text-danger" *ngIf="isSubmittedPf && errorControlPf.cidade.errors?.required">
+                  <ion-text color="danger">
+                    O campo cidade é requerido.
+                  </ion-text>
+                </span>
+                <span class="ion-padding" color="danger"
+                  *ngIf="isSubmittedPf && errorControlPf.cidade.errors?.minlength">
+                  A cidade deve conter ao menos 4 caracteres.
+                </span>
+                <span class="ion-padding" color="danger"
+                  *ngIf="isSubmittedPf && errorControlPf.cidade.errors?.maxlength">
+                  A cidade deve conter no máximo 30 caracteres.
+                </span>
+
+
+                <ion-item>
+                  <ion-select interface="action-sheet" placeholder="Selecione um estado" formControlName="estado">
+                    <ion-select-option *ngFor="let estado of estados" value="{{estado}}">
+                      {{estado}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <span class="ion-padding text-danger" *ngIf="isSubmittedPf && errorControlPf.estado.errors?.required">
+                  <ion-text color="danger">
+                    O campo estado é requerido.
+                  </ion-text>
+                </span>
+
+
+                <ion-card color="warning" class="ion-padding">
+
+                  <div style="display: flex; justify-content:center">
+                    <ion-icon name="information-circle-sharp" style="font-size: 2rem;"></ion-icon>
+                  </div>
+                  <br>
+
+                  Ao clicar em cadastrar, você <b>concorda</b> com os <b>termos de uso e política de privacidade.</b>
+                </ion-card>
+
+
+
+                <br>
+              </ion-card>
+              <ion-button expand="block" class="btn" id="btn-login" type="submit" (click)="onSubmitPf()"
+                color="success">
+                <b>Cadastrar</b>
+              </ion-button>
+            </ion-content>
+          </ng-template>
+        </ion-modal>
+      </form>
+    </ion-card>
+
+    <ion-card *ngSwitchCase="'pj'" class="ion-padding" color="tertiary">
+      <div style="display: flex; justify-content:center">
+        <ion-icon name="business-outline" style="font-size: 5rem;"></ion-icon>
       </div>
       <br>
-    <ion-card-title>
-      Cadastro de pessoa jurídica.
-    </ion-card-title>
-    <br>
-    <ion-card-subtitle>
-      Insira seus dados abaixo para realizar o cadastro.
-    </ion-card-subtitle>
-  </ion-card>
-
-  <ion-card *ngSwitchCase="'pj'" class="ion-padding">
-    <form [formGroup]="formGroupPj" (ngSubmit)="onSubmitPj()" color="light">
-      <ion-item>
-        <ion-label position="floating" color="primary" style="font-size: 16px;">
-          <b>Nome</b>
-        </ion-label>
-        <ion-input
-        formControlName="nome"
-        required
-        type="text"
-        placeholder="Digite seu nome"
-        ></ion-input>
-      </ion-item>
-      <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.nome.errors?.required">
-        <ion-text color="danger">
-          O nome é requerido.
-        </ion-text>
-      </span>
-      <span class="ion-padding" color="danger" *ngIf="isSubmittedPj && errorControlPj.nome.errors?.minlength">
-        O nome deve conter ao menos 4 caracteres.
-      </span>
-      <span class="ion-padding" color="danger" *ngIf="isSubmittedPj && errorControlPj.nome.errors?.maxlength">
-        O nome deve conter no máximo 60 caracteres.
-      </span>
-
-      <ion-item>
-        <ion-label position="floating" color="primary" style="font-size: 16px;">
-        <b>CPF</b></ion-label>
-        <ion-input
-        required
-        placeholder="Insira seu CPF"
-        formControlName="cpf"
-        ></ion-input>
-      </ion-item>
-      <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.cpf.errors?.required">
-        <ion-text color="danger">
-          O campo CPF é requerido.
-        </ion-text>
-      </span>
-      <span class="ion-padding" color="danger" *ngIf="isSubmittedPj && errorControlPj.cpf.errors?.maxlength">
-        O CPF deve conter no máximo 11 caracteres.
-      </span>
-
-
-      <ion-item>
-        <ion-label position="floating" color="primary" style="font-size: 16px;">
-        <b>Telefone</b></ion-label>
-        <ion-input
-        required
-        placeholder="Insira um telefone para contato"
-        formControlName="telefone"
-        ></ion-input>
-      </ion-item>
-      <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.telefone.errors?.required">
-        <ion-text color="danger">
-          O campo telefone é requerido.
-        </ion-text>
-      </span>
-      <span class="ion-padding" color="danger" *ngIf="isSubmittedPj && errorControlPj.telefone.errors?.minlength">
-        O telefone deve conter no mínimo 3 caracteres.
-      </span>
-
-      <span class="ion-padding" color="danger" *ngIf="isSubmittedPj && errorControlPj.telefone.errors?.maxlength">
-        O telefone deve conter no máximo 11 caracteres.
-      </span>
-
-
-      <ion-item>
-        <ion-label position="floating" color="primary" style="font-size: 16px;">
-        <b>CNPJ</b></ion-label>
-        <ion-input
-        required
-        placeholder="Insira o CNPJ apenas com números"
-        formControlName="cnpj"
-        ></ion-input>
-      </ion-item>
-      <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.cnpj.errors?.required">
-        <ion-text color="danger">
-          O campo CNPJ é requerido.
-        </ion-text>
-      </span>
-      <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.cnpj.errors?.minlength">
-        <ion-text>
-          O campo CNPJ deve conter no máximo 14 caracteres.
-        </ion-text>
-      </span>
-
-      
-
-      <ion-item>
-        <ion-label position="floating" color="primary" style="font-size: 16px;">
-        <b>Razão Social</b></ion-label>
-        <ion-input
-        required
-        placeholder="Insira sua Razão Social"
-        formControlName="razaoSocial"
-        ></ion-input>
-      </ion-item>
-      <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.razaoSocial.errors?.required">
-        <ion-text color="danger">
-          O campo Razão Social é requerido.
-        </ion-text>
-      </span>
-      <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.razaoSocial.errors?.minlength">
-        <ion-text>
-          O campo Razão Social deve conter no mínimo 4 caracteres.
-        </ion-text>
-      </span>
-      <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.razaoSocial.errors?.maxlength">
-        <ion-text>
-          O campo Razão Social deve conter no máximo 30 caracteres.
-        </ion-text>
-      </span>
-
-
-      <ion-item>
-        <ion-label position="floating" color="primary" style="font-size: 16px;">
-        <b>Email</b></ion-label>
-        <ion-input
-        required
-        placeholder="Insira um email para contato"
-        formControlName="email"
-        ></ion-input>
-      </ion-item>
-      <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.email.errors?.required">
-        <ion-text color="danger">
-          O campo email é requerido.
-        </ion-text>
-      </span>
-      <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.email.errors?.minlength">
-        <ion-text>
-          O campo email deve conter no mínimo 6 caracteres.
-        </ion-text>
-      </span>
-      <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.email.errors?.maxlength">
-        <ion-text>
-          O campo email deve conter no máximo 32 caracteres.
-        </ion-text>
-      </span>
-      <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.email.errors?.email">
-        <ion-text>
-          O campo email deve ser um email válido.
-        </ion-text>
-      </span>
-
-      <ion-item>
-        <ion-label position="floating" color="primary" style="font-size: 16px;">
-        <b>Senha</b></ion-label>
-        <ion-input
-        type="password"
-        required
-        placeholder="Insira uma senha"
-        formControlName="senha"
-        ></ion-input>
-      </ion-item>
-      <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.senha.errors?.required">
-        <ion-text color="danger">
-          O campo senha é requerido.
-        </ion-text>
-      </span>
-      <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.senha.errors?.minlength">
-        <ion-text>
-          O campo senha deve conter no mínimo 4 caracteres.
-        </ion-text>
-      </span>
-
+      <ion-card-title>
+        Cadastro de pessoa jurídica.
+      </ion-card-title>
       <br>
-      <ion-button id="open-modalPj" expand="block">Prosseguir</ion-button>
-  <ion-modal trigger="open-modalPj">
-    <ng-template>
-      <ion-header>
-        <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-button (click)="cancel()">Cancelar</ion-button>
-          </ion-buttons>
-          <ion-title>Dados de endereço</ion-title>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content class="ion-padding">
-        <ion-card>
+      <ion-card-subtitle>
+        Insira seus dados abaixo para realizar o cadastro.
+      </ion-card-subtitle>
+    </ion-card>
+
+    <ion-card *ngSwitchCase="'pj'" class="ion-padding">
+      <form [formGroup]="formGroupPj" (ngSubmit)="onSubmitPj()" color="light">
         <ion-item>
           <ion-label position="floating" color="primary" style="font-size: 16px;">
-          <b>CEP</b></ion-label>
-          <ion-input
-          required
-          placeholder="Insira seu CEP(apenas números)"
-          formControlName="cep"
-          ></ion-input>
+            <b>Nome</b>
+          </ion-label>
+          <ion-input formControlName="nome" required type="text" placeholder="Digite seu nome"></ion-input>
         </ion-item>
-        <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.cep.errors?.required">
+        <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.nome.errors?.required">
           <ion-text color="danger">
-            O campo CEP é requerido.
+            O nome é requerido.
           </ion-text>
         </span>
-        <span class="ion-padding" color="danger" *ngIf="isSubmittedPj && errorControlPj.cep.errors?.minlength">
-          O CEP deve conter ao menos 2 caracteres.
+        <span class="ion-padding" color="danger" *ngIf="isSubmittedPj && errorControlPj.nome.errors?.minlength">
+          O nome deve conter ao menos 4 caracteres.
         </span>
-        <span class="ion-padding" color="danger" *ngIf="isSubmittedPj && errorControlPj.cep.errors?.maxlength">
-          O CEP deve conter no máximo 8 caracteres.
+        <span class="ion-padding" color="danger" *ngIf="isSubmittedPj && errorControlPj.nome.errors?.maxlength">
+          O nome deve conter no máximo 60 caracteres.
         </span>
 
-  
         <ion-item>
           <ion-label position="floating" color="primary" style="font-size: 16px;">
-          <b>Logradouro</b></ion-label>
-          <ion-input
-          required
-          placeholder="Logradouro"
-          formControlName="logradouro"
-          ></ion-input>
+            <b>CPF</b>
+          </ion-label>
+          <ion-input required placeholder="Insira seu CPF" formControlName="cpf"></ion-input>
         </ion-item>
-        <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.logradouro.errors?.required">
+        <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.cpf.errors?.required">
           <ion-text color="danger">
-            O campo logradouro é requerido.
+            O campo CPF é requerido.
           </ion-text>
         </span>
-        <span class="ion-padding" color="danger" *ngIf="isSubmittedPj && errorControlPj.logradouro.errors?.minlength">
-          O logradouro deve conter ao menos 4 caracteres.
-        </span>
-        <span class="ion-padding" color="danger" *ngIf="isSubmittedPj && errorControlPj.logradouro.errors?.maxlength">
-          O logradouro deve conter no máximo 30 caracteres.
-        </span>
-  
-        <ion-item>
-          <ion-label position="floating" color="primary" style="font-size: 16px;">
-          <b>Número</b></ion-label>
-          <ion-input
-          required
-          placeholder="Número"
-          formControlName="numero"
-          ></ion-input>
-        </ion-item>
-        <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.numero.errors?.required">
-          <ion-text color="danger">
-            O campo número é requerido.
-          </ion-text>
-        </span>
-        <span class="ion-padding" color="danger" *ngIf="isSubmittedPj && errorControlPj.numero.errors?.minlength">
-          O número deve conter ao menos 1 caracterer.
-        </span>
-        <span class="ion-padding" color="danger" *ngIf="isSubmittedPj && errorControlPj.numero.errors?.maxlength">
-          O número deve conter no máximo 5 caracteres.
+        <span class="ion-padding" color="danger" *ngIf="isSubmittedPj && errorControlPj.cpf.errors?.maxlength">
+          O CPF deve conter no máximo 11 caracteres.
         </span>
 
-        
+
         <ion-item>
           <ion-label position="floating" color="primary" style="font-size: 16px;">
-          <b>Complemento</b></ion-label>
-          <ion-input
-          placeholder="Complemento"
-          formControlName="complemento"
-          ></ion-input>
+            <b>Telefone</b>
+          </ion-label>
+          <ion-input required placeholder="Insira um telefone para contato" formControlName="telefone"></ion-input>
         </ion-item>
-        <span class="ion-padding" color="danger" *ngIf="isSubmittedPj && errorControlPj.complemento.errors?.minlength">
-          O complemento deve conter ao menos 4 caracteres.
+        <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.telefone.errors?.required">
+          <ion-text color="danger">
+            O campo telefone é requerido.
+          </ion-text>
         </span>
-        <span class="ion-padding" color="danger" *ngIf="isSubmittedPj && errorControlPj.complemento.errors?.maxlength">
-          O complemento deve conter no máximo 30 caracteres.
+        <span class="ion-padding" color="danger" *ngIf="isSubmittedPj && errorControlPj.telefone.errors?.minlength">
+          O telefone deve conter no mínimo 3 caracteres.
         </span>
 
-  
-        <ion-item>
-          <ion-label position="floating" color="primary" style="font-size: 16px;">
-          <b>Bairro</b></ion-label>
-          <ion-input
-          required
-          placeholder="Bairro"
-          formControlName="bairro"
-          ></ion-input>
-        </ion-item>
-        <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.bairro.errors?.required">
-          <ion-text color="danger">
-            O campo bairro é requerido.
-          </ion-text>
-        </span>
-        <span class="ion-padding" color="danger" *ngIf="isSubmittedPj && errorControlPj.bairro.errors?.minlength">
-          O bairro deve conter ao menos 4 caracteres.
-        </span>
-        <span class="ion-padding" color="danger" *ngIf="isSubmittedPj && errorControlPj.bairro.errors?.maxlength">
-          O bairro deve conter no máximo 30 caracteres.
-        </span>
-        
-  
-        <ion-item>
-          <ion-label position="floating" color="primary" style="font-size: 16px;">
-          <b>Cidade</b></ion-label>
-          <ion-input
-          required
-          placeholder="Cidade"
-          formControlName="cidade"
-          ></ion-input>
-        </ion-item>
-        <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.cidade.errors?.required">
-          <ion-text color="danger">
-            O campo cidade é requerido.
-          </ion-text>
-        </span>
-        <span class="ion-padding" color="danger" *ngIf="isSubmittedPj && errorControlPj.cidade.errors?.minlength">
-          A cidade deve conter ao menos 4 caracteres.
-        </span>
-        <span class="ion-padding" color="danger" *ngIf="isSubmittedPj && errorControlPj.cidade.errors?.maxlength">
-          A cidade deve conter no máximo 30 caracteres.
+        <span class="ion-padding" color="danger" *ngIf="isSubmittedPj && errorControlPj.telefone.errors?.maxlength">
+          O telefone deve conter no máximo 11 caracteres.
         </span>
 
-  
+
         <ion-item>
-          <ion-select interface="action-sheet" placeholder="Selecione um estado" formControlName="estado">
-            <ion-select-option *ngFor="let estado of estados" value="{{estado}}">
-              {{estado}}
-            </ion-select-option>
-          </ion-select>
+          <ion-label position="floating" color="primary" style="font-size: 16px;">
+            <b>CNPJ</b>
+          </ion-label>
+          <ion-input required placeholder="Insira o CNPJ apenas com números" formControlName="cnpj"></ion-input>
         </ion-item>
-        <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.estado.errors?.required">
+        <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.cnpj.errors?.required">
           <ion-text color="danger">
-            O campo estado é requerido.
+            O campo CNPJ é requerido.
           </ion-text>
-          </span>  
-          
-  
-        <ion-card color="warning" class="ion-padding">
-  
-          <div style="display: flex; justify-content:center">
-            <ion-icon name="information-circle-sharp" style="font-size: 2rem;"></ion-icon>
-            </div>
-            <br>
-          Ao clicar em cadastrar, você <b>concorda</b> com os <b>termos de uso e política de privacidade.</b>
-        </ion-card>
+        </span>
+        <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.cnpj.errors?.minlength">
+          <ion-text>
+            O campo CNPJ deve conter no máximo 14 caracteres.
+          </ion-text>
+        </span>
+
+
+
+        <ion-item>
+          <ion-label position="floating" color="primary" style="font-size: 16px;">
+            <b>Razão Social</b>
+          </ion-label>
+          <ion-input required placeholder="Insira sua Razão Social" formControlName="razaoSocial"></ion-input>
+        </ion-item>
+        <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.razaoSocial.errors?.required">
+          <ion-text color="danger">
+            O campo Razão Social é requerido.
+          </ion-text>
+        </span>
+        <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.razaoSocial.errors?.minlength">
+          <ion-text>
+            O campo Razão Social deve conter no mínimo 4 caracteres.
+          </ion-text>
+        </span>
+        <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.razaoSocial.errors?.maxlength">
+          <ion-text>
+            O campo Razão Social deve conter no máximo 30 caracteres.
+          </ion-text>
+        </span>
+
+
+        <ion-item>
+          <ion-label position="floating" color="primary" style="font-size: 16px;">
+            <b>Email</b>
+          </ion-label>
+          <ion-input required placeholder="Insira um email para contato" formControlName="email"></ion-input>
+        </ion-item>
+        <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.email.errors?.required">
+          <ion-text color="danger">
+            O campo email é requerido.
+          </ion-text>
+        </span>
+        <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.email.errors?.minlength">
+          <ion-text>
+            O campo email deve conter no mínimo 6 caracteres.
+          </ion-text>
+        </span>
+        <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.email.errors?.maxlength">
+          <ion-text>
+            O campo email deve conter no máximo 32 caracteres.
+          </ion-text>
+        </span>
+        <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.email.errors?.email">
+          <ion-text>
+            O campo email deve ser um email válido.
+          </ion-text>
+        </span>
+
+        <ion-item>
+          <ion-label position="floating" color="primary" style="font-size: 16px;">
+            <b>Senha</b>
+          </ion-label>
+          <ion-input type="password" required placeholder="Insira uma senha" formControlName="senha"></ion-input>
+        </ion-item>
+        <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.senha.errors?.required">
+          <ion-text color="danger">
+            O campo senha é requerido.
+          </ion-text>
+        </span>
+        <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.senha.errors?.minlength">
+          <ion-text>
+            O campo senha deve conter no mínimo 4 caracteres.
+          </ion-text>
+        </span>
+
         <br>
-      </ion-card>
-      <ion-button expand="block" class="btn" id="btn-login" type="submit" (click)="onSubmitPj()"color="success">
-        <b>Cadastrar</b>
-      </ion-button>
-      </ion-content>
-    </ng-template>
-  </ion-modal>
-    </form>
-  </ion-card>
-</div>
+        <ion-button id="open-modalPj" expand="block">Prosseguir</ion-button>
+        <ion-modal trigger="open-modalPj">
+          <ng-template>
+            <ion-header>
+              <ion-toolbar>
+                <ion-buttons slot="start">
+                  <ion-button (click)="cancel()">Cancelar</ion-button>
+                </ion-buttons>
+                <ion-title>Dados de endereço</ion-title>
+              </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding">
+              <ion-card>
+                <ion-item>
+                  <ion-label position="floating" color="primary" style="font-size: 16px;">
+                    <b>CEP</b>
+                  </ion-label>
+                  <ion-input required placeholder="Insira seu CEP(apenas números)" formControlName="cep"></ion-input>
+                </ion-item>
+                <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.cep.errors?.required">
+                  <ion-text color="danger">
+                    O campo CEP é requerido.
+                  </ion-text>
+                </span>
+                <span class="ion-padding" color="danger" *ngIf="isSubmittedPj && errorControlPj.cep.errors?.minlength">
+                  O CEP deve conter ao menos 2 caracteres.
+                </span>
+                <span class="ion-padding" color="danger" *ngIf="isSubmittedPj && errorControlPj.cep.errors?.maxlength">
+                  O CEP deve conter no máximo 8 caracteres.
+                </span>
+
+
+                <ion-item>
+                  <ion-label position="floating" color="primary" style="font-size: 16px;">
+                    <b>Logradouro</b>
+                  </ion-label>
+                  <ion-input required placeholder="Logradouro" formControlName="logradouro"></ion-input>
+                </ion-item>
+                <span class="ion-padding text-danger"
+                  *ngIf="isSubmittedPj && errorControlPj.logradouro.errors?.required">
+                  <ion-text color="danger">
+                    O campo logradouro é requerido.
+                  </ion-text>
+                </span>
+                <span class="ion-padding" color="danger"
+                  *ngIf="isSubmittedPj && errorControlPj.logradouro.errors?.minlength">
+                  O logradouro deve conter ao menos 4 caracteres.
+                </span>
+                <span class="ion-padding" color="danger"
+                  *ngIf="isSubmittedPj && errorControlPj.logradouro.errors?.maxlength">
+                  O logradouro deve conter no máximo 30 caracteres.
+                </span>
+
+                <ion-item>
+                  <ion-label position="floating" color="primary" style="font-size: 16px;">
+                    <b>Número</b>
+                  </ion-label>
+                  <ion-input required placeholder="Número" formControlName="numero"></ion-input>
+                </ion-item>
+                <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.numero.errors?.required">
+                  <ion-text color="danger">
+                    O campo número é requerido.
+                  </ion-text>
+                </span>
+                <span class="ion-padding" color="danger"
+                  *ngIf="isSubmittedPj && errorControlPj.numero.errors?.minlength">
+                  O número deve conter ao menos 1 caracterer.
+                </span>
+                <span class="ion-padding" color="danger"
+                  *ngIf="isSubmittedPj && errorControlPj.numero.errors?.maxlength">
+                  O número deve conter no máximo 5 caracteres.
+                </span>
+
+
+                <ion-item>
+                  <ion-label position="floating" color="primary" style="font-size: 16px;">
+                    <b>Complemento</b>
+                  </ion-label>
+                  <ion-input placeholder="Complemento" formControlName="complemento"></ion-input>
+                </ion-item>
+                <span class="ion-padding" color="danger"
+                  *ngIf="isSubmittedPj && errorControlPj.complemento.errors?.minlength">
+                  O complemento deve conter ao menos 4 caracteres.
+                </span>
+                <span class="ion-padding" color="danger"
+                  *ngIf="isSubmittedPj && errorControlPj.complemento.errors?.maxlength">
+                  O complemento deve conter no máximo 30 caracteres.
+                </span>
+
+
+                <ion-item>
+                  <ion-label position="floating" color="primary" style="font-size: 16px;">
+                    <b>Bairro</b>
+                  </ion-label>
+                  <ion-input required placeholder="Bairro" formControlName="bairro"></ion-input>
+                </ion-item>
+                <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.bairro.errors?.required">
+                  <ion-text color="danger">
+                    O campo bairro é requerido.
+                  </ion-text>
+                </span>
+                <span class="ion-padding" color="danger"
+                  *ngIf="isSubmittedPj && errorControlPj.bairro.errors?.minlength">
+                  O bairro deve conter ao menos 4 caracteres.
+                </span>
+                <span class="ion-padding" color="danger"
+                  *ngIf="isSubmittedPj && errorControlPj.bairro.errors?.maxlength">
+                  O bairro deve conter no máximo 30 caracteres.
+                </span>
+
+
+                <ion-item>
+                  <ion-label position="floating" color="primary" style="font-size: 16px;">
+                    <b>Cidade</b>
+                  </ion-label>
+                  <ion-input required placeholder="Cidade" formControlName="cidade"></ion-input>
+                </ion-item>
+                <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.cidade.errors?.required">
+                  <ion-text color="danger">
+                    O campo cidade é requerido.
+                  </ion-text>
+                </span>
+                <span class="ion-padding" color="danger"
+                  *ngIf="isSubmittedPj && errorControlPj.cidade.errors?.minlength">
+                  A cidade deve conter ao menos 4 caracteres.
+                </span>
+                <span class="ion-padding" color="danger"
+                  *ngIf="isSubmittedPj && errorControlPj.cidade.errors?.maxlength">
+                  A cidade deve conter no máximo 30 caracteres.
+                </span>
+
+
+                <ion-item>
+                  <ion-select interface="action-sheet" placeholder="Selecione um estado" formControlName="estado">
+                    <ion-select-option *ngFor="let estado of estados" value="{{estado}}">
+                      {{estado}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <span class="ion-padding text-danger" *ngIf="isSubmittedPj && errorControlPj.estado.errors?.required">
+                  <ion-text color="danger">
+                    O campo estado é requerido.
+                  </ion-text>
+                </span>
+
+
+                <ion-card color="warning" class="ion-padding">
+
+                  <div style="display: flex; justify-content:center">
+                    <ion-icon name="information-circle-sharp" style="font-size: 2rem;"></ion-icon>
+                  </div>
+                  <br>
+                  Ao clicar em cadastrar, você <b>concorda</b> com os <b>termos de uso e política de privacidade.</b>
+                </ion-card>
+                <br>
+              </ion-card>
+              <ion-button expand="block" class="btn" id="btn-login" type="submit" (click)="onSubmitPj()"
+                color="success">
+                <b>Cadastrar</b>
+              </ion-button>
+            </ion-content>
+          </ng-template>
+        </ion-modal>
+      </form>
+    </ion-card>
+  </div>
 
 </ion-content>

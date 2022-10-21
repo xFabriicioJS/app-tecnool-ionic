@@ -13,7 +13,7 @@ import { GetUserTypeService } from '../services/get-user-type.service';
 export class Tab1Page {
 
   chamados: any = [];
-  cardNenhumChamado = false;
+  cardNenhumChamado: boolean = false;
   tipoPesquisa: string = '';
   valorTitulo: string = '';
   valorDescricao: string = '';
@@ -21,6 +21,8 @@ export class Tab1Page {
   termoPesquisado: string = '';
   tipoUsuarioLogado: string =  '';
   idCurrentUser: number = 0;
+  numChamadosAbertos: number = 0;
+  numChamadosFinalizados: number = 0;
 
   constructor(
     private router: Router,
@@ -61,11 +63,8 @@ export class Tab1Page {
     else{
       //método para ser utilizado quando o usuário for cliente
       this.buscarChamadosPorCliente();
+
     }
-
-
-
-
   }
 
 
@@ -85,7 +84,18 @@ export class Tab1Page {
         {
           text: 'Informações do chamado',
           handler:  () => {
-            this.navigateInformacoesChamado(chamado.id_chamado, chamado.titulo, chamado.descricao, chamado.data_abertura, chamado.data_limite, chamado.data_finalizacao, chamado.status, chamado.foto_erro, chamado.local_atend, chamado.protocolo);
+
+            //Verificamos primeiro, se o chamado em questão possui uma foto, caso não possua, passaremo o valor null para a variável, evitando assim que o app quebre
+            
+            let fotoChamado;
+            if(chamado.foto_erro == ''){
+              fotoChamado = 'null';
+            }else{
+              fotoChamado = chamado.foto_erro;
+            }
+
+
+            this.navigateInformacoesChamado(chamado.id_chamado, chamado.titulo, chamado.descricao, chamado.data_abertura, chamado.data_limite, chamado.data_finalizacao, chamado.status, fotoChamado, chamado.local_atend, chamado.protocolo);
           }
         },
         {
@@ -105,6 +115,8 @@ buscarChamadosAbertos(){
 
 }
 
+
+
 buscarTodosOsChamados(){
 
   let bodyRequest = {
@@ -121,7 +133,7 @@ buscarTodosOsChamados(){
           this.chamados.push(chamado[0]);
         })
       }else if(data['result'] == '0'){
-        this.cardNenhumChamado == true;
+        this.cardNenhumChamado = true;
       }
     })
   })
@@ -153,9 +165,18 @@ buscarChamadosPorCliente(){
       if(data['success'] == true){
         data['result'].map((chamado)=> {
           this.chamados.push(chamado[0]);
+
+          //Calculando o número de chamados abertos
+          this.numChamadosAbertos = this.chamados.filter((chamado) => chamado.status !== 'Finalizado').length;
+          
+          //Calculando o número de chamados finalizados
+          this.numChamadosFinalizados = this.chamados.filter((chamado) => chamado.status == 'Finalizado').length;
         })
+      }else if(data['success'] == false){
+        this.cardNenhumChamado = true;
+      
       }else{
-        this.cardNenhumChamado == true;
+        console.log('erro');
       }
     })
   });

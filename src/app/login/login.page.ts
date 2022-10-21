@@ -100,4 +100,8 @@ export class LoginPage implements OnInit {
     toast.present();
   }
 
+  navigateCadastro(){
+    this.router.navigate(['/cadastro-cliente']);
+  }
+
 }

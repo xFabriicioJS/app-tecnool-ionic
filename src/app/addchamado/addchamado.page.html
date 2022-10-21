@@ -40,14 +40,14 @@
         O título do chamado deve conter no máximo 32 caracteres.
       </span>
       <ion-item>
-        <ion-label position="floating" color="primary">Descrição</ion-label>
-        <ion-input
+        <ion-textarea rows="6" cols="20"
           [clearInput]
           formControlName="descriChamado"
           required="true"
           type="text"
           placeholder="Insira uma descrição"
-        ></ion-input>
+          color="primary"
+        ></ion-textarea>
       </ion-item>
       <span class="error ion-padding" color="danger" *ngIf="isSubmitted && errorControl.descriChamado.errors?.required">
         O titulo do chamado é requerido.
@@ -97,5 +97,6 @@
       </ion-card>
     </ion-list>
   </form>
+
 
 </ion-content>

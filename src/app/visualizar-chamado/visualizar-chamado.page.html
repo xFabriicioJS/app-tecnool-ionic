@@ -79,7 +79,8 @@
 <ion-card class="ion-padding">
   <ion-card-subtitle>Imagem anexada:</ion-card-subtitle>
   <ion-card-content>
-    <ion-img src="{{foto_erro_chamado}}"></ion-img>
+    <ion-img *ngIf="foto_erro_chamado" src="{{foto_erro_chamado}}"></ion-img>
+    <ion-text *ngIf="!foto_erro_chamado">Nenhuma imagem foi anexada.</ion-text>
   </ion-card-content>
 </ion-card>
 

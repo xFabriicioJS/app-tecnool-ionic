@@ -49,6 +49,7 @@ export class CadastroClientePage implements OnInit {
   isSubmittedPf: boolean = false;
   isSubmittedPj: boolean = false;
   formGroupPj: FormGroup;
+  tipoConta: string = 'pf';
 
   constructor(
     private router: Router,
@@ -94,9 +95,8 @@ export class CadastroClientePage implements OnInit {
       ],
       senha: [
         '',
-        
+
         Validators.compose([
-           
           Validators.minLength(4),
           Validators.maxLength(255),
           Validators.required,
@@ -129,11 +129,7 @@ export class CadastroClientePage implements OnInit {
       ],
       complemento: [
         '',
-        Validators.compose([
-          Validators.minLength(4),
-          Validators.maxLength(30),
-          
-        ]),
+        Validators.compose([Validators.minLength(4), Validators.maxLength(30)]),
       ],
       bairro: [
         '',
@@ -164,61 +160,61 @@ export class CadastroClientePage implements OnInit {
       nome: [
         '',
         Validators.compose([
-        Validators.minLength(4),
-        Validators.maxLength(60),
-        Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(60),
+          Validators.required,
         ]),
       ],
       cpf: [
         '',
         Validators.compose([
-        Validators.minLength(1),
-        Validators.maxLength(11),
-        Validators.pattern('[0-9]*'),
-        Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(11),
+          Validators.pattern('[0-9]*'),
+          Validators.required,
         ]),
       ],
       telefone: [
         '',
         Validators.compose([
-        Validators.minLength(3),
-        Validators.maxLength(14),
-        Validators.pattern('[0-9]*'),
-        Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(14),
+          Validators.pattern('[0-9]*'),
+          Validators.required,
         ]),
       ],
       cnpj: [
         '',
         Validators.compose([
-        Validators.minLength(1),
-        Validators.maxLength(14),
-        Validators.pattern('[0-9]*'),
-        Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(14),
+          Validators.pattern('[0-9]*'),
+          Validators.required,
         ]),
       ],
       razaoSocial: [
         '',
         Validators.compose([
-        Validators.minLength(4),
-        Validators.maxLength(30),
-        Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(30),
+          Validators.required,
         ]),
       ],
       email: [
         '',
         Validators.compose([
-        Validators.minLength(6),
-        Validators.maxLength(32),
-        Validators.email,
-        Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(32),
+          Validators.email,
+          Validators.required,
         ]),
       ],
       senha: [
         '',
         Validators.compose([
-        Validators.minLength(4),
-        Validators.maxLength(255),
-        Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(255),
+          Validators.required,
         ]),
       ],
       cep: [
@@ -248,11 +244,7 @@ export class CadastroClientePage implements OnInit {
       ],
       complemento: [
         '',
-        Validators.compose([
-          Validators.minLength(4),
-          Validators.maxLength(30),
-          
-        ]),
+        Validators.compose([Validators.minLength(4), Validators.maxLength(30)]),
       ],
       bairro: [
         '',
@@ -291,150 +283,137 @@ export class CadastroClientePage implements OnInit {
     return this.formGroupPj.controls;
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {}
 
-  }
-
-  onSubmitPj(){
-    console.log('teste');
+  onSubmitPj() {
     this.isSubmittedPj = true;
-    if(!this.formGroupPj.valid){
-
+    if (!this.formGroupPj.valid) {
       this.presentToast('Preencha todos os campos corretamente', 'danger');
       this.cancel();
       //irá cortar a função e não irá executar o código abaixo
       return false;
     }
-    
 
-     //Primeiro precisamos fazer uma requisição para o endpoint dos clientes, e desse jeito recuperar o id do cliente criado no BD e passa-lo na requisição do endereço
+    //Primeiro precisamos fazer uma requisição para o endpoint dos clientes, e desse jeito recuperar o id do cliente criado no BD e passa-lo na requisição do endereço
 
-     let bodyRequestClientePj = {
-      "requisicao": "add",
-      "nome": this.formGroupPj.value.nome,
-      "cpf": this.formGroupPj.value.cpf,
-      "telefone": this.formGroupPj.value.telefone,
-      "cnpj": this.formGroupPj.value.cnpj,
-      "razaoSocial": this.formGroupPj.value.razaoSocial,
-      "idTipo": 2,
-      "email": this.formGroupPj.value.email,
-      "senha": this.formGroupPj.value.senha
-     }
-
+    let bodyRequestClientePj = {
+      requisicao: 'add',
+      nome: this.formGroupPj.value.nome,
+      cpf: this.formGroupPj.value.cpf,
+      telefone: this.formGroupPj.value.telefone,
+      cnpj: this.formGroupPj.value.cnpj,
+      razaoSocial: this.formGroupPj.value.razaoSocial,
+      idTipo: 2,
+      email: this.formGroupPj.value.email,
+      senha: this.formGroupPj.value.senha,
+    };
 
     //Primeira Requisição - Endpoint Clientes
-    this.apiService.apiPHP('controller-clientes.php',bodyRequestClientePj).subscribe((data)=>{
-      if(data['success'] == true){
-        //Segunda Requisição - Endpoint Endereços
-        let bodyRequestEndereco = {
-          requisicao: "add",
-          cep: this.formGroupPj.value.cep,
-          logradouro_endereco: this.formGroupPj.value.logradouro,
-          num_endereco: this.formGroupPj.value.numero,
-          complemento_endereco: this.formGroupPj.value.complemento,
-          bairro_endereco: this.formGroupPj.value.bairro,
-          cidade_endereco: this.formGroupPj.value.cidade,
-          estado_endereco: this.formGroupPj.value.estado,
-          id_cliente_endereco: data['id'],
+    this.apiService
+      .apiPHP('controller-clientes.php', bodyRequestClientePj)
+      .subscribe((data) => {
+        if (data['success'] == true) {
+          //Segunda Requisição - Endpoint Endereços
+          let bodyRequestEndereco = {
+            requisicao: 'add',
+            cep: this.formGroupPj.value.cep,
+            logradouro_endereco: this.formGroupPj.value.logradouro,
+            num_endereco: this.formGroupPj.value.numero,
+            complemento_endereco: this.formGroupPj.value.complemento,
+            bairro_endereco: this.formGroupPj.value.bairro,
+            cidade_endereco: this.formGroupPj.value.cidade,
+            estado_endereco: this.formGroupPj.value.estado,
+            id_cliente_endereco: data['id'],
+          };
+
+          this.apiService
+            .apiPHP('controller-enderecos.php', bodyRequestEndereco)
+            .subscribe((data) => {
+              if (data['success'] == true) {
+                this.presentToast('Cadastro realizado com sucesso', 'success');
+                this.cancel();
+
+                this.router.navigate(['/login']);
+              } else {
+                this.presentToast('Erro ao cadastrar endereço', 'danger');
+              }
+            });
+        } else {
+          this.presentToast('Erro ao cadastrar cliente', 'danger');
         }
-        console.log(bodyRequestEndereco);
-        this.apiService.apiPHP('controller-enderecos.php',bodyRequestEndereco).subscribe((data) => {
-          if(data['success'] == true){
-            this.presentToast("Cadastro realizado com sucesso", "success");
-            this.cancel();
+      });
+  }
 
-            this.router.navigate(['/login']);
-          }else{
-            
-            this.presentToast("Erro ao cadastrar endereço", "danger");
-          }
-        })
-      }else{
-        this.presentToast("Erro ao cadastrar cliente", "danger");
-      }
-      	
-    });
+  cancel() {
+    this.modal.dismiss(null, 'cancel');
+  }
 
-    }
+  confirm() {
+    this.modal.dismiss(this.name, 'confirm');
+  }
 
-    cancel() {
-      this.modal.dismiss(null, 'cancel');
-    }
-  
-    confirm() {
-      this.modal.dismiss(this.name, 'confirm');
-    }
-
-
-  onSubmitPf(){
-    console.log('teste');
+  onSubmitPf() {
     this.isSubmittedPf = true;
-    console.log(this.formGroupPf.value);
-    if(!this.formGroupPf.valid){
-      this.presentToast("Preencha todos os campos corretamente", "danger");
+    if (!this.formGroupPf.valid) {
+      this.presentToast('Preencha todos os campos corretamente', 'danger');
       this.cancel();
       //irá cortar a função e não irá executar o código abaixo
       return false;
     }
 
-    
-   
-
     //Primeiro precisamos fazer uma requisição para o endpoint dos clientes, e desse jeito recuperar o id do cliente criado no BD e passa-lo na requisição do endereço
     let bodyRequestCliente = {
-      requisicao: "add",
+      requisicao: 'add',
       nome: this.formGroupPf.value.nome,
       cpf: this.formGroupPf.value.cpf,
       telefone: this.formGroupPf.value.telefone,
-      cnpj: "",
-      razaoSocial: "",
+      cnpj: '',
+      razaoSocial: '',
       idTipo: 1,
       email: this.formGroupPf.value.email,
       senha: this.formGroupPf.value.senha,
-    }
+    };
 
-    console.log(bodyRequestCliente);
     //Primeira Requisição - Endpoint Clientes
-    this.apiService.apiPHP('controller-clientes.php',bodyRequestCliente).subscribe((data) => {
-      if(data['success'] == true){
-        //Segunda Requisição - Endpoint Endereços
-        let bodyRequestEndereco = {
-          requisicao: "add",
-          cep: this.formGroupPf.value.cep,
-          logradouro_endereco: this.formGroupPf.value.logradouro,
-          num_endereco: this.formGroupPf.value.numero,
-          complemento_endereco: this.formGroupPf.value.complemento,
-          bairro_endereco: this.formGroupPf.value.bairro,
-          cidade_endereco: this.formGroupPf.value.cidade,
-          estado_endereco: this.formGroupPf.value.estado,
-          id_cliente_endereco: data['id'],
+    this.apiService
+      .apiPHP('controller-clientes.php', bodyRequestCliente)
+      .subscribe((data) => {
+        if (data['success'] == true) {
+          //Segunda Requisição - Endpoint Endereços
+          let bodyRequestEndereco = {
+            requisicao: 'add',
+            cep: this.formGroupPf.value.cep,
+            logradouro_endereco: this.formGroupPf.value.logradouro,
+            num_endereco: this.formGroupPf.value.numero,
+            complemento_endereco: this.formGroupPf.value.complemento,
+            bairro_endereco: this.formGroupPf.value.bairro,
+            cidade_endereco: this.formGroupPf.value.cidade,
+            estado_endereco: this.formGroupPf.value.estado,
+            id_cliente_endereco: data['id'],
+          };
+          this.apiService
+            .apiPHP('controller-enderecos.php', bodyRequestEndereco)
+            .subscribe((data) => {
+              if (data['success'] == true) {
+                this.presentToast('Cadastro realizado com sucesso', 'success');
+                this.cancel();
+                this.router.navigate(['/login']);
+              } else {
+                this.presentToast('Erro ao cadastrar endereço', 'danger');
+              }
+            });
+        } else {
+          this.presentToast('Erro ao cadastrar cliente', 'danger');
         }
-        console.log(bodyRequestEndereco);
-        this.apiService.apiPHP('controller-enderecos.php',bodyRequestEndereco).subscribe((data) => {
-          if(data['success'] == true){
-            this.presentToast("Cadastro realizado com sucesso", "success");
-            this.cancel();
-            this.router.navigate(['/login']);
-            
-          }else{
-            console.log(data);
-            this.presentToast("Erro ao cadastrar endereço", "danger");
-          }
-        })
-      }else{
-        this.presentToast("Erro ao cadastrar cliente", "danger");
-      }
-  });
+      });
+  }
 
-}
-
-async presentToast(msg: string, color: string) {
-  const toast = await this.toastController.create({
-    message: msg,
-    duration: 2000,
-    color: color
-  });
-  toast.present();
-}
-
+  async presentToast(msg: string, color: string) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 2000,
+      color: color,
+    });
+    toast.present();
+  }
 }

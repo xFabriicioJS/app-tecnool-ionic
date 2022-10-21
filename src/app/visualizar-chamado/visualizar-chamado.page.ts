@@ -38,6 +38,14 @@ export class VisualizarChamadoPage implements OnInit {
       this.dataFinalizacao = moment(data.dataFinalizacao).format('DD/MM/YYYY HH:mm:ss');
       }
 
+      let caminhoImg;
+      //Verificando se veio uma imagem
+      if(data.foto_erro_chamado == 'null'){
+        caminhoImg = null;
+      }else{
+        caminhoImg = environment.FILE_IMG_PATH + '/' + data.foto_erro_chamado;
+      }
+
 
 
 
@@ -48,7 +56,7 @@ export class VisualizarChamadoPage implements OnInit {
       this.dataLimite = dataLimiteAserConvertida;
       this.dataFinalizacao = data.dataFinalizacao;
       this.statusChamado = data.statusChamado;
-      this.foto_erro_chamado = environment.FILE_IMG_PATH + '/' + data.foto_erro_chamado;
+      this.foto_erro_chamado = caminhoImg;
       this.localAtend = data.localAtend;
       this.protocoloChamado = data.protocoloChamado;
     });

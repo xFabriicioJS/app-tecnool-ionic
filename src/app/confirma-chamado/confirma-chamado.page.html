@@ -20,22 +20,18 @@
     <ion-card-content>
       <ion-text>
         <h2>Título do chamado:</h2>
-        <h4><b>Título do chamado</b></h4>
+        <h4><b>{{tituloChamado}}</b></h4>
       </ion-text>
       <br>
       <ion-text>
         <h2>Data limite para o atendimento do chamado:</h2>
-        <h4><b>31/01/2023</b></h4>
+        <h4><b>{{dataLimite}}</b></h4>
       </ion-text>
       <br/>
-      <ion-text>
-        <h2>Protocolo do chamado:</h2>
-        <h4><b>20210920929743212</b></h4>
-      </ion-text>
       <br/>
       <ion-text>
         <h2>Descrição do chamado</h2>
-        <h4><b>Descrição broubous</b></h4>
+        <h4><b>{{descriChamado}}</b></h4>
       </ion-text>
       <br/>
     </ion-card-content>
@@ -61,12 +57,12 @@
       </div>
       
       <ion-text style="font-size: 18px;">
-        Fique atento ao seu email para possíveis atualizações e cobranças pelo serviço.
+        Fique atento ao seu email para possíveis atualizações sobre o serviço.
       </ion-text>
     </ion-card-content>
   </ion-card>
 
- <ion-button expand="block" fill="outline" (click)="onClick(navigateInicio())">
+ <ion-button expand="block" fill="outline" (click)="navigateInicio()">
   Entendi, voltar ao início.
  </ion-button>
 </ion-content>

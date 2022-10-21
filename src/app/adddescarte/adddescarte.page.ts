@@ -5,6 +5,7 @@ import { ToastController } from '@ionic/angular';
 import formatISO9075 from 'date-fns/formatISO9075';
 import { ApiService } from '../api/api-service';
 import addHours from 'date-fns/addHours';
+import { GetUserTypeService } from '../services/get-user-type.service';
 
 @Component({
   selector: 'app-adddescarte',
@@ -17,7 +18,7 @@ export class AdddescartePage {
   foto_hardware: string = '';
 
   //mudar depois de implementar o sistema de autenticação
-  id_cliente: number = 1;
+  id_cliente: number = 0;
   filePath: string;
   prazo_descarte: string;
 
@@ -25,7 +26,8 @@ export class AdddescartePage {
     public formBuilder: FormBuilder,
     private toastController: ToastController,
     private router: Router,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private getUser: GetUserTypeService
   ) {
     this.formGroup = formBuilder.group({
       avatar: [''],
@@ -47,6 +49,23 @@ export class AdddescartePage {
       ],
       img: [null],
     });
+  }
+
+  ionViewWillEnter(){
+    //verificamos primeiro se o usuário está logado, caso não esteja, redirecionamos para a página de login
+    if (this.getUser.getUserInfo() == null) {
+      this.router.navigate(['/openscreen']);
+    }
+
+    //Verificamos agora o tipo de usuário logado, se ele for cliente faremos uma requisição para listar os descartes apenas do cliente logado
+    if (this.getUser.getUserType() == 'Cliente') {
+      let currentUser = this.getUser.getUserInfo();
+      this.id_cliente = currentUser.id_cliente;
+    } else {
+      //Caso o usuário logado não seja um cliente, redirecionamos para a página de descartes
+      this.router.navigate(['/tabs/tab2']);
+    }
+
   }
 
   //validações do formulário
