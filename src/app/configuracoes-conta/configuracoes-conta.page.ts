@@ -10,6 +10,10 @@ import { AlertController } from '@ionic/angular';
 })
 export class ConfiguracoesContaPage implements OnInit {
 
+  nomeUsuario: string = "";
+  enderecoUsuario: string = "";
+  telefoneContato: string = "";
+
   isModalOpen = false;
     formGroup: FormGroup;
   constructor(
@@ -77,6 +81,8 @@ export class ConfiguracoesContaPage implements OnInit {
 
     await alert.present();
   }
+
+
 
 
 

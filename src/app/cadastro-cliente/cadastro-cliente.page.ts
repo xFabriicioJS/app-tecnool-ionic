@@ -57,6 +57,8 @@ export class CadastroClientePage implements OnInit {
     private apiService: ApiService,
     private toastController: ToastController
   ) {
+
+    //Validação do formulário de cadastro de pessoa física
     this.formGroupPf = formbuilder.group({
       nome: [
         '',
@@ -407,6 +409,8 @@ export class CadastroClientePage implements OnInit {
         }
       });
   }
+
+  //Toast de apresentação de erros ou confirmações.
 
   async presentToast(msg: string, color: string) {
     const toast = await this.toastController.create({
