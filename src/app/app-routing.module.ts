@@ -61,7 +61,12 @@ const routes: Routes = [
   {
     path: 'cadastro-cliente',
     loadChildren: () => import('./cadastro-cliente/cadastro-cliente.module').then( m => m.CadastroClientePageModule)
+  },
+  {
+    path: 'atualiza-email',
+    loadChildren: () => import('./atualiza-email/atualiza-email.module').then( m => m.AtualizaEmailPageModule)
   }
+
 
 
 

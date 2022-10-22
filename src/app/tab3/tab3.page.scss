@@ -7,3 +7,10 @@ ion-img::part(image){
 ion-label{
     color: var(--ion-color-step-600, #60646b);
 }
+
+ion-content {
+    
+    height: 100%;
+    --background: linear-gradient(#712F79, #FF5F6D);
+ 
+  }

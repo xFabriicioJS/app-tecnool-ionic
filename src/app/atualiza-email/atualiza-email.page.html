@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-menu-button>
+        </ion-menu-button>
+        <ion-back-button></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Atualizar endereço</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<!-- Teremos apenas um formulário simples com a senha do usuário e o email a ser sugerido -->
+<ion-content>
+  <ion-card class="ion-padding">
+
+    <ion-card color="danger" class="ion-padding">
+      <ion-card-content>
+        <ion-text>
+          <h1>
+           <b>
+            Atenção!
+           </b> 
+          </h1>
+          <p>Para atualizar seu endereço, você precisará informar sua senha atual</p>
+        </ion-text>
+      </ion-card-content>
+    </ion-card>
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" color="light">
+      <ion-item>
+        <ion-label position="floating">Senha atual</ion-label>
+        <ion-input type="password" formControlName="senhaAtual" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Novo endereço</ion-label>
+        <ion-input type="text" formControlName="novoEmailUm" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Insira novamente o endereço</ion-label>
+        <ion-input type="text" formControlName="novoEmailDois" required></ion-input>
+      </ion-item>
+
+      <ion-card class="ion-padding">
+        <ion-text>
+          Ao clicar em atualizar, você será redirecionado para a tela de login.
+        </ion-text>
+      </ion-card>
+
+      <ion-button type="submit" expand="block" color="primary">Atualizar</ion-button>
+    </form>
+  </ion-card>
+  
+</ion-content>

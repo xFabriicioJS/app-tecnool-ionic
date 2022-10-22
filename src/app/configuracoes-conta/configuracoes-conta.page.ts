@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { ApiService } from '../api/api-service';
 import { GetUserTypeService } from '../services/get-user-type.service';
 
@@ -16,6 +16,9 @@ export class ConfiguracoesContaPage implements OnInit {
   enderecoUsuario: any;
   telefoneContato: string = "";
   idUsuarioLogado: string = "";
+  nome: string = "";
+  cpf: string = "";
+  idTipoCliente: string = "";
 
   isModalOpen = false;
     formGroup: FormGroup;
@@ -25,10 +28,11 @@ export class ConfiguracoesContaPage implements OnInit {
     private alertController: AlertController,
     private getUser: GetUserTypeService,
     private apiService: ApiService,
+    private toastController: ToastController
 
   ) { 
     this.formGroup = formBuilder.group({
-      senhaAtual: [
+      senhaAntiga: [
         "",
         Validators.compose([
           Validators.minLength(4),
@@ -73,66 +77,83 @@ export class ConfiguracoesContaPage implements OnInit {
       
       //Setamos os atributos com base nos dados do cliente lá no localStorage
       this.nomeUsuario = currentLoggedInUser.email_cliente;
-      this.telefoneContato = currentLoggedInUser.telefoneCliente;
+      this.telefoneContato = currentLoggedInUser.telefone_Cliente;
       this.idUsuarioLogado = currentLoggedInUser.id_cliente;
-
-      //Em seguida, setamos o atributo enderecoUsuario com a função retrieveAddressData()
-      this.retrieveAddressData();
-
-
+      this.nome = currentLoggedInUser.nome_cliente;
+      this.cpf = currentLoggedInUser.cpf_cliente;
+      this.idTipoCliente = currentLoggedInUser.id_tipo_cliente;
 
       }
-  
-      
-      
-      
-
   }
 
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
   }
 
-  //Método responsável por fazer uma busca ao endereço do cliente na API
-  retrieveAddressData(){
 
-    //corpo da requisição
-    let bodyRequest = {
-      requisicao: "listarPorCliente",
-      id_cliente_endereco: this.idUsuarioLogado
-    }
-
-    //fazemos a requisição
-    return new Promise((res) => {
-      this.apiService.apiPHP('controller-enderecos.php', bodyRequest).subscribe((data) => {
-        if(data['success'] == true){
-          //Se o usuário tiver um endereço cadastrado, então pegamos o endereço dele e setamos no atributo enderecoUsuario
-          this.enderecoUsuario = data['result'][0];
-          console.log(this.enderecoUsuario);
-        }else{
-          console.log(data);
-        }
-      })
-    })
-
-  }
-
-  navigateAtualizarEndereco(){
-    this.router.navigate(['atualizar-endereco']);
-  }
-
+  //Alert que é responsável por exibir uma janela com um form para atualizar o número de contato
   async presentAlert() {
     const alert = await this.alertController.create({
       header: 'Por favor, insira seu novo número de contato.',
-      buttons: ['OK'],
-      inputs: [
+      buttons: [
         {
-          placeholder: 'Novo número de contato',
+          text: 'Atualizar',
+          role: 'confirm',
+          handler: (alertData) => {
+            //Aqui nós atualizamos o número de contato do cliente na renderização, no localStorage e claro, na API
+            this.telefoneContato = alertData.telefone;
+            
+            //atualizando o localStorage
+            let newLocalStorage = {
+              id_cliente: this.idUsuarioLogado,
+              email_cliente: this.nomeUsuario,
+              telefone_Cliente: alertData.telefone,
+              tipo_usuario_sistema: "Cliente",
+              nome_cliente: this.nome,
+              cpf_cliente: this.cpf,
+              id_tipo_cliente: this.idTipoCliente
+            }
+            localStorage.setItem('usuario', JSON.stringify(newLocalStorage));
+
+            //atualizando a API agora
+
+            //Corpo da requisição
+            let bodyRequest = {
+              requisicao: "atualizaTelefone",
+              id_cliente: this.idUsuarioLogado,
+              telefone_cliente: alertData.telefone
+            }
+
+            return new Promise((res) => {
+              this.apiService.apiPHP('controller-clientes.php', bodyRequest).subscribe((data) => {
+                if(data['success'] == true){
+                  this.presentToast("Telefone atualizado com sucesso!", "success");
+                  
+                  //Fecha o alert
+                  
+
+                }else{
+                  this.presentToast("Erro ao atualizar o telefone!", "danger");
+                }
+              })
+            });
+            
+          }
         },
         {
-          placeholder: 'Telefone (máximo de 11 dígitos)',
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+        }
+      ],
+      inputs: [
+      
+        {
+          placeholder: 'Novo telefone (máximo de 11 dígitos)',
+          name: 'telefone',
           attributes: {
             maxlength: 11,
+            minlength: 3
           },
           type: 'number'
         }
@@ -143,7 +164,57 @@ export class ConfiguracoesContaPage implements OnInit {
   }
 
 
+  //método responsável por atualizar a senha do usuário logado
 
+  onSubmitSenha(){
+    //verificamos primeiro se o valor dos campos de nova senha são iguais
+    if(this.formGroup.value.novaSenhaUm !== this.formGroup.value.novaSenhaDois){
+      this.presentToast("As senhas não são iguais", "danger");
+    }
+    //Se as senhas forem iguais, então fazemos a requisição
+    //A própria API se encarregará de confirmar se a senha antiga informada pelo cliente está correta, se ela estiver correta então a senha será atualizada
+
+    let bodyRequest = {
+      requisicao: "alterarSenha",
+      senhaAntiga: this.formGroup.value.senhaAntiga,
+      senhaNova: this.formGroup.value.novaSenhaDois,
+      id_cliente: this.idUsuarioLogado
+    }
+
+    return new Promise((res) => {
+      this.apiService.apiPHP('controller-clientes.php', bodyRequest).subscribe((data) => {
+        if(data['success'] == true){
+
+          //Caso dê tudo certo, exibimos uma mensagem de sucesso
+          this.presentToast("<b>Senha alterada com sucesso!</b>", "success");
+
+          
+          //Fechamos o modal.
+          this.setOpen(false);
+
+          //Logo em seguida, redirecionamos o usuário para a tela de login
+          this.router.navigate(['/openscreen']);
+
+        }else{
+
+          //Caso der algum erro, exibimos uma mensagem de erro
+          this.presentToast("<b>Senha atual incorreta, tente novamente.</b>", "danger");
+        }
+      })
+    })
+
+  }
+
+
+  async presentToast(msg: string, color: string) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 3000,
+      color: color
+
+    });
+    toast.present();
+  }
 
 
 }

@@ -31,8 +31,8 @@
       <ion-item>
         <ion-icon name="person-sharp" slot="start"></ion-icon>
         <ion-label>
-          <h1>Alterar meu nome de usuário</h1>
-          <p>{{}}</p>
+          <h1>Alterar meu email</h1>
+          <p>{{nomeUsuario}}</p>
         </ion-label>
       </ion-item>
       <ion-item (click)="setOpen(true)">
@@ -62,10 +62,10 @@
             </ion-card>
             <ion-card>
              <ion-card-content>
-              <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)">
+              <form [formGroup]="formGroup" (ngSubmit)="onSubmitSenha()">
                 <ion-item>
                   <ion-label position="floating">Senha atual</ion-label>
-                  <ion-input type="password" formControlName="senhaAtual"></ion-input>
+                  <ion-input type="password" formControlName="senhaAntiga"></ion-input>
                 </ion-item>
                 <ion-item>
                   <ion-label position="floating">Nova senha</ion-label>
