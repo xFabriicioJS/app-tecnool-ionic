@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-confirma-chamado',
@@ -15,8 +16,8 @@ export class ConfirmaChamadoPage implements OnInit {
 
   constructor(
     private router : Router,
-    private actRoute: ActivatedRoute
-    
+    private actRoute: ActivatedRoute,
+    private navController: NavController
   ) { }
 
   ngOnInit() {
@@ -30,7 +31,7 @@ export class ConfirmaChamadoPage implements OnInit {
 
   navigateInicio(){
     //Vamos forçar a renderização completa da página tab1
-    this.router.navigate(['/tabs/tab1'], {replaceUrl: true}); 
+    // this.navController.navigateRoot(['/tabs/tab1']);
   }
 
 }

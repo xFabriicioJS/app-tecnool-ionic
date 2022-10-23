@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionSheetController, AlertController } from '@ionic/angular';
+import { ActionSheetController, AlertController, LoadingController  } from '@ionic/angular';
 import { ApiService } from '../api/api-service';
+import { LoadingService } from '../loading.service';
 import { GetUserTypeService } from '../services/get-user-type.service';
 
 @Component({
@@ -22,20 +23,26 @@ export class Tab1Page {
   numChamadosAbertos: number = 0;
   numChamadosFinalizados: number = 0;
 
+
   constructor(
     private router: Router,
     private actionSheetCtrl: ActionSheetController,
     private apiService: ApiService,
     private alertController: AlertController,
-    private getUser: GetUserTypeService
+    private getUser: GetUserTypeService,
+    private loadingCtrl: LoadingController,
+    private loading: LoadingService
   ) {}
 
   ngOnInit() {
+  
+
   }
 
 
   ionViewWillEnter() {
     this.chamados = [];
+    console.log('teste');
     //verificamos primeiro se o usuário está logado
     if (this.getUser.getUserInfo() == null) {
       this.router.navigate(['/openscreen']);
@@ -46,15 +53,22 @@ export class Tab1Page {
       this.tipoUsuarioLogado = 'Cliente';
       let currentUser = this.getUser.getUserInfo();
       this.idCurrentUser = currentUser.id_cliente;
+      this.loading.present();
       this.buscarChamadosPorCliente();
+      setTimeout(()=>this.loading.dismiss(), 3000);
+
     } else {
       this.tipoUsuarioLogado = 'Usuario';
       let currentUser = this.getUser.getUserInfo();
       this.idCurrentUser = currentUser.id_usuario;
+      this.loading.present();
       this.carregar();      
+      setTimeout(()=>this.loading.dismiss(), 3000);
     }
 
   }
+
+  
 
   async presentActionSheet(chamado) {
     const actionSheet = await this.actionSheetCtrl.create({
