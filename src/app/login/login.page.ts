@@ -65,14 +65,14 @@ export class LoginPage implements OnInit {
       console.log(data);
       if(data['success'] == true){
 
-        this.presentToast("Login efetuado com sucesso", "success");
+        this.presentToast("<b>Login efetuado com sucesso</b>", "success");
 
         //setar dados no local storage
         this.setLocalStorageData(data['result']);
 
         this.router.navigate(['/tabs/tab1']);
       }else{
-        this.presentToast("Usuário ou senha incorretos", "danger");
+        this.presentToast("<b>Usuário ou senha incorretos</b>", "danger");
       }
     });
    }
