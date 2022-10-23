@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-menu-button>
+        </ion-menu-button>
+        <ion-back-button></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Atualizar foto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-card class="ion-padding" color="success">
+      <div style="display: flex; justify-content:center">
+      <ion-icon name="information-circle-sharp" style="font-size: 2rem;"></ion-icon>
+      </div>
+      <br>
+      <ion-card-title style="font-size: 15px;">
+        Selecione uma imagem abaixo para ser sua imagem de perfil.
+      </ion-card-title>
+     </ion-card>
+
+     <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+ 
+      <ion-card expand="block" class="ion-padding">
+        <br>
+        <input type="file" accept="image/*" name="avatar" id="avatar" (change)="onFileSelect($event)"/>
+      </ion-card>
+   
+    <div *ngIf="filePath && filePath !== ''">
+      <ion-card class="ion-padding">
+        <ion-card-subtitle color="primary">Prévia da nova imagem</ion-card-subtitle>
+        <img [src]="filePath" alt="formGroup.value.name">          
+      </ion-card>
+    </div>
+
+    <ion-card>
+
+    </ion-card>
+    <ion-button *ngIf="filePath && filePath !== ''" expand="block" type="submit" color="success"><b>Atualizar imagem</b></ion-button>
+  </form>
+</ion-content>

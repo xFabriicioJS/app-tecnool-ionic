@@ -65,7 +65,11 @@ const routes: Routes = [
   {
     path: 'atualiza-email',
     loadChildren: () => import('./atualiza-email/atualiza-email.module').then( m => m.AtualizaEmailPageModule)
+  },  {
+    path: 'atualiza-foto',
+    loadChildren: () => import('./atualiza-foto/atualiza-foto.module').then( m => m.AtualizaFotoPageModule)
   }
+
 
 
 

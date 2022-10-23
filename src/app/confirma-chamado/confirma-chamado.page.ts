@@ -29,7 +29,8 @@ export class ConfirmaChamadoPage implements OnInit {
   }
 
   navigateInicio(){
-    this.router.navigate(['/tabs/tab1']);
+    //Vamos forçar a renderização completa da página tab1
+    this.router.navigate(['/tabs/tab1'], {replaceUrl: true}); 
   }
 
 }

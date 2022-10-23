@@ -14,21 +14,21 @@
 <ion-content>
   <ion-card class="ion-padding">
     <div style="display: flex; justify-content:center; width: 100%;">
-    <ion-img src="https://avatars.githubusercontent.com/xFabriicioJS"></ion-img>
+    <ion-img src={{imgUsuarioLogado}}></ion-img>
     </div>
     
     <ion-card-content>
       <div style="display: flex; justify-content:center">
-        <ion-button color="primary">
+        <ion-button color="primary" (click)="navigateAtualizarFoto()">
           Alterar minha imagem de perfil
         </ion-button>
       </div>
     </ion-card-content>
   </ion-card>
 
-  <ion-card color="dark">
+  <ion-card color="light">
     <ion-list>
-      <ion-item>
+      <ion-item (click)="navigateAtualizarEmail()">
         <ion-icon name="person-sharp" slot="start"></ion-icon>
         <ion-label>
           <h1>Alterar meu email</h1>

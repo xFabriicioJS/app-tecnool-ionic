@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { ApiService } from '../api/api-service';
 import { GetUserTypeService } from '../services/get-user-type.service';
 
@@ -26,8 +27,12 @@ export class Tab3Page {
 
       this.nomeUsuarioLogado = user.nome_cliente;
       this.emailUsuarioLogado = user.email_cliente;
-
-      //depois de adicionar a coluna de imagem no banco de dados, vamos fazer uma requisição para pegar a imagem do usuário logado
+      if(user.foto_cliente == ''){
+        this.imgUsuarioLogado = 'https://www.w3schools.com/howto/img_avatar.png';
+      }else{
+        this.imgUsuarioLogado = environment.FILE_IMG_PATH + '/' + user.foto_cliente;
+      }
+     
     }
   }
 
