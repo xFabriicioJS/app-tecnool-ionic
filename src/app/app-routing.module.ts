@@ -68,6 +68,10 @@ const routes: Routes = [
   },  {
     path: 'atualiza-foto',
     loadChildren: () => import('./atualiza-foto/atualiza-foto.module').then( m => m.AtualizaFotoPageModule)
+  },
+  {
+    path: 'meu-contrato',
+    loadChildren: () => import('./meu-contrato/meu-contrato.module').then( m => m.MeuContratoPageModule)
   }
 
 

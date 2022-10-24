@@ -43,4 +43,7 @@ export class Tab3Page {
   navigateComunicarProblema() {
     this.router.navigate(['/comunicar-problema']);
   }
+  navigateMeuContrato() {
+    this.router.navigate(['/meu-contrato']);
+  }
 }
