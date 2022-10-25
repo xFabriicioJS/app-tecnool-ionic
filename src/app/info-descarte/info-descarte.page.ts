@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import 'moment/locale/pt-br';
+import * as moment from 'moment';
+import { ApiService } from '../api/api-service';
+import { GetUserTypeService } from '../services/get-user-type.service';
 
 @Component({
   selector: 'app-info-descarte',
@@ -17,24 +21,46 @@ export class InfoDescartePage implements OnInit {
   status: string = '';
   fotoHardware: string = '';
   idDescarte: number = 0;
+  nomeSolicitante: string = '';
 
 
 
   constructor(
     private actRoute: ActivatedRoute,
-    private alertController: AlertController
-  ) { }
+    private alertController: AlertController,
+    private apiService: ApiService,
+    private router: Router,
+    private getUser: GetUserTypeService 
+    ) { }
+
+  ionViewWillEnter(){
+    //Bloquando acesso para usuários não autenticados
+    if(this.getUser.getUserInfo() == null){
+      this.router.navigate(['/login']);
+    }
+
+    //
+
+
+  }
 
   ngOnInit() {
-
-
-
+    
     this.actRoute.params.subscribe((data: any)=>{
+
+    //Setando a localização da lib moment para pt-br
+
+
+      //Convertendo a data de abertura para o formato localizado
+      let prazo = moment(data.prazo).locale('pt-BR').format('LL');
+      let dataAbertura = moment(data.dataAbertura).format('LLL');
+
+
       this.nomeHardware = data.nomeHardware;
       this.descriHardware = data.descriHardware;
-      this.dataAbertura = data.dataAbertura;
+      this.dataAbertura = dataAbertura;
       this.protocoloDescarte = data.protocolo;
-      this.prazo = data.prazo;
+      this.prazo = prazo;
       this.dataRetirada = data.dataRetirada;
       this.status = data.status;
       this.fotoHardware = data.fotoHardware;

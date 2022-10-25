@@ -14,11 +14,11 @@
 <ion-content>
   <ion-card class="ion-padding" style="display: flex; flex-direction: column; align-items: center;">
     <ion-text>
-      Solicitação criada em {{dataAbertura}}
+      Solicitação criada em <b>{{dataAbertura}}</b>
     </ion-text>
-   
+    <br>
     <ion-text color="primary">
-      Protocolo da solicitação: {{protocoloDescarte}}
+      Protocolo da solicitação: <b>{{protocoloDescarte}}</b>
     </ion-text>
   </ion-card>
   
@@ -42,7 +42,7 @@
       Prazo limite para atendimento
     </ion-card-subtitle>
     <ion-card-content>
-      <ion-text style="font-size: 1.2rem;">
+      <ion-text style="font-size: 1.5rem;">
         <b>{{prazo}}</b>
       </ion-text>
     </ion-card-content>
@@ -54,7 +54,7 @@
         <ion-icon name="calendar" slot="start"></ion-icon>
         <ion-label>
           <h1>Data de finalização</h1>
-          <p *ngIf="dataRetirada === 'null'">Parece que você ainda não realizou o descarte.</p>
+          <p *ngIf="dataRetirada === 'null'">Descarte ainda não realizado.</p>
           <p *ngIf="dataRetirada !== 'null'">{{dataRetirada}}</p>
         </ion-label>
       </ion-item>
@@ -62,7 +62,7 @@
         <ion-icon name="person-sharp" slot="start"></ion-icon>
         <ion-label>
           <h1>Nome do solicitante</h1>
-          <p>Pegar do local storage</p>
+          <p><b>{{nomeSolicitante}}</b></p>
         </ion-label>
       </ion-item>
       <ion-item *ngIf="status !== Finalizado || status !== Cancelado" color="success">
@@ -81,6 +81,36 @@
       <ion-img *ngIf="fotoHardware" src="{{fotoHardware}}"></ion-img>
       <ion-text *ngIf="!fotoHardware">Nenhuma imagem foi anexada.</ion-text>
     </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+
+    <ion-img src="../../assets/images/senac.jpg"></ion-img>
+  
+    
+    <ion-card-content>
+      <ion-item >
+        <ion-icon name="pin" slot="start" style="margin-left: -30px;"></ion-icon>
+        <ion-label>
+          <b>
+            Onde fazer o descarte
+          </b>
+        </ion-label>
+      </ion-item>
+      <br>
+      <ion-text>Av. Itaquera, 8266 - Vila Carmosina, São Paulo - SP, 08295-000</ion-text>
+   
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-item>
+      <ion-icon name="wifi" slot="start"></ion-icon>
+      <ion-label>Wi-Fi disponível</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="walk" slot="start"></ion-icon>
+      <ion-label>Ordem de chegada</ion-label>
+    </ion-item>
   </ion-card>
   
   <ion-card color="dark">

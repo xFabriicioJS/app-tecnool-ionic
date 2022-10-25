@@ -12,34 +12,62 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    Imagem do contrato
+  <!-- Se o cliente não possuir um plano ativo esse card será renderizado -->
+  <ion-card color="tertiary" class="ion-padding" *ngIf="!possuiPlanoAtivo">
+    <div class="ion-text-center">
+      <ion-icon name="sad" style="font-size: 5rem;"></ion-icon>
+    </div>
+    <br>
+    <ion-card-title color="primary" style="font-size: 18px;">
+      Parece que você ainda não possui um contrato ativo.
+    </ion-card-title>
+    <br>
+    <br>
+    <ion-text style="text-align: center; font-size: 18px;">
+      <b>Que tal contratar um agora?</b>
+    </ion-text>
+    <ion-card-content>
+      <div style="display: flex; align-items: center; justify-content: center;">
+        <ion-button color="success" href="http://localhost/Appweb/client/novo_contrato_cliente.php"><b>Quero saber mais!</b></ion-button>
+      </div>
+    </ion-card-content>
   </ion-card>
 
+
+
   <!-- Lista de itens de opções -->
-  <ion-card color="dark">
+  <!-- Se o cliente possuir um contrato já ativo, esse conteúdo será renderizado -->
+  <ion-card *ngIf="possuiPlanoAtivo == true">
+
+    <ion-card>
+      <div style="display: flex; justify-content:center; width: 100%; height: 100%;">
+        <ion-img src={{imgPlano}}></ion-img>
+        </div>
+    </ion-card>
+    
     <ion-list>
       <ion-item>
-        <ion-icon name="person-sharp" slot="start"></ion-icon>
+        <ion-icon name="document-text-outline" slot="start"></ion-icon>
         <ion-label>
-          <h1>Nome do plano</h1>
+          <h1>Contrato <b>{{nomePlano}}</b></h1>
+          <p>Plano atual</p>
         </ion-label>
       </ion-item>
       <ion-item>
-        <ion-icon name="bug-outline" slot="start"></ion-icon>
+        <ion-icon name="card-outline" slot="start"></ion-icon>
         <ion-label>
-          <h1>Valor mensal: R$ 100,00</h1>
+          <h1>R$ {{valorPlano.replace('.', ',')}}</h1>
+          <p>Valor mensal do plano</p>
         </ion-label>
       </ion-item>
       <ion-item href="#">
-        <ion-icon name="clipboard-outline" slot="start" (click)="navigateMeuContrato()"></ion-icon>
+        <ion-icon name="documents-outline" slot="start" (click)="navigateMeuContrato()"></ion-icon>
         <ion-label>
-          <h1>Contratar <b>outro plano</b></h1>
+          <h1>Alterar <b>plano</b></h1>
+          <p>Você será redirecionado a nosso site.</p>
         </ion-label>
       </ion-item>
     </ion-list>
   </ion-card>
-
-
 
 </ion-content>

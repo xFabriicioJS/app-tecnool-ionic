@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
 import { ApiService } from '../api/api-service';
+import { LoadingService } from '../loading.service';
 import { GetUserTypeService } from '../services/get-user-type.service';
 
 @Component({
@@ -18,7 +19,8 @@ export class Tab2Page {
     private router: Router,
     private apiService: ApiService,
     private actionSheetCtrl: ActionSheetController,
-    private getUser: GetUserTypeService
+    private getUser: GetUserTypeService,
+    private loading: LoadingService
   ) {}
 
   ionViewWillEnter() {
@@ -40,8 +42,14 @@ export class Tab2Page {
       this.idUsuarioLogado = currentUser.id_usuario;
     }
     this.descartes = [];
+    //Buscamos todos os descartes, o próprio método já faz a verificação do tipo de usuário logado
+
+    //Apresentamos o loading
+    this.loading.present();
     this.buscarTodosOsDescartes();
-  }
+    //Escondemos o loading
+    setTimeout(()=>this.loading.dismiss(), 2500);
+    }
 
   navigateSaibaMaisDescarte() {
     this.router.navigate(['/sabermais-descarte']);
@@ -77,6 +85,7 @@ export class Tab2Page {
             data['result'].map((descarte) => {
               this.descartes.push(descarte[0]);
             });
+
             //caso o usuário/admin não tenha descartes cadastrados habilitamos o card de nenhum descarte
           } else if (data['result'] == '0') {
             this.cardNenhumDescarte = true;
