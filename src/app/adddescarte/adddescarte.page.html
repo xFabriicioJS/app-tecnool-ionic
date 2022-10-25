@@ -11,8 +11,17 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
+  <ion-card>
+    <ion-img src="../../assets/images/descarte1.jpg">
+
+    </ion-img>
+
+  </ion-card>
+
+
+
+
  <ion-card class="ion-padding" color="warning">
   <ion-card-title style="font-size: 15px;">
       Insira os dados abaixo para solicitar um novo descarte.
@@ -22,11 +31,16 @@
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" color="light">
     <ion-list color="light">
       <ion-item>
-        <ion-label position="stacked">Qual Hardware deseja descartar?</ion-label>
+        <ion-label position="stacked" color="primary">
+        <b>
+          Qual Hardware deseja descartar?
+        </b>
+        </ion-label>
         <ion-input
           formControlName="tituloHardware"
           required="true"
           placeholder="Insira o nome do hardware"
+          color="primary"
         ></ion-input>
       </ion-item>
       <span class="error ion-padding"    *ngIf="isSubmitted && errorControl.tituloHardware.errors?.required">
@@ -39,7 +53,11 @@
         O título do chamado deve conter no máximo 32 caracteres.
       </span>
       <ion-item>
-        <ion-label position="stacked">Descrição</ion-label>
+        <ion-label position="stacked" color="primary">
+        <b>
+          Descrição
+        </b>
+        </ion-label>
         <ion-textarea formControlName="descriHardware" required="true" placeholder="Insira uma breve descrição sobre o hardware" [autoGrow]="true"
         ></ion-textarea>
 

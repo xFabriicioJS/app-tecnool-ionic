@@ -48,7 +48,7 @@ export class Tab2Page {
     this.loading.present();
     this.buscarTodosOsDescartes();
     //Escondemos o loading
-    setTimeout(()=>this.loading.dismiss(), 2500);
+    setTimeout(()=>this.loading.dismiss(), 2200);
     }
 
   navigateSaibaMaisDescarte() {

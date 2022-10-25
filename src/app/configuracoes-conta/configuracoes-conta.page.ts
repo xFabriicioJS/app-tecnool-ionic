@@ -73,7 +73,7 @@ export class ConfiguracoesContaPage implements OnInit {
       let currentLoggedInUser = this.getUser.getUserInfo();
 
       //Setando a foto do cliente
-      if(currentLoggedInUser.foto_cliente == ''){
+      if(!currentLoggedInUser.foto_cliente){
         this.imgUsuarioLogado = 'https://www.w3schools.com/howto/img_avatar.png';
       }else{
         this.imgUsuarioLogado = environment.FILE_IMG_PATH + '/' +currentLoggedInUser.foto_cliente;

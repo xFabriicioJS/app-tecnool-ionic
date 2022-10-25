@@ -51,7 +51,7 @@ export class AdddescartePage {
     });
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     //verificamos primeiro se o usuário está logado, caso não esteja, redirecionamos para a página de login
     if (this.getUser.getUserInfo() == null) {
       this.router.navigate(['/openscreen']);
@@ -65,7 +65,6 @@ export class AdddescartePage {
       //Caso o usuário logado não seja um cliente, redirecionamos para a página de descartes
       this.router.navigate(['/tabs/tab2']);
     }
-
   }
 
   //validações do formulário
@@ -171,7 +170,6 @@ export class AdddescartePage {
       });
     } // fim do if, caso ele não tenha selecionado uma imagem
     else {
-
       //adiciona 7 dias a data atual
       this.prazo_descarte = formatISO9075(addHours(new Date(), 168));
 
@@ -194,8 +192,12 @@ export class AdddescartePage {
           if (data['success'] === true) {
             console.log('Descarte cadastrado');
 
-            //redirecionando para a página de descartes
-            this.router.navigate(['/tabs/tab2']);
+            //redirecionando para a página de confirmação
+            this.navigateConfirmaDescarte(
+              this.formGroup.get('tituloHardware').value,
+              this.prazo_descarte,
+              this.formGroup.get('descriHardware').value
+            );
 
             //mostrando mensagem de sucesso
             this.presentToast(
@@ -221,5 +223,17 @@ export class AdddescartePage {
     });
 
     await toast.present();
+  }
+
+  //Método para navegar para a página de Descarte
+  navigateConfirmaDescarte(tituloHardware, prazoDescarte, descriHardware) {
+    this.router.navigate([
+      '/confirma-descarte/' +
+        tituloHardware +
+        '/' +
+        prazoDescarte +
+        '/' +
+        descriHardware,
+    ]);
   }
 }

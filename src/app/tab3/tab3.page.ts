@@ -27,12 +27,14 @@ export class Tab3Page {
 
       this.nomeUsuarioLogado = user.nome_cliente;
       this.emailUsuarioLogado = user.email_cliente;
-      if(user.foto_cliente == ''){
+      if(!user.foto_cliente){
         this.imgUsuarioLogado = 'https://www.w3schools.com/howto/img_avatar.png';
       }else{
         this.imgUsuarioLogado = environment.FILE_IMG_PATH + '/' + user.foto_cliente;
       }
      
+      console.log(user.foto_cliente);
+      console.log(this.imgUsuarioLogado);
     }
   }
 

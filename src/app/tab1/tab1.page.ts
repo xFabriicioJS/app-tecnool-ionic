@@ -55,7 +55,7 @@ export class Tab1Page {
       this.idCurrentUser = currentUser.id_cliente;
       this.loading.present();
       this.buscarChamadosPorCliente();
-      setTimeout(()=>this.loading.dismiss(), 2500);
+      setTimeout(()=>this.loading.dismiss(), 2200);
 
     } else {
       this.tipoUsuarioLogado = 'Usuario';
@@ -63,7 +63,7 @@ export class Tab1Page {
       this.idCurrentUser = currentUser.id_usuario;
       this.loading.present();
       this.carregar();      
-      setTimeout(()=>this.loading.dismiss(), 2500);
+      setTimeout(()=>this.loading.dismiss(), 2200);
     }
 
   }

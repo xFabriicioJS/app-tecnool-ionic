@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-back-button>
+
+        </ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Solicitação confirmada</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Detalhes da solicitação</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-text>
+        <h2>Hardware descartado:</h2>
+        <h4><b>{{tituloHardware}}</b></h4>
+      </ion-text>
+      <br>
+      <ion-text>
+        <h2>Prazo até o descarte:</h2>
+        <h4 color="danger"><b>{{prazo}}</b></h4>
+      </ion-text>
+      <br />
+      <br />
+      <ion-text>
+        <h2>Descrição do hardware</h2>
+        <h4><b>{{descriHardware}}</b></h4>
+      </ion-text>
+      <br />
+    </ion-card-content>
+  </ion-card>
+
+
+  <!-- Onde fazer o descarte -->
+  <ion-card>
+
+    <ion-img src="../../assets/images/senac.jpg"></ion-img>
+    <ion-card-content>
+      <ion-item>
+        <ion-icon name="pin" slot="start" style="margin-left: -30px;"></ion-icon>
+        <ion-label>
+          <b>
+            Onde fazer o descarte
+          </b>
+        </ion-label>
+      </ion-item>
+      <br>
+      <ion-text>Av. Itaquera, 8266 - Vila Carmosina, São Paulo - SP, 08295-000</ion-text>
+
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-item>
+      <ion-icon name="wifi" slot="start"></ion-icon>
+      <ion-label>Wi-Fi disponível</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="walk" slot="start"></ion-icon>
+      <ion-label>Ordem de chegada</ion-label>
+    </ion-item>
+  </ion-card>
+
+  <!-- Card de sucesso -->
+  <ion-card color="success">
+    <ion-card-content>
+      <div style="display: flex;justify-content: center;">
+        <ion-icon style="font-size: 2.5rem;" name="checkmark-circle"></ion-icon>
+      </div>
+
+      <ion-text style="font-size: 18px;">
+        Você pode verificar o andamento do descarte na aba "Meus descartes".
+      </ion-text>
+    </ion-card-content>
+  </ion-card>
+
+
+  <!-- Card warning -->
+  <ion-card color="warning">
+
+    <ion-card-content>
+      <div style="display: flex;justify-content: center;">
+        <ion-icon name="alert-circle" style="font-size: 2.5rem;"></ion-icon>
+      </div>
+
+      <ion-text style="font-size: 18px;">
+        Fique atento ao seu email para possíveis atualizações sobre o serviço.
+      </ion-text>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="block" fill="outline" href="/tabs/tab2">
+    Entendi, voltar ao início.
+  </ion-button>
+</ion-content>

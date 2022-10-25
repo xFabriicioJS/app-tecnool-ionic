@@ -65,14 +65,20 @@ const routes: Routes = [
   {
     path: 'atualiza-email',
     loadChildren: () => import('./atualiza-email/atualiza-email.module').then( m => m.AtualizaEmailPageModule)
-  },  {
+  },
+  {
     path: 'atualiza-foto',
     loadChildren: () => import('./atualiza-foto/atualiza-foto.module').then( m => m.AtualizaFotoPageModule)
   },
   {
     path: 'meu-contrato',
     loadChildren: () => import('./meu-contrato/meu-contrato.module').then( m => m.MeuContratoPageModule)
+  },
+  {
+    path: 'confirma-descarte/:tituloHardware/:prazoDescarte/:descriHardware',
+    loadChildren: () => import('./confirma-descarte/confirma-descarte.module').then( m => m.ConfirmaDescartePageModule)
   }
+
 
 
 
