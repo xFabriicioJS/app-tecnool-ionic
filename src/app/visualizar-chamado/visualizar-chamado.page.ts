@@ -20,6 +20,8 @@ export class VisualizarChamadoPage implements OnInit {
     localAtend: string = '';
     id_chamado : number;
     foto_erro_chamado: string = '';
+    nome_cliente: string = '';
+    foto_cliente: string = '';
 
   constructor(
     private actRoute:ActivatedRoute,
@@ -32,7 +34,7 @@ export class VisualizarChamadoPage implements OnInit {
       //convertendo a data para o formato brasileiro
       const dataAserConvertida = moment(data.dataAbertura).format('DD/MM/YYYY HH:mm:ss');
 
-      const dataLimiteAserConvertida = moment(data.dataLimite).format('DD/MM/YYYY HH:mm:ss');
+      const dataLimiteAserConvertida = moment(data.dataLimite).locale('pt-BR').format('LL');
 
       if(data.dataFinalizacao != 'null'){
       this.dataFinalizacao = moment(data.dataFinalizacao).format('DD/MM/YYYY HH:mm:ss');
@@ -46,8 +48,12 @@ export class VisualizarChamadoPage implements OnInit {
         caminhoImg = environment.FILE_IMG_PATH + '/' + data.foto_erro_chamado;
       }
 
-
-
+      //Pegando a imagem do perfil do cliente
+      if(data.foto_cliente == 'null'){
+        this.foto_cliente = 'https://www.w3schools.com/howto/img_avatar.png'
+      }else{
+        this.foto_cliente = environment.FILE_IMG_PATH + '/' + data.foto_cliente;
+      }
 
       this.id_chamado = data.id_chamado;
       this.tituloChamado = data.tituloChamado;
@@ -59,6 +65,7 @@ export class VisualizarChamadoPage implements OnInit {
       this.foto_erro_chamado = caminhoImg;
       this.localAtend = data.localAtend;
       this.protocoloChamado = data.protocoloChamado;
+      this.nome_cliente = data.nome_cliente;
     });
 
     let chamadoObj = {

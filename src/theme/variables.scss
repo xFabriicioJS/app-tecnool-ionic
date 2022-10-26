@@ -1,9 +1,12 @@
-* {
-    font-family: 'Poppins', sans-serif;
-  
+
+
+@font-face {
+	font-family: AppFont;
+	src: url("../assets/fonts/Poppins-Regular.ttf"); //change url accordingly
 }
 
 :root {
+
 	--ion-color-primary: #402e58;
 	--ion-color-primary-rgb: 113,47,121;
 	--ion-color-primary-contrast: #ffffff;

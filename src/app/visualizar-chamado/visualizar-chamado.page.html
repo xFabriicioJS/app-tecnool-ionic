@@ -55,15 +55,8 @@
       <ion-icon name="calendar" slot="start"></ion-icon>
       <ion-label>
         <h1>Data de finalização</h1>
-        <p *ngIf="dataFinalizacao === 'null'">Seu chamado ainda não foi concluido.</p>
+        <p *ngIf="dataFinalizacao === 'null'">O chamado ainda não foi concluido.</p>
         <p *ngIf="dataFinalizacao !== 'null'">{{dataFinalizacao}}</p>
-      </ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-icon name="person-sharp" slot="start"></ion-icon>
-      <ion-label>
-        <h1>Nome do solicitante</h1>
-        <p>Pegar do local storage</p>
       </ion-label>
     </ion-item>
     <ion-item *ngIf="statusChamado !== Finalizado || statusChamado !== Cancelado" color="success">
@@ -84,13 +77,42 @@
   </ion-card-content>
 </ion-card>
 
-<ion-card>
+<!-- Informações do cliente -->
+<ion-card class="ion-padding" *ngIf="tipoUsuarioLogado != 'Cliente'">
+  <ion-card-subtitle>Informações do cliente</ion-card-subtitle>
+
+  <ion-img src="{{foto_cliente}}">
+
+  </ion-img>
+  <br>
+  <ion-card-title>
+    {{nome_cliente}}
+  </ion-card-title>
+</ion-card>
+
+
+
+<ion-card *ngIf="tipoUsuarioLogado == 'Cliente'">
   <ion-card-content>
     <ion-text>Problemas com essa solicitação?
     </ion-text>    
       <ion-button color="danger" expand="block" (click)="presentAlert()">Cancelar solicitação</ion-button>
   </ion-card-content>
 </ion-card>
+
+<ion-card *ngIf="tipoUsuarioLogado != 'Cliente'">
+  <ion-card-content>
+    <ion-text>Deseja atualizar esse chamado?
+    </ion-text>    
+      <ion-button color="success" expand="block" (click)="presentAlert()">
+        <b>
+          Adicionar tratativa
+        </b>
+      </ion-button>
+  </ion-card-content>
+</ion-card>
+
+
 
 
 </ion-content>

@@ -39,7 +39,7 @@ const routes: Routes = [
     loadChildren: () => import('./addusuario/addusuario.module').then( m => m.AddusuarioPageModule)
   },
   {
-    path: 'visualizar-chamado/:id_chamado/:tituloChamado/:descriChamado/:dataAbertura/:dataLimite/:dataFinalizacao/:statusChamado/:foto_erro_chamado/:localAtend/:protocoloChamado',
+    path: 'visualizar-chamado/:id_chamado/:tituloChamado/:descriChamado/:dataAbertura/:dataLimite/:dataFinalizacao/:statusChamado/:foto_erro_chamado/:localAtend/:protocoloChamado/:foto_cliente/:nome_cliente',
     loadChildren: () => import('./visualizar-chamado/visualizar-chamado.module').then( m => m.VisualizarChamadoPageModule)
   },
   {
@@ -77,7 +77,11 @@ const routes: Routes = [
   {
     path: 'confirma-descarte/:tituloHardware/:prazoDescarte/:descriHardware',
     loadChildren: () => import('./confirma-descarte/confirma-descarte.module').then( m => m.ConfirmaDescartePageModule)
+  },  {
+    path: 'lista-clientes',
+    loadChildren: () => import('./lista-clientes/lista-clientes.module').then( m => m.ListaClientesPageModule)
   }
+
 
 
 

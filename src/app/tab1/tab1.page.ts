@@ -105,7 +105,9 @@ export class Tab1Page {
               chamado.status,
               fotoChamado,
               chamado.local_atend,
-              chamado.protocolo
+              chamado.protocolo,
+              chamado.foto_cliente,
+              chamado.nome_cliente
             );
           },
         },
@@ -228,7 +230,9 @@ export class Tab1Page {
     statusChamado,
     fotoErroChamado,
     localAtend,
-    protocoloChamado
+    protocoloChamado,
+    fotoCliente,
+    nomeCliente
   ) {
     this.router.navigate([
       '/visualizar-chamado/' +
@@ -250,7 +254,11 @@ export class Tab1Page {
         '/' +
         localAtend +
         '/' +
-        protocoloChamado,
+        protocoloChamado +
+        '/' +
+        fotoCliente +
+        '/' +
+        nomeCliente,
     ]);
   }
 

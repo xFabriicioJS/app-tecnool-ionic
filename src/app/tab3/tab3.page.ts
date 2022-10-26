@@ -25,6 +25,7 @@ export class Tab3Page {
     } else {
       //Verificamos agora se o usuário logado é um cliente ou administrador, precisamos fazer isso para a renderização condicional lá no html, que irá depender do atributo tipoUsuarioLogado
       this.tipoUsuarioLogado = this.getUser.getUserType();
+      console.log(this.tipoUsuarioLogado);
       //pegamos as informações do usuário logado para exibir nesta tela
       let user = this.getUser.getUserInfo();
 
