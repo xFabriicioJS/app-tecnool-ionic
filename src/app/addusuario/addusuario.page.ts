@@ -126,7 +126,7 @@ export class AddusuarioPage implements OnInit {
     return this.formGroup.controls;
   }
 
-  onSubmit() {
+   onSubmit() {
     this.isSubmitted = true;
 
     if (!this.formGroup.valid) {
@@ -160,13 +160,22 @@ export class AddusuarioPage implements OnInit {
             .subscribe((data) => {
               console.log(bodyRequest);
 
+              //Se der tudo certo com o cadastr do usuário
               if (data['success'] === true) {
                 console.log('Usuário cadastrado');
 
                 this.router.navigate(['/tabs/tab1']);
                 //habilitando o toast
                 this.presentToast('Usuário cadastrado', 'success');
-              } else {
+
+                //Se o email do usuário já estiver cadastrado
+              }else if(data['msg'] == 'Usuário já cadastrado!'){
+                this.presentToast('Usuário já cadastrado!', 'danger');
+              
+                console.log('Usuário já cadastrado!');
+              } 
+              //Se houver qualquer outra falha
+              else {
                 console.log('Erro ao cadastrar usuário');
                 this.presentToast('Erro ao cadastrar usuário', 'danger');
               }
@@ -188,7 +197,27 @@ export class AddusuarioPage implements OnInit {
         foto_usuario: '',
       };
 
-      console.log(bodyRequest);
+      //Agora vamos fazer a requisição para nossa API, lembrando, essa requisição é para o caso de não ter sido enviada uma imagem
+      this.apiService.apiPHP('controller-usuarios.php', bodyRequest).subscribe((data) => {
+        if (data['success'] === true) {
+          console.log('Usuário cadastrado');
+
+          this.router.navigate(['/tabs/tab1']);
+          //habilitando o toast
+          this.presentToast('Usuário cadastrado', 'success');
+
+          //Se o email do usuário já estiver cadastrado
+        }else if(data['msg'] == 'Usuário já cadastrado!'){
+          this.presentToast('Usuário já cadastrado!', 'danger');
+        
+          console.log('Usuário já cadastrado!');
+        } 
+        //Se houver qualquer outra falha
+        else {
+          console.log('Erro ao cadastrar usuário');
+          this.presentToast('Erro ao cadastrar usuário', 'danger');
+        }
+      });
     }
   }
 

@@ -32,7 +32,7 @@ export class AdminloginPage implements OnInit {
       senha: [
         "",
         Validators.compose([
-          Validators.minLength(4),
+          Validators.minLength(1),
           Validators.maxLength(255),
           Validators.required
           

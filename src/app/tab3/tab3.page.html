@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Minha conta
+      Administrador
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -32,25 +32,45 @@
           <p>Email, imagem de perfil, etc...</p>
         </ion-label>
       </ion-item>
-      <ion-item (click)="navigateComunicarProblema()">
+      <ion-item (click)="navigateComunicarProblema()" *ngIf="tipoUsuarioLogado == 'Cliente' ">
         <ion-icon name="bug-outline" slot="start"></ion-icon>
         <ion-label>
           <h1>Informar um problema</h1>
           <p>Fale conosco para comunicar um problema</p>
         </ion-label>
       </ion-item>
-      <ion-item (click)="navigateMeuContrato()">
+      <ion-item (click)="navigateMeuContrato()" *ngIf="tipoUsuarioLogado == 'Cliente'">
         <ion-icon name="clipboard-outline" slot="start"></ion-icon>
         <ion-label>
           <h1>Meus <b>contratos</b></h1>
           <p></p>
         </ion-label>
       </ion-item>
-      <ion-item href="#">
-        <ion-icon name="information-circle-sharp" slot="start"></ion-icon>
+      <ion-item *ngIf="tipoUsuarioLogado == 'Cliente'" href="#">
+        <ion-icon name="information-circle-sharp" slot="start" ></ion-icon>
         <ion-label>
           <h1>Sobre a <b>Tecnoo</b></h1>
           <p>Conheça mais um pouco sobre a Tecnoo</p>
+        </ion-label>
+      </ion-item>
+      <ion-item (click)="navigateUsuarios()">
+        <ion-icon name="person-add-outline" slot="start" *ngIf="tipoUsuarioLogado == 'Usuario'"></ion-icon>
+        <ion-label>
+          <h1><b>Usuários</b></h1>
+          <p>Administrar <b>usuários</b> do sistema</p>
+        </ion-label>
+      </ion-item>
+      <ion-item (click)="navigateUsuarios()">
+        <ion-icon name="people-circle-outline" slot="start" *ngIf="tipoUsuarioLogado == 'Usuario'"></ion-icon>
+        <ion-label>
+          <h1><b>Clientes</b></h1>
+          <p>Administrar os <b>clientes</b> do sistema</p>
+        </ion-label>
+      </ion-item>
+      <ion-item (click)="logout()">
+        <ion-icon name="log-out-outline" slot="start"></ion-icon>
+        <ion-label>
+          <h1>Sair</h1>
         </ion-label>
       </ion-item>
     </ion-list>

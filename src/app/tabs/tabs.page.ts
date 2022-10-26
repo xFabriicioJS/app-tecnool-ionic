@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GetUserTypeService } from '../services/get-user-type.service';
 
 @Component({
   selector: 'app-tabs',
@@ -7,6 +8,14 @@ import { Component } from '@angular/core';
 })
 export class TabsPage {
 
-  constructor() {}
+  tipoUsuario: string = '';
+
+  constructor(
+    private getUser: GetUserTypeService
+  ) {}
+
+  ionViewWillEnter(){
+    this.tipoUsuario = this.getUser.getUserType();
+  }
 
 }

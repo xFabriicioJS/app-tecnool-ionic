@@ -13,6 +13,7 @@ export class Tab3Page {
   nomeUsuarioLogado: string = '';
   emailUsuarioLogado: string = '';
   imgUsuarioLogado: string = '';
+  tipoUsuarioLogado: string = '';
 
   constructor(private router: Router, private getUser: GetUserTypeService) {}
 
@@ -22,20 +23,45 @@ export class Tab3Page {
     if (this.getUser.getUserInfo() == null) {
       this.router.navigate(['/openscreen']);
     } else {
+      //Verificamos agora se o usuário logado é um cliente ou administrador, precisamos fazer isso para a renderização condicional lá no html, que irá depender do atributo tipoUsuarioLogado
+      this.tipoUsuarioLogado = this.getUser.getUserType();
       //pegamos as informações do usuário logado para exibir nesta tela
       let user = this.getUser.getUserInfo();
 
-      this.nomeUsuarioLogado = user.nome_cliente;
-      this.emailUsuarioLogado = user.email_cliente;
-      if(!user.foto_cliente){
-        this.imgUsuarioLogado = 'https://www.w3schools.com/howto/img_avatar.png';
-      }else{
+      //setando os atributos que irão vir do nosso serviço getUserInfo, caso o usuário logado seja um cliente
+      if(this.tipoUsuarioLogado == 'Cliente'){
+        
+        //Se o usuário logado não tiver uma foto de perfil, vamos setar uma imagem padrão genérica, caso contrário, vamos setar a imagem que o usuário já tem cadastrada
+        if(!user.foto_cliente || user.foto_usuario){
+          this.imgUsuarioLogado = 'https://www.w3schools.com/howto/img_avatar.png';
+        }else{
+          this.imgUsuarioLogado = environment.FILE_IMG_PATH + '/' + user.foto_cliente;
+        }
+
+        this.nomeUsuarioLogado = user.nome_cliente;
+        this.emailUsuarioLogado = user.email_cliente;
         this.imgUsuarioLogado = environment.FILE_IMG_PATH + '/' + user.foto_cliente;
+      }else{
+
+        //Se o usuário logado não tiver uma foto de perfil, vamos setar uma imagem padrão genérica, caso contrário, vamos setar a imagem que o usuário já tem cadastrada
+        if(!user.foto_usuario){
+          this.imgUsuarioLogado = 'https://www.w3schools.com/howto/img_avatar.png';
+        }else{
+          this.imgUsuarioLogado = environment.FILE_IMG_PATH + '/' + user.foto_usuario;
+        }
+        //setando os atributos que irão vir do nosso serviço getUserInfo, caso o usuário logado seja um administrador
+        this.nomeUsuarioLogado = user.nome_usuario;
+        this.emailUsuarioLogado = user.email_usuario;
       }
-     
-      console.log(user.foto_cliente);
-      console.log(this.imgUsuarioLogado);
     }
+  }
+
+  //Método responsável por fazer o logout do usuário
+  logout(){
+    //Removemos as informações do usuário do localStorage
+    localStorage.removeItem('usuario');
+    //Redirecionamos o usuário para a página de login
+    this.router.navigate(['/openscreen']);
   }
 
   navigateConfiguracoesConta() {
@@ -48,4 +74,7 @@ export class Tab3Page {
   navigateMeuContrato() {
     this.router.navigate(['/meu-contrato']);
   }
+
+
+  
 }

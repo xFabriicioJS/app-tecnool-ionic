@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionSheetController, AlertController, LoadingController  } from '@ionic/angular';
+import {
+  ActionSheetController,
+  AlertController,
+  LoadingController,
+} from '@ionic/angular';
 import { ApiService } from '../api/api-service';
 import { LoadingService } from '../loading.service';
 import { GetUserTypeService } from '../services/get-user-type.service';
@@ -22,7 +26,7 @@ export class Tab1Page {
   idCurrentUser: number = 0;
   numChamadosAbertos: number = 0;
   numChamadosFinalizados: number = 0;
-
+  isLoading: boolean = false;
 
   constructor(
     private router: Router,
@@ -34,15 +38,10 @@ export class Tab1Page {
     private loading: LoadingService
   ) {}
 
-  ngOnInit() {
-  
-
-  }
-
+  ngOnInit() {}
 
   ionViewWillEnter() {
     this.chamados = [];
-    console.log('teste');
     //verificamos primeiro se o usuário está logado
     if (this.getUser.getUserInfo() == null) {
       this.router.navigate(['/openscreen']);
@@ -55,20 +54,23 @@ export class Tab1Page {
       this.idCurrentUser = currentUser.id_cliente;
       this.loading.present();
       this.buscarChamadosPorCliente();
-      setTimeout(()=>this.loading.dismiss(), 2200);
-
+      setTimeout(() => this.loading.dismiss(), 2200);
+      this.isLoading = false;
+      console.log(this.isLoading);
+      console.log(this.chamados);
     } else {
       this.tipoUsuarioLogado = 'Usuario';
       let currentUser = this.getUser.getUserInfo();
       this.idCurrentUser = currentUser.id_usuario;
       this.loading.present();
-      this.carregar();      
-      setTimeout(()=>this.loading.dismiss(), 2200);
+      this.buscarTodosOsChamados();
+      setTimeout(() => this.loading.dismiss(), 2200);
+      this.isLoading = false;
+      console.log(this.isLoading);
     }
-
-  }
-
   
+    console.log(this.chamados);
+  }
 
   async presentActionSheet(chamado) {
     const actionSheet = await this.actionSheetCtrl.create({
@@ -120,8 +122,15 @@ export class Tab1Page {
     await actionSheet.present();
   }
 
-  buscarChamadosAbertos() {}
+  //Método que irá fazer um filter no atributo "chamados", para filtrar os chamados que estão abertos
+  buscarChamadosAbertos() {
+    this.chamados = this.chamados.filter(
+      (chamado) => chamado.status !== 'Finalizado'
+    );
+  }
 
+
+  //Método para buscar por todos os chamados, de todos os clientes
   buscarTodosOsChamados() {
     let bodyRequest = {
       requisicao: 'listar',
@@ -137,7 +146,19 @@ export class Tab1Page {
           if (data['success'] == true) {
             data['result'].map((chamado) => {
               this.chamados.push(chamado[0]);
+              //Calculando o número de chamados abertos
+              this.numChamadosAbertos = this.chamados.filter(
+                (chamado) => chamado.status !== 'Finalizado'
+              ).length;
+
+              //Calculando o número de chamados finalizados
+              this.numChamadosFinalizados = this.chamados.filter(
+                (chamado) => chamado.status == 'Finalizado'
+              ).length;
             });
+
+            console.log(this.numChamadosAbertos);
+
           } else if (data['result'] == '0') {
             this.cardNenhumChamado = true;
           }
@@ -261,7 +282,6 @@ export class Tab1Page {
           break;
         }
         default:
-          this.buscarTodosOsChamados();
           break;
       }
     });
@@ -334,6 +354,8 @@ export class Tab1Page {
   }
 
   buscarChamadosPorProtocolo() {
+
+
     let bodyRequest;
 
     if (this.tipoUsuarioLogado == 'Usuario') {
@@ -400,4 +422,6 @@ export class Tab1Page {
 
     await alert.present();
   }
+
+  
 }

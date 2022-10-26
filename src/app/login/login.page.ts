@@ -80,7 +80,11 @@ export class LoginPage implements OnInit {
    //Função que será chamada para setar dados no nosso local storage, para que possamos usar em outras páginas, e sem precisar de um gerenciador de contexto global
    setLocalStorageData(data : any){
     //setar dados no local storage
-    localStorage.setItem('usuario', JSON.stringify(data));
+    localStorage.setItem('usuario', JSON.stringify(
+      
+      data
+      
+      ));
    }
 
   ngOnInit() {
