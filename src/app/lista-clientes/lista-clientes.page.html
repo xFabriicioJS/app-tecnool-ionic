@@ -14,8 +14,20 @@
 
 
 <ion-content>
-  <div style="background-color:var(--ion-color-primary);width: 100%; height: 100%; border-radius: 35px 35px 0% 0%;" class="ion-padding">
-    <ion-card *ngFor="let cliente of clientes">
+
+  <div style="background-color:var(--ion-color-primary);width: 100%; height: 100%; border-radius: 35px 35px 0% 0%; margin-top: 10px;" class="ion-padding">
+
+    <ion-card class="ion-padding" color="light">
+      <div style="display: flex; justify-content:center">
+      <ion-icon name="information-circle-sharp" style="font-size: 2rem;"></ion-icon>
+      </div>
+      <ion-card-title style="font-size: 15px;">
+        Toque sobre um cliente para visualizar mais detalhes.
+      </ion-card-title>
+     </ion-card>
+
+
+    <ion-card *ngFor="let cliente of clientes" (click)="presentActionSheet(cliente)">
       <ion-list>
         <ion-item lines="none">
           <ion-label>

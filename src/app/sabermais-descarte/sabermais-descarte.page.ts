@@ -22,7 +22,11 @@ import { Router } from '@angular/router';
         <div class="slide">   
         <ion-img src="../../assets/images/descarte1.jpg"></ion-img>
         
-        <h2>Descarte solidário</h2>
+        <h2>
+        <b>
+        Descarte solidário
+        </b>
+        </h2>
       
         <p>
           O <b>descarte solidário</b> é uma ação da <b>Tecnool</b> para promover a reciclagem de equipamentos eletrônicos e eletrônicos de consumo (EEE) e de pilhas e baterias de maneira não-prejudicial ao meio-ambiente.
@@ -51,9 +55,10 @@ import { Router } from '@angular/router';
         Caso você tenha interesse, já comece a juntar todo o seu material e ajude o crescimento sustentável na nossa cidade. Esperamos ansiosos por você.
         </p>
 
+        <ion-button expand="block" color="success" (click)="navigateAddDescarte()">Quero abrir uma solicitação</ion-button>
 
         <ion-button expand="block" color="primary" (click)="navigateInicio()">Voltar</ion-button>
-        <ion-button expand="block" color="success" (click)="navigateAddDescarte()">Quero abrir uma solicitação</ion-button>
+        
         
       </div>
       </ion-slide>

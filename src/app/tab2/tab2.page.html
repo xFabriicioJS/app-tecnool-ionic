@@ -57,16 +57,20 @@
 
   <!-- Card responsável por renderizar a lista dos descartes -->
 
-  <ion-card>
+  <ion-card (click)="presentActionSheet(descarte)" *ngFor="let descarte of descartes" class="cardChamado">
     <ion-list>
-      <ion-item (click)="presentActionSheet(descarte)" *ngFor="let descarte of descartes">
-        <ion-label>{{descarte.nome_hardware}}</ion-label>
+      <ion-item lines="none">
+        <ion-icon name="heart-circle-outline" slot="start"></ion-icon>
+        <ion-label>
+          <h1>{{descarte.nome_hardware}}</h1>
+          <p>{{descarte.descricao}}</p>
+        </ion-label>
         <ion-badge *ngIf="descarte.status !== Finalizado" color="success">{{descarte.status}}</ion-badge>
         <ion-badge *ngIf="descarte.status === Cancelado" color="light">{{descarte.status}}</ion-badge>
       </ion-item>
     </ion-list>
-    
-</ion-card>
+
+  </ion-card>
 
 <!-- Card responsável por informar o usuário se ele tem ou não descartes cadastrados -->
 <ion-card *ngIf="cardNenhumDescarte == true" color="primary" class="ion-padding">

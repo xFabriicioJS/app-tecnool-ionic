@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ActionSheetController } from '@ionic/angular';
 import { ApiService } from '../api/api-service';
 import { GetUserTypeService } from '../services/get-user-type.service';
 
@@ -16,7 +17,8 @@ export class ListaClientesPage implements OnInit {
   constructor(
     private router: Router,
     private getUser: GetUserTypeService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private actionSheetCtrl: ActionSheetController
   ) { }
 
   //Precisamos primeiro fazer algumas verificações para garantir que o usuário está logado e que ele é um administrador, fazemos tudo isso aqui, no método ionViewWillEnter, ele é um método que é executado ao renderizar a página
@@ -45,6 +47,10 @@ export class ListaClientesPage implements OnInit {
 
   }
 
+  navigateInfoClientes(idCliente){
+    this.router.navigate(['/info-clientes/' + idCliente]);
+  }
+
   ngOnInit() {
 
   }
@@ -71,6 +77,32 @@ export class ListaClientesPage implements OnInit {
         }
       })
     })
+  }
+
+
+  //Método responsável por abrir o menu de opções
+  async presentActionSheet(cliente) {
+    const actionSheet = await this.actionSheetCtrl.create({
+      header: 'O que deseja fazer com esse cliente?',
+      buttons: [
+        {
+          text: 'Informações',
+          handler: () => {
+            console.log('Abrindo informações ' + cliente)
+          },
+        },
+        {
+          text: 'Ativar contrato',
+          handler: ()=> {
+            console.log('Ativando contrato ' + cliente )
+          },
+        }
+        
+      ],
+    });
+
+    await actionSheet.present();
+
   }
 
 }

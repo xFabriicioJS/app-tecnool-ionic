@@ -113,6 +113,7 @@
   <ion-card (click)="presentActionSheet(chamado)" *ngFor="let chamado of chamados" class="cardChamado">
     <ion-list>
       <ion-item lines="none">
+        <ion-icon name="hammer-outline" slot="start"></ion-icon>
         <ion-label>
           <h1>{{chamado.titulo}}</h1>
           <p *ngIf="tipoUsuarioLogado == 'Usuario'">{{chamado.nome_cliente}}</p>
