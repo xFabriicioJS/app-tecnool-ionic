@@ -1,24 +1,24 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Lista de clientes</ion-title>
+    <ion-title>
+      Lista de clientes
+    </ion-title>
   </ion-toolbar>
 </ion-header>
+
+
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">
-        Lista de clientes
-      </ion-title>
+      <ion-title size="large">Todos os clientes</ion-title>
     </ion-toolbar>
   </ion-header>
 
 
-<ion-content>
-
-  <div style="background-color:var(--ion-color-primary);width: 100%; height: 100%; border-radius: 35px 35px 0% 0%; margin-top: 10px;" class="ion-padding">
+  <div style="background-color:var(--ion-color-primary);width: 100%; border-radius: 35px 35px 0% 0%; margin-top: 10px; min-height: 100%" class="ion-padding">
 
     <ion-card class="ion-padding" color="light">
-      <div style="display: flex; justify-content:center">
+      <div style="display: flex; justify-content:center;">
       <ion-icon name="information-circle-sharp" style="font-size: 2rem;"></ion-icon>
       </div>
       <ion-card-title style="font-size: 15px;">
@@ -26,8 +26,23 @@
       </ion-card-title>
      </ion-card>
 
+     <ion-card>
+      <ion-row class="ion-padding" color="primary">
+        <ion-input
+        placeholder="Pesquise o nome do cliente aqui"
+        type="search" [(ngModel)]="nomePesquisado" (ngModelChange)="buscar()"
+        required ></ion-input>
+        <ion-buttons (click)="buscar()">
+          <ion-button>
+            <ion-icon slot="end" name="search"></ion-icon>
+          </ion-button>
+  
+        </ion-buttons>
+      </ion-row>
+    </ion-card>
 
-    <ion-card *ngFor="let cliente of clientes" (click)="presentActionSheet(cliente)">
+
+    <ion-card *ngFor="let cliente of clientes" (click)="presentActionSheet(cliente)" class="ioncard ion-activatable">
       <ion-list>
         <ion-item lines="none">
           <ion-label>

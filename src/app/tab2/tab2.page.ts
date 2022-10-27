@@ -14,6 +14,13 @@ export class Tab2Page {
   cardNenhumDescarte: boolean = false;
   descartes: any = [];
   idUsuarioLogado: number = 0;
+  tipoUsuarioLogado: string = '';
+  numDescartesAbertos: number = 0;
+  numDescartesFinalizados: number = 0;
+
+  //Essa propriedade evita possíveis bugs enquanto fazemos nossas requisições, basicamente,
+  //quando a tela é renderizada, ela possui valor true, quando a requisição é feita, o valor é alterado para false. Enquanto o valor for true, exibiremos uma tela preta
+  isLoading: boolean = true;
 
   constructor(
     private router: Router,
@@ -36,10 +43,12 @@ export class Tab2Page {
     if (this.getUser.getUserType() == 'Cliente') {
       let currentUser = this.getUser.getUserInfo();
       this.idUsuarioLogado = currentUser.id_cliente;
+      this.tipoUsuarioLogado = 'Cliente';
     } else {
       //Caso o usuário logado seja um administrador a requisiçã a ser feita é a de buscar todos os descartes, de todos os clientes
       let currentUser = this.getUser.getUserInfo();
       this.idUsuarioLogado = currentUser.id_usuario;
+      this.tipoUsuarioLogado = 'Usuario';
     }
     this.descartes = [];
     //Buscamos todos os descartes, o próprio método já faz a verificação do tipo de usuário logado
@@ -47,11 +56,15 @@ export class Tab2Page {
     //Apresentamos o loading
     this.loading.present();
     this.buscarTodosOsDescartes();
-    //Escondemos o loading
-    setTimeout(()=>this.loading.dismiss(), 2200);
+
+    //Setamos a propriedade isLoading para false, assim a tela preta será removida
+    this.isLoading = false;
+
+    //Escondemos a animação do loading
+    setTimeout(() => this.loading.dismiss(), 2200);
 
     console.log(this.descartes);
-    }
+  }
 
   navigateSaibaMaisDescarte() {
     this.router.navigate(['/sabermais-descarte']);
@@ -87,6 +100,16 @@ export class Tab2Page {
             data['result'].map((descarte) => {
               this.descartes.push(descarte[0]);
             });
+
+            //Calculando o número de descartes abertos
+            this.numDescartesAbertos = this.descartes.filter(
+              (descarte) => descarte.status !== 'Finalizado'
+            ).length;
+
+            //Calculando o número de chamados finalizados
+            this.numDescartesFinalizados = this.descartes.filter(
+              (descarte) => descarte.status == 'Finalizado'
+            ).length;
 
             //caso o usuário/admin não tenha descartes cadastrados habilitamos o card de nenhum descarte
           } else if (data['result'] == '0') {
@@ -152,7 +175,7 @@ export class Tab2Page {
     await actionSheet.present();
   }
 
-  //função responsável por navegar para a rota de informações do descarte específivo
+  //Função responsável por navegar para a rota de informações do descarte específivo
   navigateInfoDescarte(
     id: any,
     protocolo: string,

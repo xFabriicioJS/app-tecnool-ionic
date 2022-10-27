@@ -110,7 +110,7 @@
 
 
 
-  <ion-card (click)="presentActionSheet(chamado)" *ngFor="let chamado of chamados" class="cardChamado">
+  <ion-card (click)="presentActionSheet(chamado)" *ngFor="let chamado of chamados" class="ioncard ion-activatable cardChamado">
     <ion-list>
       <ion-item lines="none">
         <ion-icon name="hammer-outline" slot="start"></ion-icon>
@@ -119,15 +119,19 @@
           <p *ngIf="tipoUsuarioLogado == 'Usuario'">{{chamado.nome_cliente}}</p>
           <p *ngIf="tipoUsuarioLogado == 'Cliente'">{{chamado.descricao}}</p>
         </ion-label>
-        <ion-badge *ngIf="chamado.status !== Finalizado" color="success">{{chamado.status}}</ion-badge>
+        <ion-badge *ngIf="chamado.status !== Finalizado" color="success">
+          <p style="font-size: 12px;">
+            {{chamado.status}}
+          </p>
+        </ion-badge>
         <ion-badge *ngIf="chamado.status === Cancelado" color="light">{{chamado.status}}</ion-badge>
       </ion-item>
     </ion-list>
 
   </ion-card>
     
- 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+ <!-- Botão flutuante de adicionar chamado, só irá aparecer se o usuário logado for um cliente -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="tipoUsuarioLogado == 'Cliente'">
     <ion-fab-button color="tertiary">
       <ion-icon name="add" (click)="navigateAddChamado()"></ion-icon>
     </ion-fab-button>

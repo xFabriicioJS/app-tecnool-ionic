@@ -85,8 +85,17 @@ export class ConfiguracoesContaPage implements OnInit {
       this.idUsuarioLogado = currentLoggedInUser.id_cliente;
       this.nome = currentLoggedInUser.nome_cliente;
       this.cpf = currentLoggedInUser.cpf_cliente;
-      this.idTipoCliente = currentLoggedInUser.id_tipo_cliente;
-      
+      this.idTipoCliente = currentLoggedInUser.id_tipo_cliente; 
+    }else{
+      //Se o usuário logado for um funcionário...
+      //Pegando os dados do funcionário no localStorage
+      let currentLoggedInUser = this.getUser.getUserInfo();
+      //Setando a foto do usuário
+      if(!currentLoggedInUser.foto_usuario){
+        this.imgUsuarioLogado = 'https://www.w3schools.com/howto/img_avatar.png';
+      }else{
+        this.imgUsuarioLogado = environment.FILE_IMG_PATH + '/' +currentLoggedInUser.foto_usuario;
+      }
     }
   }
 

@@ -12,6 +12,7 @@ import { GetUserTypeService } from '../services/get-user-type.service';
 export class ListaClientesPage implements OnInit {
 
   clientes: any = [];
+  nomePesquisado: string = '';
 
 
   constructor(
@@ -92,9 +93,9 @@ export class ListaClientesPage implements OnInit {
           },
         },
         {
-          text: 'Ativar contrato',
+          text: 'Ativar um contrato',
           handler: ()=> {
-            console.log('Ativando contrato ' + cliente )
+            console.log('Ativando contrato ' + cliente.id_cliente )
           },
         }
         
@@ -102,6 +103,21 @@ export class ListaClientesPage implements OnInit {
     });
 
     await actionSheet.present();
+
+  }
+
+
+
+  buscar(){
+    console.log(this.nomePesquisado);
+    //Colocando tudo em minúsculo	
+    let nomePesquisadoLowerCase = this.nomePesquisado.toLowerCase();
+
+    if(nomePesquisadoLowerCase !==  ''){
+      this.clientes = this.clientes.filter(cliente => cliente.nome_cliente.toLowerCase().includes(nomePesquisadoLowerCase));
+    }else{
+      this.requestAllClients();
+    }
 
   }
 

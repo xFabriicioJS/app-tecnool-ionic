@@ -56,8 +56,7 @@ export class Tab1Page {
       this.buscarChamadosPorCliente();
       setTimeout(() => this.loading.dismiss(), 2200);
       this.isLoading = false;
-      console.log(this.isLoading);
-      console.log(this.chamados);
+  
     } else {
       this.tipoUsuarioLogado = 'Usuario';
       let currentUser = this.getUser.getUserInfo();
@@ -168,15 +167,7 @@ export class Tab1Page {
     });
   }
 
-  buscarChamadosFinalizados() {
-    //fazendo um filter nos chamados para filtrar somente os chamados finalizados
-
-    let chamadosFinalizados = this.chamados.filter((chamado) => {
-      return chamado.status == 'Finalizado';
-    });
-
-    this.chamados = chamadosFinalizados;
-  }
+  
 
   buscarChamadosPorCliente() {
     let bodyRequest = {
