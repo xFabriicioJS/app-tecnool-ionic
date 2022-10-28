@@ -12,7 +12,7 @@ import { GetUserTypeService } from '../services/get-user-type.service';
 export class Tab3Page {
   nomeUsuarioLogado: string = '';
   emailUsuarioLogado: string = '';
-  imgUsuarioLogado: string = '';
+  imgUsuarioLogado: string = 'https://www.w3schools.com/howto/img_avatar.png';
   tipoUsuarioLogado: string = '';
 
   constructor(private router: Router, private getUser: GetUserTypeService) {}
@@ -33,15 +33,16 @@ export class Tab3Page {
       if(this.tipoUsuarioLogado == 'Cliente'){
         
         //Se o usuário logado não tiver uma foto de perfil, vamos setar uma imagem padrão genérica, caso contrário, vamos setar a imagem que o usuário já tem cadastrada
-        if(!user.foto_cliente || user.foto_usuario){
+        if(!user.foto_cliente || !user.foto_usuario || user.foto_cliente == 'null'){
           this.imgUsuarioLogado = 'https://www.w3schools.com/howto/img_avatar.png';
         }else{
           this.imgUsuarioLogado = environment.FILE_IMG_PATH + '/' + user.foto_cliente;
+          console.log(user.foto_cliente);
         }
+
 
         this.nomeUsuarioLogado = user.nome_cliente;
         this.emailUsuarioLogado = user.email_cliente;
-        this.imgUsuarioLogado = environment.FILE_IMG_PATH + '/' + user.foto_cliente;
       }else{
 
         //Se o usuário logado não tiver uma foto de perfil, vamos setar uma imagem padrão genérica, caso contrário, vamos setar a imagem que o usuário já tem cadastrada

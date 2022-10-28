@@ -116,6 +116,7 @@ export class ListaClientesPage implements OnInit {
     if(nomePesquisadoLowerCase !==  ''){
       this.clientes = this.clientes.filter(cliente => cliente.nome_cliente.toLowerCase().includes(nomePesquisadoLowerCase));
     }else{
+      this.clientes = [];
       this.requestAllClients();
     }
 

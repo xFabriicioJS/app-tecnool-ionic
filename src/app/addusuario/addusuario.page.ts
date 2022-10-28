@@ -29,7 +29,6 @@ export class AddusuarioPage implements OnInit {
         Validators.compose([
           Validators.minLength(4),
           Validators.maxLength(30),
-          Validators.pattern('[0-9a-z-A-Z-_]*'),
           Validators.required,
         ]),
       ],
@@ -131,6 +130,10 @@ export class AddusuarioPage implements OnInit {
 
     if (!this.formGroup.valid) {
       console.log('Por favor preencha todos os campos');
+    
+      console.log(this.formGroup.value);
+      console.log(this.formGroup.valid);
+
       return false;
     }
 
