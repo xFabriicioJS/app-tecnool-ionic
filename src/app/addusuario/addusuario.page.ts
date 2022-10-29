@@ -46,7 +46,6 @@ export class AddusuarioPage implements OnInit {
         Validators.compose([
           Validators.minLength(4),
           Validators.maxLength(30),
-          Validators.pattern('[0-9a-z-A-Z-_]*'),
           Validators.required,
         ]),
       ],

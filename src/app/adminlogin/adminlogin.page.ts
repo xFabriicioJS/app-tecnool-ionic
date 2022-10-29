@@ -72,7 +72,9 @@ export class AdminloginPage implements OnInit {
         //setar dados no local storage
         this.setLocalStorageData(data['result']);
 
-        this.router.navigate(['/tabs/tab1']);
+        //redireciona para a página inicial do app
+        this.router.navigateByUrl('/tabs/tab1');
+
       }else{
         this.presentToast("<b>Email ou senha incorretos.</b>", "danger");
       }
@@ -92,7 +94,6 @@ export class AdminloginPage implements OnInit {
   ionViewWillEnter(){
 
     //garantindo que o usuário/cliente não esteja logado
-
     localStorage.removeItem('usuario');
     localStorage.removeItem('cliente');
   }

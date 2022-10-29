@@ -1,4 +1,3 @@
-<!-- Página responsável por renderizar informações de um único cliente, dessa vez não iremos pegar as informações pela actRoute, e sim, por uma requisição a nossa API -->
 
 
 <ion-header>
@@ -30,12 +29,13 @@
       </ion-card-subtitle>
     </ion-card-content>
   </ion-card>
-  <ion-card color="dark">
-    <ion-list>
+  
+  <ion-card color="light">
+    <ion-list color="light">
       <ion-item>
         <ion-icon name="person-outline" slot="start"></ion-icon>
         <ion-label>
-          <h1>{{emailDoCliente}}</h1>
+          <h1>{{emailCliente}}</h1>
           <p>Email do cliente</p>
         </ion-label>
       </ion-item>
@@ -53,28 +53,51 @@
           <p>Telefone do cliente</p>
         </ion-label>
       </ion-item>
-      <ion-card>
-        Dados do endereço
-      </ion-card>
+      <ion-item *ngIf="tipoCliente == 2">
+        <ion-icon name="clipboard-outline" slot="start"></ion-icon>
+        <ion-label>
+          <h1>{{cpfCliente}}</h1>
+          <p>CNPJ do cliente</p>
+        </ion-label>
+      </ion-item>
+      <ion-item *ngIf="tipoCliente == 2">
+        <ion-icon name="clipboard-outline" slot="start"></ion-icon>
+        <ion-label>
+          <h1>{{razaoSocial}}</h1>
+          <p>Razão Social</p>
+        </ion-label>
+      </ion-item>
 
+      
+      <ion-card class="ion-padding" color="tertiary">
+        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <ion-icon name="information-circle-sharp" style="font-size: 2rem;"></ion-icon>
+          
+        <br>
+        <ion-card-title style="font-size: 21px;">
+          Informações do endereço
+        </ion-card-title>  
+      </div>
+       </ion-card>
+    
       <ion-item>
         <ion-icon name="information-circle-sharp" slot="start" ></ion-icon>
         <ion-label>
-          <h1>{{logradouroCliente}}</b></h1>
+          <h1><b>{{logradouroCliente}}</b></h1>
           <p>Logradouro</p>
         </ion-label>
       </ion-item>
       <ion-item>
         <ion-icon name="information-circle-sharp" slot="start" ></ion-icon>
         <ion-label>
-          <h1>{{cidadeCliente}}</b></h1>
+          <h1>{{cidadeCliente}}</h1>
           <p>Cidade</p>
         </ion-label>
       </ion-item>
       <ion-item>
         <ion-icon name="information-circle-sharp" slot="start" ></ion-icon>
         <ion-label>
-          <h1>{{cepCliente}}</b></h1>
+          <h1>{{cepCliente}}</h1>
           <p>CEP</p>
         </ion-label>
       </ion-item>

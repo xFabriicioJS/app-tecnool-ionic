@@ -89,7 +89,7 @@ export class ListaClientesPage implements OnInit {
         {
           text: 'Informações',
           handler: () => {
-            console.log('Abrindo informações ' + cliente)
+            this.navigateInfoClientes(cliente.id_cliente);
           },
         },
         {
@@ -108,6 +108,7 @@ export class ListaClientesPage implements OnInit {
 
 
 
+  //Método responsável por pesquisar um cliente pelo NOME, dessa vez, usamos um método diferente, o método filter do próprio javascript, que filtra os dados de acordo com o que foi digitado no input, sem precisar ficar fazendo várias requisições a nossa API
   buscar(){
     console.log(this.nomePesquisado);
     //Colocando tudo em minúsculo	

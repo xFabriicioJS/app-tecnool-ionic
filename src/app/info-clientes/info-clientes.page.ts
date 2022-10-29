@@ -1,8 +1,8 @@
-// <!-- Página responsável por renderizar informações de um único cliente, dessa vez não iremos pegar as informações pela actRoute, e sim, por uma requisição a nossa API -->
-
+//Dessa vez, não iremos pegar os dados pelo actRouter, e sim, iremos fazer uma requisição findById para pegar os dados do cliente juntamente de seu endereço
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { ApiService } from '../api/api-service';
 
 @Component({
@@ -17,12 +17,15 @@ export class InfoClientesPage implements OnInit {
 
   // Iremos fazer uma renderização condicional com base no valor desse atributo
   private tipoCliente: string = '';
+
+  //Dados do cliente, iremos pegar todos os dados do cliente e alguns dados do endereço desse cliente
   private emailCliente: string = '';
   private cpfCliente: string = '';
   private telefoneCliente: string = '';
   private logradouroCliente: string = '';
   private numeroCliente: string = '';
   private complementoCliente: string = '';
+  private cidadeCliente: string = '';
   private idCliente: number = 0;
 
 
@@ -36,31 +39,54 @@ export class InfoClientesPage implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.actRouter.params.subscribe((data: any)=>{
+      
+      //Pegando o id do cliente que foi passado por parâmetro
       this.idCliente = data.idCliente;
+      
     });
   
   }
 
 
-
   ionViewWillEnter(){
-    //Vamos fazer uma requisição para pegar os dados do cliente
-
-    
-
+    this.requestInfoCliente(this.idCliente);  
   }
 
   //Método responsável por fazer a requisição para nossa API
-  requestInfoCliente(){
+  requestInfoCliente(idCliente: number){
 
     //Objeto que será enviado para a API, o corpo da requisição
     let bodyRequest = {
-      requisicao: ''
+      requisicao: 'findById',
+      id_cliente: idCliente
     }
 
+    console.log(bodyRequest);
+
     return new Promise(res => {
-      // this.apiService.apiPHP()
+       this.apiService.apiPHP('controller-clientes.php', bodyRequest).subscribe((data)=>{
+        if(data['success'] == true){
+          console.log(data['result'][0][0].nome_cliente);
+          //Se a requisição for bem sucedida, iremos pegar os dados do cliente e do endereço
+
+          //IF ternário responsável por verificar se o cliente possui uma foto personalizada ou não
+          this.fotoCliente = data['result'][0][0].foto_cliente !== null ? environment.FILE_IMG_PATH + '/' +data['result'][0][0].foto_cliente : 'https://www.w3schools.com/howto/img_avatar.png';
+          this.nomeCliente = data['result'][0][0].nome_cliente;
+          this.emailCliente = data['result'][0][0].email_cliente;
+          this.cpfCliente = data['result'][0][0].cpf_cliente;
+          this.telefoneCliente = data['result'][0][0].telefone_cliente;
+          this.logradouroCliente = data['result'][0][0].logradouro_endereco;
+          this.numeroCliente = data['result'][0][0].numero_endereco;
+          this.complementoCliente = data['result'][0][0].complemento_endereco;
+          this.tipoCliente = data['result'][0][0].id_tipo_cliente == 1 ? 'Pessoa física' : 'Pessoa jurídica';
+          this.cidadeCliente = data['result'][0][0].cidade_endereco;
+
+        }else{
+          console.log('Erro ao pegar os dados do cliente');
+        }
+       })
     })
   }
 
