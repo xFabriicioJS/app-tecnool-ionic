@@ -2,6 +2,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { ApiService } from '../api/api-service';
 
@@ -27,6 +28,8 @@ export class InfoClientesPage implements OnInit {
   private complementoCliente: string = '';
   private cidadeCliente: string = '';
   private idCliente: number = 0;
+  private cepCliente: string = '';
+
 
 
 
@@ -34,8 +37,8 @@ export class InfoClientesPage implements OnInit {
   constructor(
     private apiService: ApiService,
     private router: Router,
-    private actRouter: ActivatedRoute
-
+    private actRouter: ActivatedRoute,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -78,16 +81,28 @@ export class InfoClientesPage implements OnInit {
           this.cpfCliente = data['result'][0][0].cpf_cliente;
           this.telefoneCliente = data['result'][0][0].telefone_cliente;
           this.logradouroCliente = data['result'][0][0].logradouro_endereco;
-          this.numeroCliente = data['result'][0][0].numero_endereco;
+          this.numeroCliente = data['result'][0][0].num_endereco;
+          this.cepCliente = data['result'][0][0].cep_endereco;
           this.complementoCliente = data['result'][0][0].complemento_endereco;
           this.tipoCliente = data['result'][0][0].id_tipo_cliente == 1 ? 'Pessoa física' : 'Pessoa jurídica';
           this.cidadeCliente = data['result'][0][0].cidade_endereco;
 
+          console.log(data);
+
         }else{
-          console.log('Erro ao pegar os dados do cliente');
+          this.presentToast('Ocorreu um erro ao tentar buscar os dados do cliente');
         }
        })
     })
   }
 
+  //Método responsável por exibir um toast caso dê algum erro na requisição
+  async presentToast(message: string){
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
+
+  }
 }
