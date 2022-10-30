@@ -37,13 +37,12 @@
     <form style="width: 100vw; margin-top: 1rem;" class="ion-padding" [formGroup]="formGroup" (ngSubmit)="onSubmit()" color="light">
       <ion-item>
         <ion-label position="floating" color="secondary" style="font-size: 16px;">
-          <b>Email</b>
+          <b>Login de usuário</b>
         </ion-label>
         <ion-input
-        formControlName="email"
+        formControlName="login"
         required
-        type="email"
-        placeholder="Digite seu email"
+        placeholder="Digite seu login de usuário"
         ></ion-input>
       </ion-item>
 

@@ -2,7 +2,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { ApiService } from '../api/api-service';
 
@@ -30,15 +30,18 @@ export class InfoClientesPage implements OnInit {
   private idCliente: number = 0;
   private cepCliente: string = '';
 
-
-
-
+  //Informações do plano/contrato do cliente, iremos fazer uma requisição diferente para pegar esses dados
+  possuiPlanoAtivo: boolean = false;
+  nomePlano: string = '';
+  valorPlano: string = '';
+  imgPlano: string = '';
 
   constructor(
     private apiService: ApiService,
     private router: Router,
     private actRouter: ActivatedRoute,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -54,7 +57,11 @@ export class InfoClientesPage implements OnInit {
 
 
   ionViewWillEnter(){
+    //Chamado para o método que irá devolver os dados do cliente e de seu endereço
     this.requestInfoCliente(this.idCliente);  
+
+    //Chamada para o método que irá retornar os dados do plano/contrato do cliente
+    this.requestInfoPlano(this.idCliente);
   }
 
   //Método responsável por fazer a requisição para nossa API
@@ -96,6 +103,22 @@ export class InfoClientesPage implements OnInit {
     })
   }
 
+  //Método responsável por trazer os dados do plano/contrato do cliente
+  requestInfoPlano(idCliente: number){
+    let bodyRequest = {
+      requisicao: 'recuperarPlano',
+      id_cliente: this.idCliente
+    }
+
+    return new Promise(res => {
+      this.apiService.apiPHP('controller-clientes.php', bodyRequest).subscribe((data) => {
+        if(data['success'] == true){
+          this
+        }
+      })
+    })
+  }
+
   //Método responsável por exibir um toast caso dê algum erro na requisição
   async presentToast(message: string){
     const toast = await this.toastController.create({
@@ -105,4 +128,9 @@ export class InfoClientesPage implements OnInit {
     toast.present();
 
   }
+
+
+  
+  
+
 }

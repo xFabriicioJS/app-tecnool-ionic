@@ -143,6 +143,15 @@ const routes: Routes = [
         (m) => m.InfoClientesPageModule
       ),
   },
+  {
+    path: 'lista-usuarios',
+    loadChildren: () => import('./lista-usuarios/lista-usuarios.module').then( m => m.ListaUsuariosPageModule)
+  },
+  {
+    path: 'info-usuarios/:idUsuario',
+    loadChildren: () => import('./info-usuarios/info-usuarios.module').then( m => m.InfoUsuariosPageModule)
+  },
+
 ];
 @NgModule({
   imports: [

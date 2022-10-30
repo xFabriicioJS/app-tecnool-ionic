@@ -76,6 +76,9 @@ export class Tab3Page {
   navigateMeuContrato() {
     this.router.navigate(['/meu-contrato']);
   }
+  navigateUsuarios(){
+    this.router.navigate(['/lista-usuarios']);
+  }
   
   navigateClientes(){
     this.router.navigate(['/lista-clientes']);

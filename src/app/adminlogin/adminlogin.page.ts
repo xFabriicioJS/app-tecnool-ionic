@@ -13,7 +13,6 @@ export class AdminloginPage implements OnInit {
   formGroup: FormGroup;
   isSubmitted: boolean = false;
 
-
   constructor(
     private router: Router,
     public formBuilder: FormBuilder,
@@ -21,36 +20,36 @@ export class AdminloginPage implements OnInit {
     private toastController: ToastController
   ) {
     this.formGroup = formBuilder.group({
-      email: [
-        "",
+      login: [
+        '',
         Validators.compose([
           Validators.minLength(4),
-          Validators.maxLength(32),
-          Validators.required          
-        ])
+          Validators.maxLength(30),
+          Validators.required,
+        ]),
       ],
       senha: [
-        "",
+        '',
         Validators.compose([
           Validators.minLength(1),
           Validators.maxLength(255),
-          Validators.required
-          
-        ])
-      ]
+          Validators.required,
+        ]),
+      ],
     });
+  }
 
-   }
-
-   get errorControl() {
+  get errorControl() {
     return this.formGroup.controls;
   }
 
-   onSubmit(){
-
+  onSubmit() {
     this.isSubmitted = true;
-    if(!this.formGroup.valid){
-      this.presentToast("<b>Preencha todos os campos corretamente.</b>", "danger");
+    if (!this.formGroup.valid) {
+      this.presentToast(
+        '<b>Preencha todos os campos corretamente.</b>',
+        'danger'
+      );
 
       //corta a função
       return false;
@@ -59,40 +58,37 @@ export class AdminloginPage implements OnInit {
 
     let bodyRequest = {
       requisicao: 'login',
-      email: this.formGroup.value.email,
-      senha: this.formGroup.value.senha  
-    }
+      login: this.formGroup.value.login,
+      senha: this.formGroup.value.senha,
+    };
 
-    this.apiService.apiPHP('controller-usuarios.php',bodyRequest).subscribe((data) => {
-      console.log(data);
-      if(data['success'] == true){
+    this.apiService
+      .apiPHP('controller-usuarios.php', bodyRequest)
+      .subscribe((data) => {
+        console.log(data);
+        if (data['success'] == true) {
+          this.presentToast('<b>Login efetuado com sucesso</b>', 'success');
 
-        this.presentToast("<b>Login efetuado com sucesso</b>", "success");
+          //setar dados no local storage
+          this.setLocalStorageData(data['result']);
 
-        //setar dados no local storage
-        this.setLocalStorageData(data['result']);
-
-        //redireciona para a página inicial do app
-        this.router.navigateByUrl('/tabs/tab1');
-
-      }else{
-        this.presentToast("<b>Email ou senha incorretos.</b>", "danger");
-      }
-    });
-   }
-
-   //Função que será chamada para setar dados no nosso local storage, para que possamos usar em outras páginas, e sem precisar de um gerenciador de contexto global
-   setLocalStorageData(data : any){
-    //setar dados no local storage
-    localStorage.setItem('usuario', JSON.stringify(data));
-
-   }
-
-  ngOnInit() {
+          //redireciona para a página inicial do app
+          this.router.navigateByUrl('/tabs/tab1');
+        } else {
+          this.presentToast('<b>Login ou senha incorretos.</b>', 'danger');
+        }
+      });
   }
 
-  ionViewWillEnter(){
+  //Função que será chamada para setar dados no nosso local storage, para que possamos usar em outras páginas, e sem precisar de um gerenciador de contexto global
+  setLocalStorageData(data: any) {
+    //setar dados no local storage
+    localStorage.setItem('usuario', JSON.stringify(data));
+  }
 
+  ngOnInit() {}
+
+  ionViewWillEnter() {
     //garantindo que o usuário/cliente não esteja logado
     localStorage.removeItem('usuario');
     localStorage.removeItem('cliente');
@@ -102,9 +98,8 @@ export class AdminloginPage implements OnInit {
     const toast = await this.toastController.create({
       message: msg,
       duration: 2000,
-      color: color
+      color: color,
     });
     toast.present();
   }
-
 }

@@ -1,0 +1,16 @@
+ion-img::part(image){
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+}
+
+ion-label{
+    color: var(--ion-color-step-600, #60646b);
+}
+
+ion-content {
+    
+    height: 100%;
+    --background: linear-gradient(#712F79, #402e58);
+ 
+  }

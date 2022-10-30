@@ -7,7 +7,7 @@
         <ion-back-button></ion-back-button>
       </ion-button>
     </ion-buttons>
-    <ion-title>Lista de clientes</ion-title>
+    <ion-title>Lista de usuários</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -21,14 +21,14 @@
       <ion-icon name="information-circle-sharp" style="font-size: 2rem;"></ion-icon>
       </div>
       <ion-card-title style="font-size: 15px;">
-        Toque sobre um cliente para visualizar mais detalhes.
+        Toque sobre um usuário para visualizar mais detalhes.
       </ion-card-title>
      </ion-card>
 
      <ion-card>
       <ion-row class="ion-padding" color="primary">
         <ion-input
-        placeholder="Pesquise o nome do cliente aqui"
+        placeholder="Pesquise o nome do usuário aqui"
         type="search" [(ngModel)]="nomePesquisado" (ngModelChange)="buscar()"
         required ></ion-input>
         <ion-buttons (click)="buscar()">
@@ -41,23 +41,23 @@
     </ion-card>
 
 
-    <ion-card *ngFor="let cliente of clientes" (click)="navigateInfoClientes(cliente.id_cliente)" class="ioncard ion-activatable">
+    <ion-card *ngFor="let usuario of usuarios" (click)="navigateInfoUsuarios(usuario.id_usuario)" class="ioncard ion-activatable">
       <ion-list>
         <ion-item lines="none">
           <ion-label>
             <h1>
-              {{cliente.nome_cliente}}
+              {{usuario.nome_usuario}}
             </h1>
             <p>
-              {{cliente.email_cliente}}
+              {{usuario.email_usuario}}
             </p>
           </ion-label>
           <ion-avatar slot="start">
-            <!-- <ion-img *ngIf="cliente.foto_cliente !== 'null'"
-            src="http://localhost/api-php-v2/images/{{cliente.foto_cliente}}"
+            <ion-img *ngIf="usuario.foto_usuario !== ''"
+            src="http://localhost/api-php-v2/images/{{usuario.foto_usuario}}"
             ></ion-img>
-             -->
-            <ion-img *ngIf="cliente.foto_cliente == null"
+            
+            <ion-img *ngIf="usuario.foto_usuario == null || usuario.foto_usuario == ''"
             src="https://www.w3schools.com/howto/img_avatar.png"
             ></ion-img>
           </ion-avatar>

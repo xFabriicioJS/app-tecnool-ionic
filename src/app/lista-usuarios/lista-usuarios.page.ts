@@ -5,13 +5,13 @@ import { ApiService } from '../api/api-service';
 import { GetUserTypeService } from '../services/get-user-type.service';
 
 @Component({
-  selector: 'app-lista-clientes',
-  templateUrl: './lista-clientes.page.html',
-  styleUrls: ['./lista-clientes.page.scss'],
+  selector: 'app-lista-usuarios',
+  templateUrl: './lista-usuarios.page.html',
+  styleUrls: ['./lista-usuarios.page.scss'],
 })
-export class ListaClientesPage implements OnInit {
+export class ListaUsuariosPage implements OnInit {
 
-  clientes: any = [];
+  usuarios: any = [];
   nomePesquisado: string = '';
 
 
@@ -24,8 +24,8 @@ export class ListaClientesPage implements OnInit {
 
   //Precisamos primeiro fazer algumas verificações para garantir que o usuário está logado e que ele é um administrador, fazemos tudo isso aqui, no método ionViewWillEnter, ele é um método que é executado ao renderizar a página
   ionViewWillEnter(){
-    //Resetando o array dos clientes
-    this.clientes = [];
+    //Resetando o array dos usuários
+    this.usuarios = [];
 
     //Verificando se o usuário está logado
     if(this.getUser.getUserType() == null){
@@ -41,15 +41,15 @@ export class ListaClientesPage implements OnInit {
       console.log(this.getUser.getUserType());
     }
 
-    //Agora fazemos a requisição para fornecer os dados para o array 'Clientes'
+    //Agora fazemos a requisição para fornecer os dados para o array 'Usuarios'
 
-    //Método responsável requestAllClientes
-    this.requestAllClients();
+    //Chamada para o método responsável por forncer os dados para o array 'Usuarios'
+    this.requestAllUsuarios();
 
   }
 
-  navigateInfoClientes(idCliente){
-    this.router.navigate(['/info-clientes/' + idCliente]);
+  navigateInfoUsuarios(idUsuario : number){
+    this.router.navigate(['/info-usuarios/' + idUsuario]);
   }
 
   ngOnInit() {
@@ -57,7 +57,8 @@ export class ListaClientesPage implements OnInit {
   }
 
 
-  requestAllClients(){
+  //Método responsável por fazer a requisição para a nossa API e fornecer os dados de todos os usuários
+  requestAllUsuarios(){
 
     // Corpo do objeto que será enviado para a API
     let bodyRequest = {
@@ -65,32 +66,36 @@ export class ListaClientesPage implements OnInit {
       nome: ''
     }
 
+    // A chamada para a API, já passando o objeto com o corpo da requisição
     return new Promise((res) => {
-      this.apiService.apiPHP('controller-clientes.php', bodyRequest).subscribe((data) => {
+      this.apiService.apiPHP('controller-usuarios.php', bodyRequest).subscribe((data) => {
+
+        //Se der tudo certo...
         if(data['success'] == true){
-          data['result'].map((cliente) => {
-            this.clientes.push(cliente[0]);
+          data['result'].map((usuario) => {
+            this.usuarios.push(usuario[0]);
           
-            console.log(this.clientes);
+            console.log(this.usuarios);
           })
         }else{
-          console.log('Ocorreu um erro ao listar os clientes')
+          console.log('Ocorreu um erro ao listar os usuários')
         }
       })
     })
   }
 
-  //Método responsável por pesquisar um cliente pelo NOME, dessa vez, usamos um método diferente, o método filter do próprio javascript, que filtra os dados de acordo com o que foi digitado no input, sem precisar ficar fazendo várias requisições a nossa API
+  //Método responsável por pesquisar um usuário pelo NOME, dessa vez, usamos um método diferente, o método filter do próprio javascript, que filtra os dados de acordo com o que foi digitado no input, sem precisar ficar fazendo várias requisições a nossa API
   buscar(){
     console.log(this.nomePesquisado);
     //Colocando tudo em minúsculo	
     let nomePesquisadoLowerCase = this.nomePesquisado.toLowerCase();
 
     if(nomePesquisadoLowerCase !==  ''){
-      this.clientes = this.clientes.filter(cliente => cliente.nome_cliente.toLowerCase().includes(nomePesquisadoLowerCase));
+      this.usuarios = this.usuarios.filter(usuario => usuario.nome_usuario.toLowerCase().includes(nomePesquisadoLowerCase));
     }else{
-      this.clientes = [];
-      this.requestAllClients();
+      //Resetando o array dos usuaários para que ele não fique vazio      
+      this.usuarios = [];
+      this.requestAllUsuarios();
     }
 
   }
