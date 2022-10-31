@@ -78,8 +78,9 @@
 </ion-card>
 
 <!-- Informações do cliente -->
-<ion-card class="ion-padding" *ngIf="tipoUsuarioLogado != 'Cliente'">
+<ion-card class="ion-padding" *ngIf="tipoUsuarioLogado != 'Cliente'" style="display: flex; flex-direction:column; align-items:center;">
   <ion-card-subtitle>Informações do cliente</ion-card-subtitle>
+
 
   <ion-img src="{{foto_cliente}}">
 

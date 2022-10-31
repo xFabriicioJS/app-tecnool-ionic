@@ -180,6 +180,56 @@ export class InfoUsuariosPage implements OnInit {
     await alert.present();
   }
 
+  //Método responsável por fazer apresentar o alert para atualizar o nível do usuário
+
+  async presentAlertNivel() {
+    const alert = await this.alertController.create({
+      header: 'Insira o nível do usuário',
+      buttons: [
+        {
+          'text': 'Confirmar',
+          'role': 'confirm',
+          handler: (alertdata)=>{
+            //Faremos uma requisição para a API para atualizar o NÍVEL desse usuário
+
+            //Esse alertdata contém o valor do nível do usuário que o usuário selecionou, sei lá porque
+            this.requestUpdateNivel(alertdata);
+          }
+
+        },
+        {
+          'text': 'Cancelar',
+          role: 'cancel'
+        }
+      ],
+      inputs: [
+        {
+          label: 'Supervisor',
+          type: 'radio',
+          value: 1,
+        },
+        {
+          label: 'Técnico II',
+          type: 'radio',
+          value: 2,
+        },
+        {
+          label: 'Técnico III',
+          type: 'radio',
+          value: 3,
+        },
+        {
+          label: 'Desligado',
+          type: 'radio',
+          value: 4,
+        }
+      ],
+    });
+
+    await alert.present();
+  }
+
+  
   async presentAlertEmail() {
     const alert = await this.alertController.create({
       header: 'Por favor, insira o novo email do usuário',
@@ -287,8 +337,31 @@ export class InfoUsuariosPage implements OnInit {
           }
         });
       })
+  }
 
+  requestUpdateNivel(novoNivel: number){
 
+    //Objeto que será enviado para a API, o corpo da requisição
+    let bodyRequest = {
+      requisicao: 'atualizaNivel',
+      id_usuario: this.idUsuario,
+      id_nivel_usuario: novoNivel
+    }
+
+    console.log(bodyRequest);
+
+    return new Promise(res => {
+      this.apiService.apiPHP('controller-usuarios.php', bodyRequest).subscribe((data)=>{
+        if(data['success'] == true){
+          this.presentToast('<b>Nível atualizado com sucesso!</b>', 'success');
+          
+          //Atualizando o nível do usuário na tela
+          this.requestInfoUsuario(this.idUsuario);
+        }else{
+          this.presentToast('<b>Ocorreu um erro ao tentar atualizar o nível do usuário</b>', 'danger');
+        }
+      });
+    })
 
   }
 

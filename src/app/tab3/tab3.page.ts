@@ -12,7 +12,7 @@ import { GetUserTypeService } from '../services/get-user-type.service';
 export class Tab3Page {
   nomeUsuarioLogado: string = '';
   emailUsuarioLogado: string = '';
-  imgUsuarioLogado: string = 'https://www.w3schools.com/howto/img_avatar.png';
+  imgUsuarioLogado: string = '';
   tipoUsuarioLogado: string = '';
 
   constructor(private router: Router, private getUser: GetUserTypeService) {}
@@ -28,13 +28,16 @@ export class Tab3Page {
       console.log(this.tipoUsuarioLogado);
       //pegamos as informações do usuário logado para exibir nesta tela
       let user = this.getUser.getUserInfo();
+      
 
       //setando os atributos que irão vir do nosso serviço getUserInfo, caso o usuário logado seja um cliente
       if(this.tipoUsuarioLogado == 'Cliente'){
         
         //Se o usuário logado não tiver uma foto de perfil, vamos setar uma imagem padrão genérica, caso contrário, vamos setar a imagem que o usuário já tem cadastrada
-        if(!user.foto_cliente || !user.foto_usuario || user.foto_cliente == 'null'){
+        if(!user.foto_cliente || user.foto_cliente == 'null'){
           this.imgUsuarioLogado = 'https://www.w3schools.com/howto/img_avatar.png';
+          console.log(this.imgUsuarioLogado);
+          console.log(user.foto_cliente);
         }else{
           this.imgUsuarioLogado = environment.FILE_IMG_PATH + '/' + user.foto_cliente;
           console.log(user.foto_cliente);
@@ -43,18 +46,8 @@ export class Tab3Page {
 
         this.nomeUsuarioLogado = user.nome_cliente;
         this.emailUsuarioLogado = user.email_cliente;
-      }else{
-
-        //Se o usuário logado não tiver uma foto de perfil, vamos setar uma imagem padrão genérica, caso contrário, vamos setar a imagem que o usuário já tem cadastrada
-        if(!user.foto_usuario){
-          this.imgUsuarioLogado = 'https://www.w3schools.com/howto/img_avatar.png';
-        }else{
-          this.imgUsuarioLogado = environment.FILE_IMG_PATH + '/' + user.foto_usuario;
-        }
-        //setando os atributos que irão vir do nosso serviço getUserInfo, caso o usuário logado seja um administrador
-        this.nomeUsuarioLogado = user.nome_usuario;
-        this.emailUsuarioLogado = user.email_usuario;
       }
+      
     }
   }
 

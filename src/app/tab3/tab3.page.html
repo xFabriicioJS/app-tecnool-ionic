@@ -26,7 +26,7 @@
   </ion-card>
   <ion-card color="dark">
     <ion-list>
-      <ion-item (click)="navigateConfiguracoesConta()">
+      <ion-item (click)="navigateConfiguracoesConta()" *ngIf="tipoUsuarioLogado == 'Cliente'">
         <ion-icon name="person-outline" slot="start"></ion-icon>
         <ion-label>
           <h1>Configurações da conta</h1>

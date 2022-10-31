@@ -23,7 +23,9 @@
         {{nomeUsuario}}
       </ion-card-title>
       <ion-card-subtitle class="ion-text-center">
-        {{nivelUsuario}}
+        <h2 style="font-size: 16px;">
+          {{nivelUsuario}}
+        </h2>
       </ion-card-subtitle>
       <ion-card-subtitle class="ion-text-center">
         {{loginUsuario}}
@@ -57,6 +59,7 @@
         <ion-label>
           <h1 style="font-size: 17px;">
             <b>{{loginUsuario}}</b></h1>
+
           <p>Login do usuário</p>
         </ion-label>
         <ion-button size="md">
@@ -68,7 +71,7 @@
   </ion-card>
 
 <div style="display: flex; justify-content:center; align-items:center;">
-  <ion-button size="md" color="secondary">
+  <ion-button size="md" color="secondary" (click)="presentAlertNivel()">
     <ion-icon name="create-outline"></ion-icon>
     Alterar nível de acesso
   </ion-button>
