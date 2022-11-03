@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import * as moment from 'moment';
 import { AlertController } from '@ionic/angular';
+import { GetUserTypeService } from '../services/get-user-type.service';
 
 @Component({
   selector: 'app-visualizar-chamado',
@@ -22,10 +23,12 @@ export class VisualizarChamadoPage implements OnInit {
     foto_erro_chamado: string = '';
     nome_cliente: string = '';
     foto_cliente: string = '';
+    tipoUsuarioLogado: string = '';
 
   constructor(
     private actRoute:ActivatedRoute,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private getUser: GetUserTypeService
   ) { }
 
   ngOnInit() {
@@ -39,6 +42,7 @@ export class VisualizarChamadoPage implements OnInit {
       if(data.dataFinalizacao != 'null'){
       this.dataFinalizacao = moment(data.dataFinalizacao).format('DD/MM/YYYY HH:mm:ss');
       }
+
 
       let caminhoImg;
       //Verificando se veio uma imagem
@@ -107,6 +111,10 @@ export class VisualizarChamadoPage implements OnInit {
     await alert.present();
   }
 
-  
+
+  //Pegando informações do usuário logado para fazer uma renderização condicional
+  ionViewWillEnter(){
+    this.tipoUsuarioLogado = this.getUser.getUserType();
+  }
 
 }

@@ -46,6 +46,12 @@ export class Tab3Page {
 
         this.nomeUsuarioLogado = user.nome_cliente;
         this.emailUsuarioLogado = user.email_cliente;
+      }else{
+        if(!user.foto_usuario || user.foto_usuario == 'null' || user.foto_usuario == ''){
+          this.imgUsuarioLogado = 'https://www.w3schools.com/howto/img_avatar.png';
+        }else{
+          this.imgUsuarioLogado = environment.FILE_IMG_PATH + '/' + user.foto_usuario;
+        }
       }
       
     }

@@ -93,7 +93,7 @@
 
 
 
-<ion-card *ngIf="tipoUsuarioLogado == 'Cliente'">
+<ion-card *ngIf="tipoUsuarioLogado == 'Cliente' && statusChamado.startsWith('Aguardando')">
   <ion-card-content>
     <ion-text>Problemas com essa solicitação?
     </ion-text>    
@@ -101,7 +101,7 @@
   </ion-card-content>
 </ion-card>
 
-<ion-card *ngIf="tipoUsuarioLogado != 'Cliente'">
+<ion-card *ngIf="tipoUsuarioLogado !== 'Cliente'">
   <ion-card-content>
     <ion-text>Deseja atualizar esse chamado?
     </ion-text>    

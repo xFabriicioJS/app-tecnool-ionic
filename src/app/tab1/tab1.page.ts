@@ -76,13 +76,6 @@ export class Tab1Page {
       header: 'O que deseja fazer com esse chamado?',
       buttons: [
         {
-          text: 'Cancelar chamado',
-          role: 'destructive',
-          data: {
-            action: 'delete',
-          },
-        },
-        {
           text: 'Informações do chamado',
           handler: () => {
             //Verificamos primeiro, se o chamado em questão possui uma foto, caso não possua, passaremo o valor null para a variável, evitando assim que o app quebre

@@ -31,7 +31,7 @@
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" color="light">
     <ion-list color="light">
       <ion-item>
-        <ion-label position="stacked" color="primary">
+        <ion-label position="floating" color="primary">
         <b>
           Qual Hardware deseja descartar?
         </b>
@@ -41,6 +41,7 @@
           required="true"
           placeholder="Insira o nome do hardware"
           color="primary"
+          position="floating"
         ></ion-input>
       </ion-item>
       <span class="error ion-padding"    *ngIf="isSubmitted && errorControl.tituloHardware.errors?.required">
@@ -53,7 +54,7 @@
         O título do chamado deve conter no máximo 32 caracteres.
       </span>
       <ion-item>
-        <ion-label position="stacked" color="primary">
+        <ion-label position="floating" color="primary">
         <b>
           Descrição
         </b>
@@ -94,7 +95,11 @@
           Ao enviar a sua solicitação, você alega que todas as informações prestadas acima são verídicas e de sua responsabilidade.
         </ion-card-subtitle>
         <br>
-        <ion-button size="lg" expand="block" type="submit">Solicitar</ion-button>
+        <ion-button size="lg" expand="block" type="submit" color="success">
+          <b>
+            Solicitar
+          </b>
+        </ion-button>
       </ion-card>
     </ion-list>
   </form>

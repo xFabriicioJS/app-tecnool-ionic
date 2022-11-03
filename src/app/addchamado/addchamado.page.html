@@ -13,49 +13,52 @@
 
 
 <ion-content>
- <ion-card class="ion-padding" color="warning">
-  <ion-card-title style="font-size: 15px;">
+  <ion-card>
+    <ion-img src="../../assets/images/abrir-chamado.jpg">
+
+    </ion-img>
+
+  </ion-card>
+
+
+
+  <ion-card class="ion-padding" color="warning">
+    <ion-card-title style="font-size: 15px;">
       Insira os dados abaixo para solicitar um chamado.
-  </ion-card-title>
- </ion-card>
+    </ion-card-title>
+  </ion-card>
 
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
     <ion-list>
       <ion-item>
         <ion-label position="floating" color="primary">Título do chamado</ion-label>
-        <ion-input
-          [clearInput]
-          formControlName="tituloChamado"
-          required="true"
-          placeholder="Título do chamado"
-        ></ion-input>
+        <ion-input [clearInput] formControlName="tituloChamado" required="true" placeholder="Título do chamado" position="floating">
+        </ion-input>
       </ion-item>
       <span class="error ion-padding" color="danger" *ngIf="isSubmitted && errorControl.tituloChamado.errors?.required">
         O titulo do chamado é requerido.
       </span>
-      <span class="error ion-padding" color="danger" *ngIf="isSubmitted && errorControl.tituloChamado.errors?.minlength">
+      <span class="error ion-padding" color="danger"
+        *ngIf="isSubmitted && errorControl.tituloChamado.errors?.minlength">
         O título do chamado deve conter ao menos 4 caracteres.
       </span>
-      <span class="error ion-padding" color="danger" *ngIf="isSubmitted && errorControl.tituloChamado.errors?.maxlength">
+      <span class="error ion-padding" color="danger"
+        *ngIf="isSubmitted && errorControl.tituloChamado.errors?.maxlength">
         O título do chamado deve conter no máximo 32 caracteres.
       </span>
       <ion-item>
-        <ion-textarea rows="6" cols="20"
-          [clearInput]
-          formControlName="descriChamado"
-          required="true"
-          type="text"
-          placeholder="Insira uma descrição"
-          color="primary"
-        ></ion-textarea>
+        <ion-textarea rows="6" cols="20" [clearInput] formControlName="descriChamado" required="true" type="text"
+          placeholder="Insira uma descrição" color="primary"></ion-textarea>
       </ion-item>
       <span class="error ion-padding" color="danger" *ngIf="isSubmitted && errorControl.descriChamado.errors?.required">
         O titulo do chamado é requerido.
       </span>
-      <span class="error ion-padding" color="danger" *ngIf="isSubmitted && errorControl.descriChamado.errors?.minlength">
+      <span class="error ion-padding" color="danger"
+        *ngIf="isSubmitted && errorControl.descriChamado.errors?.minlength">
         O título do chamado deve conter ao menos 4 caracteres.
       </span>
-      <span class="error ion-padding" color="danger" *ngIf="isSubmitted && errorControl.descriChamado.errors?.maxlength">
+      <span class="error ion-padding" color="danger"
+        *ngIf="isSubmitted && errorControl.descriChamado.errors?.maxlength">
         O título do chamado deve conter no máximo 32 caracteres.
       </span>
       <ion-item>
@@ -69,13 +72,15 @@
         O estado do equipamento é requerido.
       </span>
       <ion-item>
-        <ion-select interface="action-sheet" color="danger" placeholder="Como deseja ser atendido?" required formControlName="tipoAtendimento">
+        <ion-select interface="action-sheet" color="danger" placeholder="Como deseja ser atendido?" required
+          formControlName="tipoAtendimento">
           <ion-select-option value="Presencial">No domicílio</ion-select-option>
           <ion-select-option value="Laboratorio">No laboratório</ion-select-option>
           <ion-select-option value="Remoto">Remoto</ion-select-option>
         </ion-select>
       </ion-item>
-      <span class="error ion-padding" color="danger" *ngIf="isSubmitted && errorControl.tipoAtendimento.errors?.required">
+      <span class="error ion-padding" color="danger"
+        *ngIf="isSubmitted && errorControl.tipoAtendimento.errors?.required">
         O tipo de atendimento é requerido.
       </span>
       <ion-item>
@@ -83,7 +88,7 @@
           <ion-card-subtitle>Caso seja necessário, envie uma imagem.</ion-card-subtitle>
           <br>
           <div *ngIf="filePath && filePath !== ''">
-            <img [src]="filePath" alt="formGroup.value.name">
+            <img [src]="filePath" alt="input.value.name">
           </div>
           <input type="file" accept="image/*" name="avatar" id="avatar" (change)="onFileSelect($event)" />
         </ion-card>
