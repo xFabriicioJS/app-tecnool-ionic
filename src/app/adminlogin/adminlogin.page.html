@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="secondary">
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-button>
         <ion-menu-button>
@@ -16,7 +16,7 @@
   <div class="container">
 
     <ion-icon 
-    style="font-size: 10rem"
+    style="font-size: 10rem; color: white;"
     name="person-circle">
 
     </ion-icon>
@@ -33,10 +33,10 @@
      </ion-card>
 
 
-     <ion-card class="ion-padding">
+     <ion-card id="card-login" class="container ion-text-center">
     <form style="width: 100vw; margin-top: 1rem;" class="ion-padding" [formGroup]="formGroup" (ngSubmit)="onSubmit()" color="light">
       <ion-item>
-        <ion-label position="floating" color="secondary" style="font-size: 16px;">
+        <ion-label position="floating" color="primary" style="font-size: 16px;">
           <b>Login de usuário</b>
         </ion-label>
         <ion-input
@@ -47,7 +47,7 @@
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating" color="secondary" style="font-size: 16px;">
+        <ion-label position="floating" color="primary" style="font-size: 16px;">
         <b>Senha</b></ion-label>
         <ion-input
         type="password"
@@ -59,7 +59,7 @@
 
       <br>
       <br>
-      <ion-button expand="block" class="btn" id="btn-login" type="submit" color="secondary">
+      <ion-button expand="block" class="btn" id="btn-login" type="submit" color="success" shape="round">
         <b>Entrar</b>
       </ion-button>
 

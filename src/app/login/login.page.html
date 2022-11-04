@@ -15,21 +15,13 @@
 <ion-content>
   <div class="container">
 
-    <ion-img src="../../assets/images/logotecnoo-removebg-preview.png" class="img-logo"></ion-img>
+    <ion-img src="../../assets/images/logo-no-background.png" class="img-logo"></ion-img>
 
-    
-    <ion-card class="ion-padding" color="light">
-      <div style="display: flex; justify-content:center">
-      <ion-icon name="information-circle-sharp" style="font-size: 2rem;"></ion-icon>
-      </div>
-      <br>
-      <ion-card-title style="font-size: 15px;">
-        Insira seu e-mail e senha para acessar a plataforma.
-      </ion-card-title>
-     </ion-card>
+    <ion-text style="font-size: 1.5rem; color:white; margin-top: 10px;">
+      <b>Soluções em tecnologia.</b>
+    </ion-text>
 
-
-     <ion-card class="ion-padding">
+    <ion-card id="card-login" class="container ion-text-center">
     <form style="width: 100vw; margin-top: 1rem;" class="ion-padding" [formGroup]="formGroup" (ngSubmit)="onSubmit()" color="light">
       <ion-item>
         <ion-label position="floating" color="primary" style="font-size: 16px;">
@@ -56,14 +48,16 @@
 
       <br>
       <br>
-      <ion-button expand="block" class="btn" id="btn-login" type="submit">
+      <ion-button shape="round" expand="block" class="btn" id="btn-login" type="submit" color="success">
         <b>Entrar</b>
       </ion-button>
 
       <br>
-      <ion-button expand="block" color="secondary" (click)="navigateCadastro()">
+      <ion-button expand="block" shape="round" color="primary" (click)="navigateCadastro()">
         <b>Cadastre-se aqui!</b>
       </ion-button>
+      <br>
+      <br>
 
     </form>
   </ion-card>

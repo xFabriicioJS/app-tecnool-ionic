@@ -1,3 +1,8 @@
+ion-content{
+    height: 100vh;
+    --background: linear-gradient(#712F79, #FF5F6D);
+}
+
 ion-img{
     height: 120px;
     width: 120px;
@@ -19,4 +24,8 @@ ion-item {
 
 ion-button{
     height: 3.5rem;
+}
+
+#card-login{
+    width: 95vw;
 }

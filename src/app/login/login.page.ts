@@ -20,7 +20,6 @@ export class LoginPage implements OnInit {
     public formBuilder: FormBuilder,
     private apiService: ApiService,
     private toastController: ToastController,
-    private animationCtrl: AnimationController
     ) {
     this.formGroup = formBuilder.group({
       email: [
@@ -49,7 +48,6 @@ export class LoginPage implements OnInit {
 
    onSubmit(){
 
-    console.log('teste');
 
     this.isSubmitted = true;
     if(!this.formGroup.valid){
@@ -110,26 +108,6 @@ export class LoginPage implements OnInit {
 
   navigateCadastro(){
     this.router.navigate(['/cadastro-cliente']);
-  }
-
-  ngAfterViewInit() {
-    this.animateLogo();
-  }
-
-  public animateLogo() {
-    const animation = this.animationCtrl
-      .create()
-      .addElement(document.querySelector('.img-logo'))
-      .easing("ease-in-out")
-      .duration(1000)
-      .direction("alternate")
-      .iterations(Infinity)
-      .keyframes([
-      { offset: 0, transform: "scale(1)", opacity: "1" },
-      { offset: 1, transform: "scale(1.3)", opacity: "0.5" }
-  ]);
-
-    animation.play()
   }
   
 

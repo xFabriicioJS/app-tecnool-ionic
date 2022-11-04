@@ -150,7 +150,11 @@ const routes: Routes = [
   {
     path: 'info-usuarios/:idUsuario',
     loadChildren: () => import('./info-usuarios/info-usuarios.module').then( m => m.InfoUsuariosPageModule)
+  },  {
+    path: 'splash',
+    loadChildren: () => import('./splash/splash.module').then( m => m.SplashPageModule)
   },
+
 
 ];
 @NgModule({
