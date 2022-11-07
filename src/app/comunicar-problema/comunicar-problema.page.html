@@ -21,24 +21,48 @@
     descreva-o.
   </ion-card>
 
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <ion-card>
-    <ion-select interface="action-sheet" placeholder="Tipo do problema">
-      <ion-select-option value="chamado">Problemas nos chamados</ion-select-option>
-      <ion-select-option value="descarte">Problemas no descarte</ion-select-option>
-      <ion-select-option value="cobranca">Cobrança</ion-select-option>
-      <ion-select-option value="outros">Outros</ion-select-option>
+    
+    <ion-select interface="action-sheet" placeholder="Tipo do problema" formControlName="tipoProblema">
+      <ion-select-option value="Chamado">Problemas nos chamados</ion-select-option>
+      <ion-select-option value="Descarte">Problemas no descarte</ion-select-option>
+      <ion-select-option value="Cobranca">Cobrança</ion-select-option>
+      <ion-select-option value="Outros">Outros</ion-select-option>
     </ion-select>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.tipoProblema.errors?.required">
+      <ion-text color="danger">
+        O campo tipo de problema é requerido.
+      </ion-text>
+    </span>
   </ion-card>
 
     <ion-card>
     <ion-item>
-      <ion-textarea rows="6" cols="20" placeholder="Descreva o seu problema aqui..."></ion-textarea>
+      <ion-textarea rows="6" cols="20" placeholder="Descreva o seu problema aqui..." [clearInput] formControlName="descriProblema" required="true" type="text"></ion-textarea>
     </ion-item>
+
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.descriProblema.errors?.required">
+      <ion-text color="danger">
+        O campo descrição do problena é requerido.
+      </ion-text>
+    </span>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.descriProblema.errors?.minlength">
+      <ion-text color="danger">
+        O campo descrição deve conter ao menos 4 caracteres.
+      </ion-text>
+    </span>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.descriProblema.errors?.maxlength">
+      <ion-text color="danger">
+        O campo descrição deve conter no máximo 255 caracteres.
+      </ion-text>
+    </span>
   </ion-card>
 
 
-  <ion-button expand="block">
+  <ion-button expand="block" type="submit">
     Enviar
   </ion-button>
+</form>
 
 </ion-content>

@@ -26,7 +26,7 @@ export class Tab1Page {
   idCurrentUser: number = 0;
   numChamadosAbertos: number = 0;
   numChamadosFinalizados: number = 0;
-  isLoading: boolean = false;
+  isLoading: boolean = true;
 
   constructor(
     private router: Router,
@@ -41,11 +41,13 @@ export class Tab1Page {
   ngOnInit() {}
 
   ionViewWillEnter() {
-    this.chamados = [];
     //verificamos primeiro se o usuário está logado
     if (this.getUser.getUserInfo() == null) {
       this.router.navigate(['/openscreen']);
     }
+
+    //resetamos o array de chamados para que não haja duplicidade de chamados e evite possíveis bugs
+    this.chamados = [];
 
     //verificamos agora o tipo de usuário logado
     if (this.getUser.getUserType() == 'Cliente') {
@@ -54,17 +56,18 @@ export class Tab1Page {
       this.idCurrentUser = currentUser.id_cliente;
       this.loading.present();
       this.buscarChamadosPorCliente();
-      setTimeout(() => this.loading.dismiss(), 2200);
       this.isLoading = false;
-  
+      setTimeout(() => this.loading.dismiss(), 5000);
+
     } else {
       this.tipoUsuarioLogado = 'Usuario';
       let currentUser = this.getUser.getUserInfo();
       this.idCurrentUser = currentUser.id_usuario;
       this.loading.present();
       this.buscarTodosOsChamados();
-      setTimeout(() => this.loading.dismiss(), 2200);
+      // setTimeout(() => this.loading.dismiss(), 5000);
       this.isLoading = false;
+      this.loading.dismiss();
       console.log(this.isLoading);
     }
   

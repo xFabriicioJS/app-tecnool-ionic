@@ -18,7 +18,7 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.router.navigateByUrl('/splash');
+      this.router.navigateByUrl('/tabs/tab1');
     });
 
   }
