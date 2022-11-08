@@ -26,7 +26,7 @@ export class Tab1Page {
   idCurrentUser: number = 0;
   numChamadosAbertos: number = 0;
   numChamadosFinalizados: number = 0;
-  isLoading: boolean = true;
+  isLoading: boolean = false;
 
   constructor(
     private router: Router,
@@ -41,13 +41,11 @@ export class Tab1Page {
   ngOnInit() {}
 
   ionViewWillEnter() {
+    this.chamados = [];
     //verificamos primeiro se o usuário está logado
     if (this.getUser.getUserInfo() == null) {
       this.router.navigate(['/openscreen']);
     }
-
-    //resetamos o array de chamados para que não haja duplicidade de chamados e evite possíveis bugs
-    this.chamados = [];
 
     //verificamos agora o tipo de usuário logado
     if (this.getUser.getUserType() == 'Cliente') {
@@ -56,18 +54,17 @@ export class Tab1Page {
       this.idCurrentUser = currentUser.id_cliente;
       this.loading.present();
       this.buscarChamadosPorCliente();
+      setTimeout(() => this.loading.dismiss(), 2200);
       this.isLoading = false;
-      setTimeout(() => this.loading.dismiss(), 5000);
-
+  
     } else {
       this.tipoUsuarioLogado = 'Usuario';
       let currentUser = this.getUser.getUserInfo();
       this.idCurrentUser = currentUser.id_usuario;
       this.loading.present();
       this.buscarTodosOsChamados();
-      // setTimeout(() => this.loading.dismiss(), 5000);
+      setTimeout(() => this.loading.dismiss(), 2200);
       this.isLoading = false;
-      this.loading.dismiss();
       console.log(this.isLoading);
     }
   
@@ -78,6 +75,13 @@ export class Tab1Page {
     const actionSheet = await this.actionSheetCtrl.create({
       header: 'O que deseja fazer com esse chamado?',
       buttons: [
+        {
+          text: 'Cancelar chamado',
+          role: 'destructive',
+          data: {
+            action: 'delete',
+          },
+        },
         {
           text: 'Informações do chamado',
           handler: () => {
@@ -163,8 +167,27 @@ export class Tab1Page {
     });
   }
 
-  
+  retrieveAllChamados() {
+    this.chamados = [];
+    let bodyRequest = {
+      requisicao: 'listar',
+      titulo: '',
+      descricao: '',
+      protocolo: '',
+    };
 
+    return new Promise((res)=>{
+      this.chamados = [];
+      this.apiService.apiPHP('controller-chamados.php', bodyRequest).subscribe((data)=>{
+        if(data['success'] == true){
+          data['result'].map((chamado)=>{
+            this.chamados.push(chamado[0]);
+          })
+        }
+      })
+    });
+
+  }
   buscarChamadosPorCliente() {
     let bodyRequest = {
       requisicao: 'listarTodosPorCliente',
@@ -261,7 +284,7 @@ export class Tab1Page {
   //método responsável por fazer a pesquisas no caso do usuário ser funcionário
   carregar() {
     return new Promise((res) => {
-      this.chamados = [];
+      // this.chamados = [];
       switch (this.tipoPesquisa) {
         case 'titulo':
           this.buscarChamadosPorTitulo();
@@ -282,105 +305,51 @@ export class Tab1Page {
     });
   }
 
-  buscarChamadosPorTitulo() {
-    this.chamados = [];
+  teste(){
+    console.log(this.chamados.filter(chamado => chamado.titulo.toLowerCase().includes(this.termoPesquisado)));
+    console.log(this.termoPesquisado);
+  }
 
-    let bodyRequest;
-    if (this.tipoUsuarioLogado == 'Usuario') {
-      bodyRequest = {
-        requisicao: 'listar',
-        titulo: this.termoPesquisado,
-        descricao: '',
-        protocolo: '',
-      };
-    } else {
-      bodyRequest = {
-        requisicao: 'listarTodosPorCliente',
-        titulo: this.termoPesquisado,
-        descricao: '',
-        protocolo: '',
-        id_cliente: this.idCurrentUser,
-      };
+  buscarChamadosPorTitulo() {
+    let termoPesquisadoLowerCase = this.termoPesquisado.toLowerCase();
+    if(termoPesquisadoLowerCase !==  ''){
+      this.chamados = this.chamados.filter(chamado => chamado.titulo.toLowerCase().includes(termoPesquisadoLowerCase));
+    }else{
+      this.chamados = [];
+      if(this.tipoUsuarioLogado == 'Usuario'){
+        this.buscarTodosOsChamados();
+    }else{
+      this.buscarChamadosPorCliente();
     }
-    return new Promise((res) => {
-      this.apiService
-        .apiPHP('controller-chamados.php', bodyRequest)
-        .subscribe((data) => {
-          if (data['success'] == true) {
-            data['result'].map((chamado) => {
-              this.chamados.push(chamado[0]);
-            });
-          }
-        });
-    });
+    }
   }
 
   buscarChamadosPorDescricao() {
-    let bodyRequest;
-
-    if (this.tipoUsuarioLogado == 'Usuario') {
-      bodyRequest = {
-        requisicao: 'listar',
-        titulo: '',
-        descricao: this.termoPesquisado,
-        protocolo: '',
-      };
-    } else {
-      bodyRequest = {
-        requisicao: 'listarTodosPorCliente',
-        titulo: '',
-        descricao: this.termoPesquisado,
-        protocolo: '',
-        id_cliente: this.idCurrentUser,
-      };
+    let termoPesquisadoLowerCase = this.termoPesquisado.toLowerCase();
+    if(termoPesquisadoLowerCase !==  ''){
+      this.chamados = this.chamados.filter(chamado => chamado.descricao.toLowerCase().includes(termoPesquisadoLowerCase));
+    }else{
+      this.chamados = [];
+      if(this.tipoUsuarioLogado == 'Usuario'){
+        this.buscarTodosOsChamados();
+    }else{
+      this.buscarChamadosPorCliente();
     }
-
-    return new Promise((res) => {
-      this.apiService
-        .apiPHP('controller-chamados.php', bodyRequest)
-        .subscribe((data) => {
-          if (data['success'] == true) {
-            data['result'].map((chamado) => {
-              this.chamados.push(chamado[0]);
-            });
-          }
-        });
-    });
+    }
   }
 
   buscarChamadosPorProtocolo() {
-
-
-    let bodyRequest;
-
-    if (this.tipoUsuarioLogado == 'Usuario') {
-      bodyRequest = {
-        requisicao: 'listar',
-        titulo: '',
-        descricao: '',
-        protocolo: this.termoPesquisado,
-      };
-    } else {
-      bodyRequest = {
-        requisicao: 'listarTodosPorCliente',
-        titulo: '',
-        descricao: '',
-        protocolo: this.termoPesquisado,
-        id_cliente: this.idCurrentUser,
-      };
+    let termoPesquisadoLowerCase = this.termoPesquisado.toLowerCase();
+    if(termoPesquisadoLowerCase !==  ''){
+      this.chamados = this.chamados.filter(chamado => chamado.protocolo.toLowerCase().includes(termoPesquisadoLowerCase));
+    }else{
+      this.chamados = [];
+      if(this.tipoUsuarioLogado == 'Usuario'){
+        this.buscarTodosOsChamados();
+    }else{
+      this.buscarChamadosPorCliente();
     }
-
-    return new Promise((res) => {
-      this.apiService
-        .apiPHP('controller-chamados.php', bodyRequest)
-        .subscribe((data) => {
-          if (data['success'] == true) {
-            data['result'].map((chamado) => {
-              this.chamados.push(chamado[0]);
-            });
-          }
-        });
-    });
+    }
   }
 
   async presentAlert() {
