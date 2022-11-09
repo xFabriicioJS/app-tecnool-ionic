@@ -25,7 +25,7 @@
       <br>
       <ion-text>
         <h2>Data limite para o atendimento do chamado:</h2>
-        <h4><b>{{dataLimite}}</b></h4>
+        <h2 style="color: red;"><b>{{dataLimite}}</b></h2>
       </ion-text>
       <br/>
       <br/>
@@ -62,7 +62,7 @@
     </ion-card-content>
   </ion-card>
 
- <ion-button expand="block" fill="outline" href="/tabs/tab1">
+ <ion-button expand="block" fill="outline" (click)="navigateInicio()">
   Entendi, voltar ao início.
  </ion-button>
 </ion-content>

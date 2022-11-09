@@ -12,14 +12,14 @@ export class AppComponent {
     private platform: Platform,
     public router: Router    
   ) {
-    this.initializeApp();
+    // this.initializeApp();
   }
 
 
-  initializeApp() {
-    this.platform.ready().then(() => {
-      this.router.navigateByUrl('/tabs/tab1');
-    });
+  // initializeApp() {
+  //   this.platform.ready().then(() => {
+  //     this.router.navigateByUrl('/tabs/tab1');
+  //   });
 
-  }
+  // }
 }

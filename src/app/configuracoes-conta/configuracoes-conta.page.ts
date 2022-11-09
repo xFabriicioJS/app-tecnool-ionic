@@ -115,15 +115,20 @@ export class ConfiguracoesContaPage implements OnInit {
             //Aqui nós atualizamos o número de contato do cliente na renderização, no localStorage e claro, na API
             this.telefoneContato = alertData.telefone;
 
-            //atualizando o localStorage
+            //Local storage atual
+            let currentLoggedInUser = this.getUser.getUserInfo();
+
+            //atualizando o localStorage (com o novo número de contato)
             let newLocalStorage = {
-              id_cliente: this.idUsuarioLogado,
-              email_cliente: this.nomeUsuario,
-              telefone_Cliente: alertData.telefone,
-              tipo_usuario_sistema: 'Cliente',
-              nome_cliente: this.nome,
-              cpf_cliente: this.cpf,
-              id_tipo_cliente: this.idTipoCliente,
+              id_cliente: currentLoggedInUser.id_cliente,
+              nome_cliente: currentLoggedInUser.nome_cliente,
+              cpf_cliente: currentLoggedInUser.cpf_cliente,
+              email_cliente: currentLoggedInUser.email_cliente,
+              foto_cliente: currentLoggedInUser.foto_cliente,
+              id_tipo_cliente: currentLoggedInUser.id_tipo_cliente,
+              telefone_cliente: alertData.telefone,
+              razaoSocial_cliente: currentLoggedInUser.razaoSocial_cliente,
+              tipo_usuario_sistema: "Cliente"
             };
             localStorage.setItem('usuario', JSON.stringify(newLocalStorage));
 
@@ -145,8 +150,10 @@ export class ConfiguracoesContaPage implements OnInit {
                       'Telefone atualizado com sucesso!',
                       'success'
                     );
+                    //Fechamos o alert
+                    
 
-                    //Fecha o alert
+
                   } else {
                     this.presentToast(
                       'Erro ao atualizar o telefone!',
@@ -158,7 +165,7 @@ export class ConfiguracoesContaPage implements OnInit {
           },
         },
         {
-          text: 'Cancelar',
+          text: 'Fechar',
           role: 'cancel',
           cssClass: 'secondary',
         },
@@ -178,6 +185,10 @@ export class ConfiguracoesContaPage implements OnInit {
 
     await alert.present();
   }
+  
+
+  //Alert que é responsável por exibir uma janela com um botão de confirmação para excluir a conta do cliente
+  
 
   //método responsável por atualizar a senha do usuário logado
 
@@ -198,19 +209,24 @@ export class ConfiguracoesContaPage implements OnInit {
       id_cliente: this.idUsuarioLogado,
     };
 
+    this.setOpen(false);
+    
     return new Promise((res) => {
       this.apiService
         .apiPHP('controller-clientes.php', bodyRequest)
         .subscribe((data) => {
           if (data['success'] == true) {
+             //Fechamos o modal.
+
+             this.setOpen(false);
+
             //Caso dê tudo certo, exibimos uma mensagem de sucesso
             this.presentToast('<b>Senha alterada com sucesso!</b>', 'success');
 
-            //Fechamos o modal.
-            this.setOpen(false);
+           
 
             //Logo em seguida, redirecionamos o usuário para a tela de login
-            this.router.navigate(['/openscreen']);
+            // this.router.navigate(['/openscreen']);
           } else {
             //Caso der algum erro, exibimos uma mensagem de erro
             this.presentToast(

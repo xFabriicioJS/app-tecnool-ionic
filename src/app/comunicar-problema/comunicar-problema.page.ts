@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoadingService } from '../loading.service';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import * as moment from 'moment';
@@ -22,7 +23,8 @@ export class ComunicarProblemaPage implements OnInit {
     private toastCtrl: ToastController,
     private getUser: GetUserTypeService,
     private apiService: ApiService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private loadingCtrl: LoadingService
   ) { 
     this.formGroup = this.formBuilder.group({
       tipoProblema: ['',
@@ -75,14 +77,17 @@ export class ComunicarProblemaPage implements OnInit {
       tipoProblema: this.formGroup.value.tipoProblema,
       msg_problema: this.formGroup.value.descriProblema
     }
+    this.loadingCtrl.present();
 
     return new Promise(
       (res) => {
-        this.apiService.apiPHP('controller-relatousuario.php', bodyRequest).subscribe((data) => {
-          
+        this.apiService.apiPHP('controller-relatousuario.php', bodyRequest).subscribe((data) => {          
+          //Vamos exibir um componente de carregamento enquanto fazemos a requisição para a API
           if(data['success'] == true){
+            this.loadingCtrl.dismiss();
             this.presentToast('<b>Problema relatado com sucesso!</b>', 'success');
           }else{
+            this.loadingCtrl.dismiss();
             this.presentToast('Erro ao relatar problema, tente novamente mais tarde!', 'danger');
           }
         })

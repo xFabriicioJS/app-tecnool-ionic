@@ -143,7 +143,7 @@ export class AdddescartePage {
           data_abertura: formatISO9075(new Date()),
           prazo: this.prazo_descarte,
           foto: this.foto_hardware,
-          status: 'Em aberto',
+          status: 'Aguardando análise',
         };
 
         //enviando a requisição para a API
@@ -182,7 +182,7 @@ export class AdddescartePage {
         data_abertura: formatISO9075(new Date()),
         prazo: this.prazo_descarte,
         foto: '',
-        status: 'Em aberto',
+        status: 'Aguardando Analise',
       };
 
       //enviando a requisição para a API

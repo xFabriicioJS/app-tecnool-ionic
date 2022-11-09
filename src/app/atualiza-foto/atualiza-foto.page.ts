@@ -115,11 +115,34 @@ export class AtualizaFotoPage implements OnInit {
         .apiPHP('controller-clientes.php', bodyRequest)
         .subscribe((response) => {
           if (response['success'] == true) {
+            console.log(response);
+            
+            //Vamos atualizar agora o local storge com a nova foto, para manter os dados atualizados para o cliente
+            let currentLoggedInUser = this.getUser.getUserInfo();
+
+            //O objeto já atualiza no local storage com a nova foto
+            let newLocalStorage = {
+              id_cliente: currentLoggedInUser.id_cliente,
+              nome_cliente: currentLoggedInUser.nome_cliente,
+              cpf_cliente: currentLoggedInUser.cpf_cliente,
+              email_cliente: currentLoggedInUser.email_cliente,
+              foto_cliente: this.Novafoto_cliente,
+              id_tipo_cliente: currentLoggedInUser.id_tipo_cliente,
+              telefone_cliente: currentLoggedInUser.telefone_cliente,
+              razaoSocial_cliente: currentLoggedInUser.razaoSocial_cliente,
+              tipo_usuario_sistema: "Cliente"
+            };
+            //Atualizando o local storage
+            localStorage.setItem('usuario', JSON.stringify(newLocalStorage));
+
+            //Finalmente, exibimos o toast para o usuário
             this.presentToast(
               '<b>Imagem atualizada com sucesso!</b>',
               'success'
             );
-            this.router.navigate(['/login']);
+
+            this.router.navigate(['/tabs/tab3']);
+
           } else {
             this.presentToast('<b>Erro ao atualizar a foto</b>', 'danger');
           }

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  FILE_IMG_PATH: 'http://localhost/api-php-v2/images'
+  FILE_IMG_PATH: 'http://localhost/AppWeb/src/img/fotos_de_tudo'
 };
 
 /*

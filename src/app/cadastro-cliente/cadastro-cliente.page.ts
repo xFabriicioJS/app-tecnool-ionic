@@ -397,7 +397,7 @@ export class CadastroClientePage implements OnInit {
             .apiPHP('controller-enderecos.php', bodyRequestEndereco)
             .subscribe((data) => {
               if (data['success'] == true) {
-                this.presentToast('Cadastro realizado com sucesso', 'success');
+                this.presentToast('<b>Cadastro realizado com sucesso</b>', 'success');
                 this.cancel();
                 this.router.navigate(['/login']);
               } else {

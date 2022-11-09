@@ -61,7 +61,7 @@ export class Tab2Page {
     this.isLoading = false;
 
     //Escondemos a animação do loading
-    setTimeout(() => this.loading.dismiss(), 2200);
+    setTimeout(() => this.loading.dismiss(), 1000);
 
     console.log(this.descartes);
   }
@@ -120,19 +120,18 @@ export class Tab2Page {
         });
     });
   }
+  refreshDescartes(){
+    this.descartes = [];
+    //Não precisamos verificar o tipo do usuário logado, pois o próprio método já faz isso
+    this.buscarTodosOsDescartes();
+  }
+  
 
   //Action Sheet
   async presentActionSheet(descarte) {
     const actionSheet = await this.actionSheetCtrl.create({
       header: 'O que deseja fazer com esse descarte?',
       buttons: [
-        {
-          text: 'Cancelar o descarte',
-          role: 'destructive',
-          data: {
-            action: 'delete',
-          },
-        },
         {
           text: 'Informações do descarte',
           handler: () => {

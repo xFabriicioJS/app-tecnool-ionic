@@ -112,16 +112,14 @@
       <ion-label>Ordem de chegada</ion-label>
     </ion-item>
   </ion-card>
-  
-  <ion-card color="dark">
-    <ion-list>
-      <ion-item (click)="presentAlert()">
-        <ion-icon name="bug-outline" slot="start"></ion-icon>
-        <ion-label>
-          <h1>Cancelar esse descarte </h1>
-          <p>Desejo cancelar esse descarte</p>
-        </ion-label>
-      </ion-item>
-    </ion-list>
-  </ion-card>      
+ 
+  <ion-card *ngIf="tipoUsuarioLogado == 'Cliente' && status.startsWith('Aguardando')">
+    <ion-card-content>
+      <ion-text>Problemas com essa solicitação?
+      </ion-text>    
+        <ion-button color="danger" expand="block" (click)="presentAlert()">Cancelar solicitação</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+ 
 </ion-content>

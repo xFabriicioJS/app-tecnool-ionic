@@ -22,6 +22,7 @@ export class InfoDescartePage implements OnInit {
   fotoHardware: string = '';
   idDescarte: number = 0;
   nomeSolicitante: string = '';
+  tipoUsuarioLogado: string = '';
 
 
 
@@ -38,10 +39,10 @@ export class InfoDescartePage implements OnInit {
     if(this.getUser.getUserInfo() == null){
       this.router.navigate(['/login']);
     }
-
-    //
-
-
+    //Pegando o tipo do usuário logado para fazer uma renderização condicional no botão cancelar descarte
+    let user = this.getUser.getUserInfo();
+    this.tipoUsuarioLogado = user.tipo_usuario_sistema;
+    console.log(this.tipoUsuarioLogado);
   }
 
   ngOnInit() {

@@ -13,7 +13,15 @@
       <ion-title size="large">
         Todos os descartes
       </ion-title>
+      <div slot="end">
+        <ion-buttons>
+          <ion-button (click)="refreshDescartes()">
+            <ion-icon color="primary" slot="end" name="reload"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
     </ion-toolbar>
+   
   </ion-header>
 
   <ion-grid>

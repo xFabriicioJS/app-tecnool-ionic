@@ -24,6 +24,9 @@ export class MeuContratoPage implements OnInit {
   ngOnInit() {
   }
 
+  teste(){
+    console.log(this.nomePlano);   
+  }
 
   //método que é executado assim que a página é renderizada, como um useEffect
   ionViewWillEnter(){
@@ -39,6 +42,8 @@ export class MeuContratoPage implements OnInit {
       this.router.navigate['/tabs/tab3'];
     }
 
+    
+
     //Finalmente, agora precisamos fazer uma requisição para a API para verificar se o cliente possui plano ativo, e qual o plano que ele possui no momento
 
     //pegando o id do cliente logado
@@ -46,7 +51,7 @@ export class MeuContratoPage implements OnInit {
 
     //Montando o objeto para requisição
     let bodyRequest = {
-     requisicao: 'recuperarPlano',
+     requisicao: 'findById',
       id_cliente: idCliente 
     }
 
@@ -54,23 +59,29 @@ export class MeuContratoPage implements OnInit {
     return new Promise((res) => {
       this.api.apiPHP('controller-clientes.php', bodyRequest).subscribe((data)=>{
         if(data['success'] == true){
-
-          //Se o resultado for true, setamos o atribuoto possuiPlanoAtivo para renderizar o conteúdo do plano ativo na tela
-          console.log(data['result'][0][0]['nome_plano']);
-          console.log(data['result'][0][0]['valor_plano']);
-
-          this.possuiPlanoAtivo = true;
-          this.nomePlano = data['result'][0][0]['nome_plano'];
-          this.valorPlano = data['result'][0][0]['valor_plano']
-
-          // this.valorPlano = data['valor_plano'][0][0]['valor_plano'];
-          // console.log(this.valorPlano);
-          this.imgPlano = environment.FILE_IMG_PATH + '/' + this.nomePlano + '.jpeg';
-
-
+          //Irá retornar um json com os TODOS os dados do cliente
+          //Pegaremos os dados do contrato na chave id_contrato_cliente
+          let contrato =  data['result'][0][0]['id_contrato_cliente'];
+          if(contrato === 1){
+            this.possuiPlanoAtivo = true;
+            this.nomePlano = 'Plano Diamante';
+            this.valorPlano = 'R$ 99,90';
+            this.imgPlano = 'http://localhost/api-php-v2/images/Diamante.jpeg';
+          }else if(contrato === 2){
+            this.possuiPlanoAtivo = true;
+            this.nomePlano = 'Plano Ouro';
+            this.valorPlano = 'R$ 79,90';
+            this.imgPlano = 'http://localhost/api-php-v2/images/Ouro.jpeg';
+          }else if(contrato === 3){
+            this.possuiPlanoAtivo = true;
+            this.nomePlano = 'Plano Prata';
+            this.valorPlano = 'R$ 49,90';
+            this.imgPlano = 'http://localhost/api-php-v2/images/Prata.jpeg';
+          }else{
+            this.possuiPlanoAtivo = false;
+          }
         }else{
-          //Se o resultado for false, setamos o atributo possuiPlanoAtivo para renderizar o conteúdo de plano inativo na tela
-          this.possuiPlanoAtivo = false;
+         console.log('Ocorreu um erro!');
         }
       })
     });
