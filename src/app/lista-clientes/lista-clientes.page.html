@@ -53,8 +53,8 @@
             </p>
           </ion-label>
           <ion-avatar slot="start">
-            <ion-img *ngIf="cliente.foto_cliente !== 'null'"
-            src="http://http://localhost/AppWeb/src/img/fotos_de_tudo/{{cliente.foto_cliente}}"
+            <ion-img *ngIf="cliente.foto_cliente !== null"
+            src="http://localhost/AppWeb/src/img/fotos_de_tudo/{{cliente.foto_cliente}}"
             ></ion-img>
             
             <ion-img *ngIf="cliente.foto_cliente == null"

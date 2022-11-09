@@ -397,7 +397,7 @@ export class CadastroClientePage implements OnInit {
             .apiPHP('controller-enderecos.php', bodyRequestEndereco)
             .subscribe((data) => {
               if (data['success'] == true) {
-                this.presentToast('<b>Cadastro realizado com sucesso</b>', 'success');
+                this.presentToast('Cadastro realizado com sucesso', 'success');
                 this.cancel();
                 this.router.navigate(['/login']);
               } else {
@@ -411,7 +411,6 @@ export class CadastroClientePage implements OnInit {
   }
 
   //Toast de apresentação de erros ou confirmações.
-
   async presentToast(msg: string, color: string) {
     const toast = await this.toastController.create({
       message: msg,

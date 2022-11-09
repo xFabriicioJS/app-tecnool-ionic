@@ -85,7 +85,7 @@
    </ion-card>
 
    <!-- Caso o usuário não possua nenhum chamado registrado, esse card será renderizado  -->
-   <ion-card color="primary" class="ion-padding" *ngIf="cardNenhumChamado == true">
+   <ion-card color="primary" class="ion-padding" *ngIf="chamados.length == 0">
     <div class="ion-text-center">
       <ion-icon name="sad" style="font-size: 5rem;"></ion-icon>
     </div>

@@ -118,15 +118,15 @@
     </ion-list>
   </ion-card>
 
-  <ion-card *ngIf="possuiPlanoAtivo == true">
+  <ion-card>
 
-    <ion-card>
+    <ion-card *ngIf="possuiPlanoAtivo == true">
       <div style="display: flex; justify-content:center; width: 100%; height: 100%;">
         <ion-img src={{imgPlano}}></ion-img>
         </div>
     </ion-card>
      <!-- Se o cliente não possuir um plano ativo esse card será renderizado -->
-  <ion-card color="tertiary" class="ion-padding" *ngIf="!possuiPlanoAtivo">
+  <ion-card color="tertiary" class="ion-padding" *ngIf="possuiPlanoAtivo == false">
     <div class="ion-text-center">
       <ion-icon name="sad" style="font-size: 5rem;"></ion-icon>
     </div>
@@ -136,12 +136,9 @@
     </ion-card-title>
     <br>
     <br>
-    <ion-text style="text-align: center; font-size: 18px;">
-      <b>Que tal contratar um agora?</b>
-    </ion-text>
     <ion-card-content>
       <div style="display: flex; align-items: center; justify-content: center;">
-        <ion-button color="success" href="http://localhost/Appweb/client/novo_contrato_cliente.php"><b>
+        <ion-button color="success" (click)="presentAlert()"><b>
           Ativar um contrato.
         </b></ion-button>
       </div>
@@ -150,7 +147,7 @@
 
     
     <!-- Informações do plano do cliente, se ele tiver um -->
-    <ion-list>
+    <ion-list *ngIf="possuiPlanoAtivo == true">
       <ion-item>
         <ion-icon name="document-text-outline" slot="start"></ion-icon>
         <ion-label>
@@ -165,11 +162,10 @@
           <p>Valor mensal do plano</p>
         </ion-label>
       </ion-item>
-      <ion-item href="#">
-        <ion-icon name="documents-outline" slot="start" (click)="navigateMeuContrato()"></ion-icon>
+      <ion-item (click)="presentAlert()">
+        <ion-icon name="documents-outline" slot="start"></ion-icon>
         <ion-label>
           <h1>Alterar <b>plano</b></h1>
-          <p>Você será redirecionado a nosso site.</p>
         </ion-label>
       </ion-item>
     </ion-list>
