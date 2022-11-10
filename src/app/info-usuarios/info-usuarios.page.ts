@@ -362,7 +362,5 @@ export class InfoUsuariosPage implements OnInit {
         }
       });
     })
-
   }
-
 }

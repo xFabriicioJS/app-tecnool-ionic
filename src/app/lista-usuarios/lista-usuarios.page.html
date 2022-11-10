@@ -54,7 +54,7 @@
           </ion-label>
           <ion-avatar slot="start">
             <ion-img *ngIf="usuario.foto_usuario !== ''"
-            src="http://http://localhost/AppWeb/src/img/fotos_de_tudo/{{usuario.foto_usuario}}"
+            src="http://localhost/AppWeb/src/img/fotos_de_tudo/{{usuario.foto_usuario}}"
             ></ion-img>
             
             <ion-img *ngIf="usuario.foto_usuario == null || usuario.foto_usuario == ''"
@@ -65,7 +65,12 @@
       </ion-list>
   
     </ion-card>
-    
   </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="success">
+      <ion-icon name="add" (click)="navigateAddUsuario()"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>  
 
 </ion-content>

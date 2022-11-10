@@ -114,10 +114,12 @@
           <h1>{{descarte.nome_hardware}}</h1>
           <p>{{descarte.descricao}}</p>
         </ion-label>
-        <ion-badge *ngIf="descarte.status !== Finalizado" color="success">
+        <ion-badge *ngIf="descarte.status !== 'Finalizado' && descarte.status !== 'Cancelado'" color="success">
           <p>{{descarte.status}}</p>
         </ion-badge>
-        <ion-badge *ngIf="descarte.status === Cancelado" color="light" >{{descarte.status}}</ion-badge>
+        <ion-badge *ngIf="descarte.status === 'Cancelado'" color="warning">
+          <p>{{descarte.status}}</p>
+        </ion-badge>
       </ion-item>
     </ion-list>
 

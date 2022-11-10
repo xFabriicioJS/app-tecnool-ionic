@@ -156,7 +156,7 @@ export class Tab1Page {
               this.chamados.push(chamado[0]);
               //Calculando o número de chamados abertos
               this.numChamadosAbertos = this.chamados.filter(
-                (chamado) => chamado.status !== 'Finalizado'
+                (chamado) => chamado.status !== 'Finalizado' && chamado.status !== 'Cancelado'
               ).length;
 
               //Calculando o número de chamados finalizados
@@ -197,7 +197,7 @@ export class Tab1Page {
 
               //Calculando o número de chamados abertos
               this.numChamadosAbertos = this.chamados.filter(
-                (chamado) => chamado.status !== 'Finalizado'
+                (chamado) => chamado.status !== 'Finalizado' && chamado.status !== 'Cancelado'
               ).length;
 
               //Calculando o número de chamados finalizados

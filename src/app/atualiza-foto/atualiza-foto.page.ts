@@ -141,7 +141,7 @@ export class AtualizaFotoPage implements OnInit {
               'success'
             );
 
-            this.router.navigate(['/tabs/tab3']);
+            this.router.navigate(['/tabs/tab1']);
 
           } else {
             this.presentToast('<b>Erro ao atualizar a foto</b>', 'danger');

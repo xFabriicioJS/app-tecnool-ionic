@@ -103,7 +103,7 @@ export class Tab2Page {
 
             //Calculando o número de descartes abertos
             this.numDescartesAbertos = this.descartes.filter(
-              (descarte) => descarte.status !== 'Finalizado'
+              (descarte) => descarte.status !== 'Finalizado' && descarte.status !== 'Cancelado'
             ).length;
 
             //Calculando o número de chamados finalizados

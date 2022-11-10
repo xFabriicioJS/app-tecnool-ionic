@@ -17,6 +17,7 @@ export class Tab3Page {
 
   constructor(private router: Router, private getUser: GetUserTypeService) {}
 
+
   //método que é executado assim que a página é renderizada, como um useEffect
   ionViewWillEnter() {
     //verificamos primeiro se o usuário está logado, caso não esteja, redirecionamos para a página de login
@@ -47,6 +48,9 @@ export class Tab3Page {
         this.nomeUsuarioLogado = user.nome_cliente;
         this.emailUsuarioLogado = user.email_cliente;
       }else{
+        this.nomeUsuarioLogado = user.nome_usuario;
+        this.emailUsuarioLogado = user.email_usuario;
+
         if(!user.foto_usuario || user.foto_usuario == 'null' || user.foto_usuario == ''){
           this.imgUsuarioLogado = 'https://www.w3schools.com/howto/img_avatar.png';
         }else{

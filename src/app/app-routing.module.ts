@@ -69,7 +69,7 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'info-descarte/:id_descarte/:protocolo/:nomeHardware/:descriHardware/:dataAbertura/:dataRetirada/:prazo/:status/:foto/:id_cliente',
+    path: 'info-descarte/:id_descarte/:protocolo/:nomeHardware/:descriHardware/:dataAbertura/:dataRetirada/:prazo/:status/:fotoHardware/:id_cliente',
     loadChildren: () =>
       import('./info-descarte/info-descarte.module').then(
         (m) => m.InfoDescartePageModule
@@ -150,7 +150,8 @@ const routes: Routes = [
   {
     path: 'info-usuarios/:idUsuario',
     loadChildren: () => import('./info-usuarios/info-usuarios.module').then( m => m.InfoUsuariosPageModule)
-  },  {
+  },
+  {
     path: 'splash',
     loadChildren: () => import('./splash/splash.module').then( m => m.SplashPageModule)
   },

@@ -2,15 +2,31 @@ ion-img{
     border-radius: 50%;
 }
 
-ion-img::part(image){
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
+
+#imgcliente::part(image){
+
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+ 
 }
 
 ion-content {
     
     height: 100%;
-    --background: linear-gradient(#712F79, #402e58);
+    --background: rgba(255, 255, 255, 0.9);
  
+}
+
+ion-modal {
+    --height: 80%;
+    --border-radius: 16px;
+    --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --background: rgba(255, 255, 255, 0.9);
+    --backdrop-opacity: 0.5;
+
+  }
+  
+  ion-modal::part(backdrop) {
+    opacity: 1;
   }

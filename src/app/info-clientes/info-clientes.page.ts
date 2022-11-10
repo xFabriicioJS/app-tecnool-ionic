@@ -119,17 +119,17 @@ export class InfoClientesPage implements OnInit {
           if(contrato === 1){
             this.possuiPlanoAtivo = true;
             this.nomePlano = 'Plano Diamante';
-            this.valorPlano = 'R$ 99,90';
+            this.valorPlano = 'R$ 650,00';
             this.imgPlano = 'http://localhost/api-php-v2/images/Diamante.jpeg';
           }else if(contrato === 2){
             this.possuiPlanoAtivo = true;
             this.nomePlano = 'Plano Ouro';
-            this.valorPlano = 'R$ 79,90';
+            this.valorPlano = 'R$ 500,00';
             this.imgPlano = 'http://localhost/api-php-v2/images/Ouro.jpeg';
           }else if(contrato === 3){
             this.possuiPlanoAtivo = true;
             this.nomePlano = 'Plano Prata';
-            this.valorPlano = 'R$ 49,90';
+            this.valorPlano = 'R$ 250,00';
             this.imgPlano = 'http://localhost/api-php-v2/images/Prata.jpeg';
           }else{
 

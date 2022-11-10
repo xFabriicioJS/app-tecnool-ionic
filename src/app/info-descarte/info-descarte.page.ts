@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import 'moment/locale/pt-br';
 import * as moment from 'moment';
 import { ApiService } from '../api/api-service';
 import { GetUserTypeService } from '../services/get-user-type.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-info-descarte',
@@ -31,7 +32,8 @@ export class InfoDescartePage implements OnInit {
     private alertController: AlertController,
     private apiService: ApiService,
     private router: Router,
-    private getUser: GetUserTypeService 
+    private getUser: GetUserTypeService,
+    private toastService: ToastController
     ) { }
 
   ionViewWillEnter(){
@@ -56,6 +58,14 @@ export class InfoDescartePage implements OnInit {
       let prazo = moment(data.prazo).locale('pt-BR').format('LL');
       let dataAbertura = moment(data.dataAbertura).format('LLL');
 
+      let caminhoImg;
+      //Verificando se veio uma imagem
+      if(data.fotoHardware == 'null'){
+        caminhoImg = null;
+      }else{
+        caminhoImg = environment.FILE_IMG_PATH + '/' + data.fotoHardware;
+      }
+
 
       this.nomeHardware = data.nomeHardware;
       this.descriHardware = data.descriHardware;
@@ -64,7 +74,7 @@ export class InfoDescartePage implements OnInit {
       this.prazo = prazo;
       this.dataRetirada = data.dataRetirada;
       this.status = data.status;
-      this.fotoHardware = data.fotoHardware;
+      this.fotoHardware = caminhoImg;
       this.idDescarte = data.id_descarte;
     });
 
@@ -100,9 +110,34 @@ export class InfoDescartePage implements OnInit {
   }
 
   cancelarDescarte(){
-    console.log("cancelando descarte " + this.idDescarte);
-    
+     //corpo da requisição para ser mandado para a API
+     let bodyRequest = {
+      requisicao: "cancelar",
+      id_descarte: this.idDescarte
+    }
 
+    console.log(bodyRequest);
+    return new Promise((res) => {
+      this.apiService.apiPHP('controller-descartes.php', bodyRequest).subscribe((data: any) =>{
+        if(data['success'] == true){
+          this.presentToast('<b>Descarte cancelado com sucesso!</b>', 'success');
+          this.router.navigate(['/tabs/tab1']);
+        }else{
+          this.presentToast('<b>Erro ao cancelar o descarte!</b>', 'danger');
+        }
+      });
+    })
+
+  }
+
+
+  async presentToast(msg : string, color: string) {
+    const toast = await this.toastService.create({
+      message: msg,
+      duration: 2000,
+      color: color
+    });
+    toast.present();
   }
 
 }

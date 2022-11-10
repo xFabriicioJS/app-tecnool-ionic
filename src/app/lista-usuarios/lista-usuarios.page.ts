@@ -100,4 +100,9 @@ export class ListaUsuariosPage implements OnInit {
 
   }
 
+  navigateAddUsuario(){
+    this.router.navigate(['/addusuario']);
+  }
+
+
 }
